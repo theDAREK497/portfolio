@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ilya Gurikov — Full-Stack & AI Integration Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio of Ilya Gurikov — Full-Stack & AI Integration Engineer. Web products, API integrations, automation and AI-powered systems."
+    />
+    <meta
+      name="keywords"
+      content="Ilya Gurikov, Full-Stack Engineer, Integration Engineer, AI Integration, API Integration, FastAPI, React, Python"
+    />
+    <meta name="author" content="Ilya Gurikov" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#f5f2ea" />
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem('portfolio-theme');
+          const theme =
+            savedTheme === 'light' || savedTheme === 'dark'
+              ? savedTheme
+              : matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute('content', theme === 'dark' ? '#07111f' : '#f5f2ea');
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Ilya Gurikov — Full-Stack & AI Integration Engineer"
+    />
+    <meta
+      property="og:description"
+      content="Web products, API integrations and AI-powered systems — from idea to production."
+    />
+    <meta property="og:site_name" content="Ilya Gurikov Portfolio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Ilya Gurikov — Full-Stack & AI Integration Engineer"
+    />
+    <meta
+      name="twitter:description"
+      content="Web products, API integrations and AI-powered systems — from idea to production."
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

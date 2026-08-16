@@ -1,0 +1,9 @@
+{
+  "name": "Ilya Gurikov — Portfolio",
+  "short_name": "Ilya Gurikov",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f5f2ea",
+  "theme_color": "#111a20",
+  "icons": []
+}
