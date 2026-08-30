@@ -56,9 +56,24 @@ export default function App() {
 
   useEffect(() => {
     document.title = articleOpen
-      ? 'Почему обычного ИИ-чата оказалось недостаточно — Илья Гуриков'
+      ? lang === 'ru'
+        ? 'Почему обычного ИИ-чата оказалось недостаточно — Илья Гуриков'
+        : 'Why a Regular AI Chat Was Not Enough — Ilya Gurikov'
       : 'Ilya Gurikov — Full-Stack & AI Integration Engineer';
-    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [articleOpen, lang]);
+
+  useEffect(() => {
+    if (articleOpen) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
+
+    const sectionId = window.location.hash.slice(1);
+    if (!sectionId || sectionId.startsWith('/')) return;
+
+    window.requestAnimationFrame(() => {
+      document.getElementById(sectionId)?.scrollIntoView();
+    });
   }, [articleOpen]);
 
   const openContact = useCallback(() => {
@@ -107,7 +122,7 @@ export default function App() {
       />
 
       {articleOpen ? (
-        <DemiurgeArticle />
+        <DemiurgeArticle lang={lang} />
       ) : (
         <main id="main" tabIndex={-1}>
           <HeroSection lang={lang} t={t} onOpenContact={openContact} />

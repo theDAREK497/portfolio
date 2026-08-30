@@ -75,7 +75,7 @@ export const translations = {
       intro:
         'The first long-form article is published; the next pieces remain on the roadmap.',
       readArticle: 'Read article',
-      published: 'Published · Russian',
+      published: 'Published',
       comingSoon: 'Coming soon',
     },
     contact: {

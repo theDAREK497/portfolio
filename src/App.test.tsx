@@ -200,22 +200,43 @@ describe('portfolio', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
-        name: 'Почему обычного ИИ-чата оказалось недостаточно для моего вымышленного мира',
+        name: 'Why a Regular AI Chat Was Not Enough for My Fictional World',
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Иллюстрация 3. RAG, LLM-Wiki и Demiurge Assistant'),
+      screen.getByText('RAG, LLM-Wiki, and Demiurge Assistant'),
     ).toBeInTheDocument();
 
     await user.click(
       screen.getByRole('button', {
-        name: /Открыть изображение в полном размере: Визуальный образ мира Эон/,
+        name: /Open full-size image: A visual representation of Eon/,
       }),
     );
     expect(
       screen.getByRole('dialog', {
-        name: 'Полноэкранный просмотр изображений',
+        name: 'Image viewer',
       }),
     ).toBeInTheDocument();
+
+    await user.keyboard('{Escape}');
+    await waitFor(() =>
+      expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+    );
+    await user.click(screen.getByRole('button', { name: 'Switch to Russian' }));
+    await waitFor(
+      () =>
+        expect(document.querySelector('.site-shell')).toHaveAttribute(
+          'data-language-transition',
+          'idle',
+        ),
+      { timeout: 2500 },
+    );
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Почему обычного ИИ-чата оказалось недостаточно для моего вымышленного мира',
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('Из чего состоит Эон')).toBeInTheDocument();
   });
 });

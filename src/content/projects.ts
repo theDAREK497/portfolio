@@ -7,13 +7,13 @@ export const projects: ProjectItem[] = [
     featured: true,
     category: 'ai',
     status: 'active-development',
-    image: './images/projects/demiurge-graph.png',
-    imageWidth: 2190,
-    imageHeight: 910,
-    imagePosition: 'center',
+    image: './images/articles/demiurge-ai-chat/entity-a17.png',
+    imageWidth: 1470,
+    imageHeight: 739,
+    imagePosition: 'center top',
     imageAlt: {
-      en: 'Demiurge Assistant relationship graph connecting world entities',
-      ru: 'Граф связей Demiurge Assistant между сущностями игрового мира',
+      en: 'Demiurge Assistant structured A-17 character page',
+      ru: 'Структурированная карточка персонажа A-17 в Demiurge Assistant',
     },
     gallery: [
       {

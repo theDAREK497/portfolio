@@ -6,6 +6,11 @@ import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
+import type { Lang } from '../../content';
+import {
+  demiurgeArticleCopy,
+  type ArticleBlock,
+} from '../../content/demiurgeArticle';
 
 const imageRoot = './images/articles/demiurge-ai-chat';
 
@@ -14,101 +19,184 @@ const articleImages = [
     src: `${imageRoot}/cover.png`,
     width: 1491,
     height: 1055,
-    alt: 'Визуальный образ мира Эон с персонажами, локациями и связанными карточками знаний',
-    title:
-      'Эон постепенно вырос из набора заметок в мир, где персонажи, события и правила связаны друг с другом.',
+    alt: {
+      ru: 'Визуальный образ мира Эон с персонажами, локациями и связанными карточками знаний',
+      en: 'A visual representation of Eon with characters, locations, and connected knowledge cards',
+    },
+    title: {
+      ru: 'Эон постепенно вырос из набора заметок в мир, где персонажи, события и правила связаны друг с другом.',
+      en: 'Eon gradually grew from a collection of notes into a world where characters, events, and rules are connected to one another.',
+    },
   },
   {
     src: `${imageRoot}/relationship-graph.png`,
     width: 642,
     height: 723,
-    alt: 'Граф отношений между сущностями мира Эон',
-    title: 'Граф отношений между сущностями мира.',
+    alt: {
+      ru: 'Граф отношений между сущностями мира Эон',
+      en: 'A relationship graph connecting entities in the world of Eon',
+    },
+    title: {
+      ru: 'Граф отношений между сущностями мира.',
+      en: 'A relationship graph connecting world entities.',
+    },
   },
   {
     src: `${imageRoot}/encyclopedia.png`,
     width: 1460,
     height: 775,
-    alt: 'Энциклопедия мира в Demiurge Assistant',
-    title: 'Список сущностей энциклопедии мира.',
+    alt: {
+      ru: 'Энциклопедия мира в Demiurge Assistant',
+      en: 'The world encyclopedia in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Список сущностей энциклопедии мира.',
+      en: 'The list of entities in the world encyclopedia.',
+    },
   },
   {
     src: `${imageRoot}/entity-a17.png`,
     width: 1470,
     height: 739,
-    alt: 'Карточка персонажа A-17 в Demiurge Assistant',
-    title: 'Структурированная карточка персонажа.',
+    alt: {
+      ru: 'Карточка персонажа A-17 в Demiurge Assistant',
+      en: 'The A-17 character page in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Структурированная карточка персонажа.',
+      en: 'A structured character page.',
+    },
   },
   {
     src: `${imageRoot}/ai-connection.png`,
     width: 2174,
     height: 593,
-    alt: 'Настройки подключения языковой модели в Demiurge Assistant',
-    title: 'Настройка подключения модели.',
+    alt: {
+      ru: 'Настройки подключения языковой модели в Demiurge Assistant',
+      en: 'Language model connection settings in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Настройка подключения модели.',
+      en: 'Model connection settings.',
+    },
   },
   {
     src: `${imageRoot}/knowledge-sources.png`,
     width: 2180,
     height: 725,
-    alt: 'Источники знаний и семантический индекс Demiurge Assistant',
-    title: 'Источники знаний и готовый семантический индекс.',
+    alt: {
+      ru: 'Источники знаний и семантический индекс Demiurge Assistant',
+      en: 'Knowledge sources and the semantic index in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Источники знаний и готовый семантический индекс.',
+      en: 'Knowledge sources and a completed semantic index.',
+    },
   },
   {
     src: `${imageRoot}/ai-coauthor.png`,
     width: 2179,
     height: 850,
-    alt: 'Интерфейс ИИ-соавтора в Demiurge Assistant',
-    title: 'Рабочее пространство ИИ-соавтора.',
+    alt: {
+      ru: 'Интерфейс ИИ-соавтора в Demiurge Assistant',
+      en: 'The AI co-author workspace in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Рабочее пространство ИИ-соавтора.',
+      en: 'The AI co-author workspace.',
+    },
   },
   {
     src: `${imageRoot}/rag-llm-wiki-demiurge.png`,
     width: 1491,
     height: 1055,
-    alt: 'Сравнение процессов RAG, LLM-Wiki и Demiurge Assistant',
-    title:
-      'RAG извлекает информацию по запросу. LLM-Wiki накапливает знания в постоянной wiki. Demiurge дополнительно учитывает изменяемое состояние мира и не применяет изменения без проверки мастером.',
+    alt: {
+      ru: 'Сравнение процессов RAG, LLM-Wiki и Demiurge Assistant',
+      en: 'A comparison of RAG, LLM-Wiki, and Demiurge Assistant workflows',
+    },
+    title: {
+      ru: 'RAG извлекает информацию по запросу. LLM-Wiki накапливает знания в постоянной wiki. Demiurge дополнительно учитывает изменяемое состояние мира и не применяет изменения без проверки мастером.',
+      en: 'RAG retrieves information for a request. LLM-Wiki accumulates knowledge in a persistent wiki. Demiurge also accounts for a changing world state and requires the game master to approve changes.',
+    },
   },
   {
     src: `${imageRoot}/world-review.png`,
     width: 2181,
     height: 735,
-    alt: 'Проверка мира и сформированный отчёт в Demiurge Assistant',
-    title: 'Проверка мира перед применением изменений.',
+    alt: {
+      ru: 'Проверка мира и сформированный отчёт в Demiurge Assistant',
+      en: 'A world review and generated report in Demiurge Assistant',
+    },
+    title: {
+      ru: 'Проверка мира перед применением изменений.',
+      en: 'Reviewing the world before applying changes.',
+    },
   },
   {
     src: `${imageRoot}/merge-suggestions.png`,
     width: 459,
     height: 931,
-    alt: 'Предложения сравнить и объединить похожие сущности',
-    title: 'Предложения по проверке и объединению сущностей.',
+    alt: {
+      ru: 'Предложения сравнить и объединить похожие сущности',
+      en: 'Suggestions to compare and merge similar entities',
+    },
+    title: {
+      ru: 'Предложения по проверке и объединению сущностей.',
+      en: 'Suggestions for reviewing and merging entities.',
+    },
   },
 ] as const;
 
+function ArticleBlocks({ blocks }: { blocks: ArticleBlock[] }) {
+  return blocks.map((block, index) => {
+    const key = `${block.type}-${index}-${block.text.slice(0, 24)}`;
+
+    if (block.type === 'subheading') return <h3 key={key}>{block.text}</h3>;
+    if (block.type === 'quote')
+      return <blockquote key={key}>{block.text}</blockquote>;
+    if (block.type === 'inline-flow') {
+      return (
+        <p className="article-inline-flow" key={key}>
+          {block.text}
+        </p>
+      );
+    }
+
+    return <p key={key}>{block.text}</p>;
+  });
+}
+
 function ArticleImage({
   index,
+  lang,
   className = '',
   eager = false,
   onOpen,
 }: {
   index: number;
+  lang: Lang;
   className?: string;
   eager?: boolean;
   onOpen: (index: number) => void;
 }) {
   const image = articleImages[index];
+  const openLabel =
+    lang === 'ru'
+      ? `Открыть изображение в полном размере: ${image.alt.ru}`
+      : `Open full-size image: ${image.alt.en}`;
 
   return (
     <button
       className={`article-image-button ${className}`.trim()}
       type="button"
       onClick={() => onOpen(index)}
-      aria-label={`Открыть изображение в полном размере: ${image.alt}`}
+      aria-label={openLabel}
     >
       <img
         src={image.src}
         width={image.width}
         height={image.height}
-        alt={image.alt}
+        alt={image.alt[lang]}
         loading={eager ? 'eager' : 'lazy'}
         fetchPriority={eager ? 'high' : 'auto'}
       />
@@ -119,531 +207,239 @@ function ArticleImage({
   );
 }
 
-function FlowArrow() {
+function ProcessFlow({ nodes }: { nodes: string[] }) {
   return (
-    <span className="article-flow-arrow" aria-hidden="true">
-      →
-    </span>
+    <div className="article-process-flow">
+      {nodes.map((node, index) => (
+        <div className="article-process-step" key={node}>
+          <strong>{node}</strong>
+          {index < nodes.length - 1 && (
+            <span className="article-flow-arrow" aria-hidden="true">
+              →
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
   );
 }
 
-export function DemiurgeArticle() {
+function viewerLabels(lang: Lang) {
+  return lang === 'ru'
+    ? {
+        Previous: 'Предыдущее изображение',
+        Next: 'Следующее изображение',
+        Close: 'Закрыть просмотр',
+        Slide: 'Изображение',
+        Carousel: 'Карусель изображений',
+        Lightbox: 'Полноэкранный просмотр изображений',
+        'Photo gallery': 'Иллюстрации статьи',
+        '{index} of {total}': '{index} из {total}',
+        'Enter Fullscreen': 'На весь экран',
+        'Exit Fullscreen': 'Выйти из полноэкранного режима',
+        'Zoom in': 'Увеличить',
+        'Zoom out': 'Уменьшить',
+        'Show captions': 'Показать подписи',
+        'Hide captions': 'Скрыть подписи',
+        Caption: 'Описание изображения',
+      }
+    : {
+        Previous: 'Previous image',
+        Next: 'Next image',
+        Close: 'Close viewer',
+        Slide: 'Image',
+        Carousel: 'Image carousel',
+        Lightbox: 'Image viewer',
+        'Photo gallery': 'Article illustrations',
+        '{index} of {total}': '{index} of {total}',
+        'Enter Fullscreen': 'Enter fullscreen',
+        'Exit Fullscreen': 'Exit fullscreen',
+        'Zoom in': 'Zoom in',
+        'Zoom out': 'Zoom out',
+        'Show captions': 'Show captions',
+        'Hide captions': 'Hide captions',
+        Caption: 'Image caption',
+      };
+}
+
+export function DemiurgeArticle({ lang }: { lang: Lang }) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
-  const slides = useMemo(() => [...articleImages], []);
+  const copy = demiurgeArticleCopy[lang];
+  const slides = useMemo(
+    () =>
+      articleImages.map((image) => ({
+        src: image.src,
+        width: image.width,
+        height: image.height,
+        alt: image.alt[lang],
+        title: image.title[lang],
+      })),
+    [lang],
+  );
 
   return (
     <main className="article-page" id="main" tabIndex={-1}>
-      <article>
+      <article lang={lang}>
         <header className="article-hero" id="top">
           <div className="article-hero-copy">
             <a className="article-back" href="#writing">
               <ArrowLeft aria-hidden="true" />
-              Все заметки
+              {copy.back}
             </a>
             <p className="eyebrow">
               <span aria-hidden="true">●</span>
-              Инженерные заметки · Demiurge Assistant
+              {copy.eyebrow}
             </p>
-            <h1>
-              Почему обычного ИИ-чата оказалось недостаточно для моего
-              вымышленного мира
-            </h1>
-            <p className="article-deck">
-              Я веду настольную ролевую игру в полностью самописном мире Эон.
-            </p>
+            <h1>{copy.title}</h1>
+            <p className="article-deck">{copy.deck}</p>
           </div>
-          <nav className="article-toc" aria-label="Содержание статьи">
-            <span>В этой статье</span>
-            <a href="#world">Мир, который перестал помещаться в голове</a>
-            <a href="#chat">Где обычный ИИ-чат начал мешать</a>
-            <a href="#rag">Почему одного RAG тоже недостаточно</a>
-            <a href="#hypothesis">Основная гипотеза</a>
-            <a href="#goal">К чему я хочу прийти</a>
+          <nav className="article-toc" aria-label={copy.tocLabel}>
+            <span>{copy.tocLabel}</span>
+            {copy.toc.map((item) => (
+              <a href={item.href} key={item.href}>
+                {item.label}
+              </a>
+            ))}
           </nav>
         </header>
 
         <div className="article-body">
           <div className="article-copy article-opening">
-            <p>
-              Это не готовый сеттинг, для которого уже существуют энциклопедии,
-              карты и официальные справочники. Историю, географию, фракции,
-              персонажей и правила мира мне приходится создавать самому. Более
-              того, мир не остаётся неизменным: после каждой игровой сессии в
-              нём появляются новые события, связи и последствия решений игроков.
-            </p>
-            <p>
-              В какой-то момент стало понятно, что одной основной сюжетной линии
-              недостаточно. Перед каждой игрой нужны десятки деталей: случайные
-              встречи, необычные торговцы, мутанты, предметы, модификации
-              оружия, небольшие задания и ответы на вопросы, которые невозможно
-              предсказать заранее.
-            </p>
-            <p>
-              Нейросети хорошо помогают придумывать такой контент. Можно за
-              несколько минут получить описание поселения, идею противника или
-              список событий для путешествия.
-            </p>
-            <p>
-              Но чем дольше я работал с Эоном через обычные чаты, тем яснее
-              становилось: генерация текста сама по себе не решает мою задачу.
-            </p>
-            <p>
-              Модель не знает мир так, как знаю его я. Она постепенно теряет
-              контекст, повторяет уже использованные идеи и иногда добавляет
-              детали, которые противоречат существующему лору.
-            </p>
-            <p>
-              Так появился Demiurge Assistant — проект, в котором ИИ должен не
-              просто отвечать на вопросы, а работать с управляемой базой знаний
-              о мире.
-            </p>
+            {copy.opening.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
 
           <figure className="article-figure article-cover-figure">
-            <ArticleImage index={0} eager onOpen={setLightboxIndex} />
-            <figcaption>
-              Эон постепенно вырос из набора заметок в мир, где персонажи,
-              события и правила связаны друг с другом.
-            </figcaption>
+            <ArticleImage
+              index={0}
+              lang={lang}
+              eager
+              onOpen={setLightboxIndex}
+            />
+            <figcaption>{copy.coverCaption}</figcaption>
           </figure>
 
           <section className="article-section" id="world">
             <div className="article-copy">
-              <h2>Мир, который перестал помещаться в голове</h2>
-              <p>
-                Эон начинался как мир для одной кампании. Постепенно вокруг
-                первоначального сюжета появились новые места, культы, фракции,
-                мутанты и персонажи.
-              </p>
-              <p>
-                Во время игры происходили события, которых я не планировал.
-                Игроки заключали неожиданные союзы, вступали в конфликты,
-                игнорировали подготовленные сюжетные линии и отправлялись туда,
-                куда я вообще не ожидал их вести.
-              </p>
-              <p>После каждой сессии мир немного менялся.</p>
-              <p>
-                Нужно было помнить, кто с кем знаком, какие персонажи изменили
-                свои цели, какие события уже произошли и какую информацию успели
-                получить игроки. При этом часть сведений должна была оставаться
-                только у мастера: скрытые мотивы персонажей, тайные связи,
-                будущие события и настоящие свойства некоторых предметов.
-              </p>
-              <p>Одновременно Эон нужно было продолжать наполнять.</p>
-              <p>
-                Допустим, для следующей игры мне нужен торговец, которого группа
-                встретит в разрушенном городе. Самого персонажа придумать не так
-                сложно. Гораздо труднее встроить его в существующий мир.
-              </p>
-              <p>
-                Почему он находится именно здесь? С какой фракцией он связан?
-                Что он знает о последних событиях? Соответствуют ли его товары
-                технологическому уровню мира? Не создавал ли я раньше похожего
-                персонажа под другим именем?
-              </p>
-              <p>
-                В этот момент творческая задача постепенно превращается в работу
-                с информацией.
-              </p>
-              <p>
-                Проблема была не в недостатке идей. Мне становилось всё сложнее
-                одновременно создавать новый контент и удерживать в голове связи
-                между уже существующими элементами мира.
-              </p>
-              <p>
-                Поэтому мне понадобился ассистент, которому не нужно перед
-                каждым разговором заново объяснять, что такое Эон и по каким
-                правилам он существует.
-              </p>
+              <h2>{copy.world.title}</h2>
+              <ArticleBlocks blocks={copy.world.blocks} />
             </div>
 
             <figure className="article-figure article-collage-figure">
               <div className="article-figure-label">
-                Иллюстрация 1. Из чего состоит Эон
+                {copy.worldFigureTitle}
               </div>
               <div className="article-world-collage">
                 <ArticleImage
                   index={2}
+                  lang={lang}
                   className="is-encyclopedia"
                   onOpen={setLightboxIndex}
                 />
                 <ArticleImage
                   index={3}
+                  lang={lang}
                   className="is-entity"
                   onOpen={setLightboxIndex}
                 />
                 <ArticleImage
                   index={1}
+                  lang={lang}
                   className="is-graph"
                   onOpen={setLightboxIndex}
                 />
               </div>
-              <figcaption>
-                Мир состоит не только из заметок. Персонажи, локации, события и
-                правила влияют друг на друга, поэтому их трудно поддерживать
-                отдельно.
-              </figcaption>
+              <figcaption>{copy.worldFigureCaption}</figcaption>
             </figure>
           </section>
 
           <section className="article-section" id="chat">
             <div className="article-copy">
-              <h2>Где обычный ИИ-чат начал мешать</h2>
-              <p>
-                Сначала я работал с миром через обычные диалоги с нейросетями.
-              </p>
-              <p>
-                Для разовых запросов этого было достаточно. Модель могла быстро
-                придумать несколько случайных встреч, описать поселение, создать
-                необычного мутанта или предложить способности для противника.
-              </p>
-              <p>
-                Проблемы начинались, когда я хотел продолжить работу через
-                несколько дней или использовать результат в другой части
-                кампании.
-              </p>
-
-              <h3>Каждый разговор приходилось начинать с объяснений</h3>
-              <p>
-                Чтобы получить ответ, подходящий именно для Эона, мне снова
-                приходилось рассказывать, как устроен мир, какие фракции в нём
-                существуют, какие технологии доступны и что уже произошло в
-                кампании.
-              </p>
-              <p>
-                Чем сложнее становился вопрос, тем длиннее получался вводный
-                контекст.
-              </p>
-              <p>
-                В какой-то момент я заметил, что трачу больше времени на
-                объяснение мира, чем на обсуждение самой идеи.
-              </p>
-              <p>
-                Можно создать отдельный чат для кампании, написать длинный
-                системный промпт или загрузить в него документы. Это улучшает
-                результат, но не решает проблему полностью.
-              </p>
-              <p>
-                Модель всё равно может изменить ранее установленный факт,
-                перепутать роли персонажей или предложить уже существующую идею
-                под новым названием. Она также может добавить технологию,
-                которая не соответствует правилам мира, или случайно
-                использовать в ответе информацию, предназначенную только для
-                мастера.
-              </p>
-              <p>
-                Чем больше становился Эон, тем труднее было замечать такие
-                ошибки.
-              </p>
-
-              <h3>Факты и выдумки выглядели одинаково</h3>
-              <p>Обычный чат возвращает единый текст.</p>
-              <p>
-                В одном ответе могут смешиваться подтверждённые сведения о мире,
-                интерпретации модели, новые идеи и случайные художественные
-                детали. Иногда нейросеть предлагает изменить уже существующего
-                персонажа, но никак не отделяет это предложение от фактов,
-                которые получила во входном контексте.
-              </p>
-              <p>Для человека граница между ними не всегда очевидна.</p>
-              <p>
-                Если просто перенести весь ответ в wiki, случайно придуманная
-                деталь может незаметно стать частью канона. Через несколько
-                месяцев уже сложно вспомнить, было ли это первоначальным
-                правилом мира или удачной импровизацией модели.
-              </p>
-
-              <h3>Хороший результат оставался внутри чата</h3>
-              <p>
-                Даже когда нейросеть создавала интересного персонажа, работа на
-                этом не заканчивалась.
-              </p>
-              <p>
-                Его имя, описание, связи и участие в событиях всё равно
-                приходилось вручную переносить в разные части базы знаний: в
-                карточку NPC, хронологию, список фракций и заметки мастера.
-              </p>
-              <p>
-                Получался странный эффект. ИИ ускорял создание черновика, но
-                одновременно создавал новую работу по организации результата.
-              </p>
+              <h2>{copy.chat.title}</h2>
+              <ArticleBlocks blocks={copy.chat.blocks} />
             </div>
 
             <div
               className="article-product-strip"
-              aria-label="Экраны рабочего процесса Demiurge Assistant"
+              aria-label={
+                lang === 'ru'
+                  ? 'Экраны рабочего процесса Demiurge Assistant'
+                  : 'Demiurge Assistant workflow screens'
+              }
             >
-              <ArticleImage index={4} onOpen={setLightboxIndex} />
-              <ArticleImage index={5} onOpen={setLightboxIndex} />
-              <ArticleImage index={6} onOpen={setLightboxIndex} />
+              {[4, 5, 6].map((index) => (
+                <ArticleImage
+                  index={index}
+                  lang={lang}
+                  onOpen={setLightboxIndex}
+                  key={index}
+                />
+              ))}
             </div>
 
             <figure className="article-figure article-process-figure">
               <div className="article-figure-label">
-                Иллюстрация 2. Чат и управляемый процесс
+                {copy.processFigureTitle}
               </div>
               <div className="article-process-comparison">
                 <div className="article-process-lane is-chat">
-                  <span className="article-process-kicker">Обычный чат</span>
-                  <div className="article-process-flow">
-                    <strong>Промпт</strong>
-                    <FlowArrow />
-                    <strong>Ответ</strong>
-                    <FlowArrow />
-                    <strong>История чата</strong>
-                  </div>
+                  <span className="article-process-kicker">
+                    {copy.processChat}
+                  </span>
+                  <ProcessFlow nodes={copy.processChatNodes} />
                 </div>
                 <div className="article-process-lane is-demiurge">
                   <span className="article-process-kicker">
-                    Demiurge Assistant
+                    {copy.processDemiurge}
                   </span>
-                  <div className="article-process-flow">
-                    <strong>База мира</strong>
-                    <FlowArrow />
-                    <strong>Поиск контекста</strong>
-                    <FlowArrow />
-                    <strong>LLM</strong>
-                    <FlowArrow />
-                    <strong>Предложение</strong>
-                    <FlowArrow />
-                    <strong>Проверка</strong>
-                    <FlowArrow />
-                    <strong>Обновление мира</strong>
-                  </div>
+                  <ProcessFlow nodes={copy.processDemiurgeNodes} />
                 </div>
               </div>
-              <figcaption>
-                В обычном чате результат остаётся сообщением. В Demiurge
-                полезные части ответа могут стать проверяемыми изменениями базы
-                знаний.
-              </figcaption>
+              <figcaption>{copy.processFigureCaption}</figcaption>
             </figure>
           </section>
 
           <section className="article-section" id="rag">
             <div className="article-copy">
-              <h2>Почему одного RAG тоже недостаточно</h2>
-              <p>
-                Самый очевидный способ дать модели знания о мире — использовать
-                RAG.
-              </p>
-              <p>
-                В упрощённом виде система находит подходящие фрагменты
-                документов, добавляет их в контекст и передаёт модели вместе с
-                вопросом:
-              </p>
-              <p className="article-inline-flow">
-                Документы → поиск фрагментов → контекст → ответ
-              </p>
-              <p>
-                Это полезный подход. Он позволяет не помещать всю базу знаний в
-                каждый запрос и выбирать только те материалы, которые относятся
-                к текущему вопросу.
-              </p>
-              <p>
-                Но при каждом новом запросе модель всё равно заново собирает
-                представление о мире из найденных фрагментов.
-              </p>
-              <p>
-                У Андрея Карпати есть близкая идея, которую он называет
-                LLM-Wiki. Вместо того чтобы каждый раз восстанавливать знания
-                непосредственно из исходных документов, модель постепенно
-                создаёт и поддерживает отдельную связанную wiki.
-              </p>
-              <p>
-                Новые источники в таком подходе не просто индексируются. LLM
-                извлекает из них факты, обновляет существующие страницы, создаёт
-                новые ссылки и отмечает возможные противоречия.
-              </p>
-              <p>
-                В результате между исходными материалами и пользователем
-                появляется постоянный слой знаний, который развивается вместе с
-                проектом.
-              </p>
-              <p>
-                Эта идея очень близка к тому, что я хочу получить в Demiurge
-                Assistant. Важные сведения не должны исчезать в истории чата.
-                Они должны накапливаться, связываться друг с другом и оставаться
-                доступными для следующих запросов.
-              </p>
-              <p>
-                Но у ролевого мира есть особенность, которая немного меняет
-                задачу.
-              </p>
-
-              <h3>
-                LLM-Wiki работает с источниками. Demiurge — с состоянием мира
-              </h3>
-              <p>
-                В типичном сценарии LLM-Wiki у пользователя уже есть материалы:
-                статьи, книги, документы или заметки. Модель читает их и
-                превращает в связанную базу знаний.
-              </p>
-              <p>
-                Главная задача состоит в том, чтобы поддерживать эту базу в
-                актуальном состоянии.
-              </p>
-              <p>В ролевой кампании информация не всегда существует заранее.</p>
-              <p>
-                Новый персонаж может появиться прямо во время разговора с
-                моделью. Город может перейти под контроль другой фракции после
-                игровой сессии. Предмет может получить нового владельца, а
-                секрет, который раньше был известен только мастеру, может стать
-                доступен игрокам.
-              </p>
-              <p>
-                Это уже не просто дополнение текста. Меняется состояние мира.
-              </p>
-              <p>
-                Поэтому для Demiurge недостаточно автоматически обновляемых
-                Markdown-страниц. Система должна понимать, что в мире существуют
-                отдельные сущности, направленные связи, правила, события и
-                уровни доступа.
-              </p>
-              <p>Но главное различие связано не с форматом хранения.</p>
-              <p>Оно связано с правом на запись.</p>
-              <p>
-                В LLM-Wiki модель выполняет значительную часть работы по
-                обновлению wiki. В Demiurge сгенерированные сведения сначала
-                становятся предложением.
-              </p>
-              <p>
-                Мастер может принять их, отредактировать, сохранить только часть
-                или полностью отклонить. До проверки новая информация не
-                считается подтверждённой частью мира.
-              </p>
-              <p>
-                Поэтому я не воспринимаю Demiurge как противоположность
-                LLM-Wiki. Скорее, это более предметная и осторожная
-                интерпретация похожей идеи.
-              </p>
-              <p>LLM-Wiki отвечает на вопрос:</p>
-              <blockquote>
-                Как превратить набор источников в постоянно развивающуюся базу
-                знаний?
-              </blockquote>
-              <p>Demiurge добавляет к нему ещё один:</p>
-              <blockquote>
-                Как позволить ИИ участвовать в развитии изменяемого мира, не
-                отдавая ему контроль над каноном?
-              </blockquote>
+              <h2>{copy.rag.title}</h2>
+              <ArticleBlocks blocks={copy.rag.blocks} />
             </div>
 
             <figure className="article-figure article-infographic-figure">
-              <div className="article-figure-label">
-                Иллюстрация 3. RAG, LLM-Wiki и Demiurge Assistant
-              </div>
-              <ArticleImage index={7} onOpen={setLightboxIndex} />
-              <figcaption>
-                RAG извлекает информацию по запросу. LLM-Wiki накапливает знания
-                в постоянной wiki. Demiurge дополнительно учитывает изменяемое
-                состояние мира и не применяет изменения без проверки мастером.
-              </figcaption>
+              <div className="article-figure-label">{copy.ragFigureTitle}</div>
+              <ArticleImage index={7} lang={lang} onOpen={setLightboxIndex} />
+              <figcaption>{copy.ragFigureCaption}</figcaption>
             </figure>
           </section>
 
           <section className="article-section" id="hypothesis">
             <div className="article-copy">
-              <h2>Основная гипотеза Demiurge Assistant</h2>
-              <p>В основе проекта лежит достаточно простая идея.</p>
-              <p>
-                Для длительной работы со сложным вымышленным миром нужен не
-                просто чат с большим контекстом. Нужна система управления
-                знаниями, в которой LLM помогает создавать и связывать данные,
-                но не становится источником истины.
-              </p>
-              <p>Обычный чат в первую очередь генерирует текст.</p>
-              <p>
-                Demiurge должен работать с моделью мира: персонажами, локациями,
-                правилами, событиями, отношениями и разделением информации на
-                публичную и секретную.
-              </p>
-              <p>
-                При этом модель не обязана сразу выдавать идеальный результат.
-              </p>
-              <p>
-                Она может создать черновик, предложить связь между персонажами
-                или заметить возможное противоречие. Но окончательное решение о
-                том, что действительно существует в Эоне, остаётся за человеком.
-              </p>
-              <p>
-                Я хочу превратить генерацию из одноразового ответа в
-                последовательный процесс.
-              </p>
-              <p>
-                Сначала система находит подходящий контекст. Затем модель
-                создаёт черновик. Полезные части ответа извлекаются в
-                структурированном виде и показываются мастеру как предложение.
-                Только после проверки подтверждённые изменения попадают в базу
-                мира и становятся доступными для будущих запросов.
-              </p>
-              <p>Это не попытка сделать ещё один интерфейс поверх LLM.</p>
-              <p>
-                Цель в том, чтобы результат разговора не исчезал в истории
-                сообщений, но при этом модель не могла незаметно переписать мир.
-              </p>
+              <h2>{copy.hypothesis.title}</h2>
+              <ArticleBlocks blocks={copy.hypothesis.blocks} />
             </div>
 
             <figure className="article-figure article-review-figure">
               <div className="article-figure-label">
-                Иллюстрация 4. Проверка изменений
+                {copy.reviewFigureTitle}
               </div>
               <div className="article-review-collage">
-                <ArticleImage index={8} onOpen={setLightboxIndex} />
-                <ArticleImage index={9} onOpen={setLightboxIndex} />
+                <ArticleImage index={8} lang={lang} onOpen={setLightboxIndex} />
+                <ArticleImage index={9} lang={lang} onOpen={setLightboxIndex} />
               </div>
-              <figcaption>
-                Сгенерированные сведения сначала становятся предложением. Частью
-                мира становится только то, что подтвердил мастер.
-              </figcaption>
+              <figcaption>{copy.reviewFigureCaption}</figcaption>
             </figure>
           </section>
 
           <section className="article-section article-conclusion" id="goal">
             <div className="article-copy">
-              <h2>К чему я хочу прийти</h2>
-              <p>В идеальном сценарии я хочу написать ассистенту:</p>
-              <blockquote>
-                Создай торговца для этой локации. Не повторяй существующих NPC,
-                учитывай местные фракции, доступные технологии и последние
-                события кампании.
-              </blockquote>
-              <p>И получить не просто красивый абзац.</p>
-              <p>
-                Система должна предложить полноценного персонажа, его мотивацию,
-                товары, связи, секрет и сюжетный крючок. Если в результате
-                появилась новая информация о мире, она должна быть отдельно
-                показана мастеру и сохранена только после подтверждения.
-              </p>
-              <p>
-                При следующем запросе ассистент уже должен помнить этого
-                персонажа и учитывать его существование.
-              </p>
-              <p>Пока Demiurge Assistant остаётся экспериментом.</p>
-              <p>
-                Сейчас стабильно работают генерация черновиков, заполнение
-                сущностей и создание связей. Помимо меня, проектом пользовался
-                только один человек, поэтому говорить о проверенном продукте для
-                широкой аудитории пока рано.
-              </p>
-              <p>Но основную гипотезу уже можно проверять на практике:</p>
-              <blockquote>
-                Может ли LLM стать не просто генератором идей, а полезным
-                соавтором, который знает мир и при этом не получает права
-                незаметно его переписывать?
-              </blockquote>
-              <p>
-                Именно на этот вопрос я пытаюсь ответить, развивая Demiurge
-                Assistant.
-              </p>
+              <h2>{copy.goal.title}</h2>
+              <ArticleBlocks blocks={copy.goal.blocks} />
             </div>
 
             <a className="article-next" href="#writing">
-              <span>Следующая статья:</span>
-              <strong>
-                как ответ модели превращается в сущности, связи и проверяемые
-                предложения.
-              </strong>
+              <span>{copy.nextLabel}</span>
+              <strong>{copy.nextTitle}</strong>
               <ArrowRight aria-hidden="true" />
             </a>
           </section>
@@ -657,23 +453,7 @@ export function DemiurgeArticle() {
         close={() => setLightboxIndex(-1)}
         slides={slides}
         plugins={[Captions, Fullscreen, Zoom]}
-        labels={{
-          Previous: 'Предыдущее изображение',
-          Next: 'Следующее изображение',
-          Close: 'Закрыть просмотр',
-          Slide: 'Изображение',
-          Carousel: 'Карусель изображений',
-          Lightbox: 'Полноэкранный просмотр изображений',
-          'Photo gallery': 'Иллюстрации статьи',
-          '{index} of {total}': '{index} из {total}',
-          'Enter Fullscreen': 'На весь экран',
-          'Exit Fullscreen': 'Выйти из полноэкранного режима',
-          'Zoom in': 'Увеличить',
-          'Zoom out': 'Уменьшить',
-          'Show captions': 'Показать подписи',
-          'Hide captions': 'Скрыть подписи',
-          Caption: 'Описание изображения',
-        }}
+        labels={viewerLabels(lang)}
         carousel={{ finite: true, imageFit: 'contain' }}
         controller={{ closeOnBackdropClick: true }}
         zoom={{ maxZoomPixelRatio: 3, scrollToZoom: true }}
