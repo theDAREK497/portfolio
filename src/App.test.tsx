@@ -111,7 +111,7 @@ describe('portfolio', () => {
     const screenshotButtons = within(dialog).getAllByRole('button', {
       name: /Open full-size screenshot/,
     });
-    expect(screenshotButtons).toHaveLength(3);
+    expect(screenshotButtons).toHaveLength(5);
 
     await user.click(screenshotButtons[0]);
     expect(
@@ -206,6 +206,19 @@ describe('portfolio', () => {
     expect(
       screen.getByText('RAG, LLM-Wiki, and Demiurge Assistant'),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', {
+        name: /A visual representation of Eon with characters/,
+      }),
+    ).toHaveAttribute('src', './images/articles/demiurge-ai-chat/cover-en.png');
+    expect(
+      screen.getByRole('img', {
+        name: /A comparison of RAG, LLM-Wiki, and Demiurge Assistant workflows/,
+      }),
+    ).toHaveAttribute(
+      'src',
+      './images/articles/demiurge-ai-chat/rag-llm-wiki-demiurge-en.png',
+    );
 
     await user.click(
       screen.getByRole('button', {
@@ -238,5 +251,10 @@ describe('portfolio', () => {
       }),
     ).toBeInTheDocument();
     expect(screen.getByText('Из чего состоит Эон')).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', {
+        name: /Визуальный образ мира Эон с персонажами/,
+      }),
+    ).toHaveAttribute('src', './images/articles/demiurge-ai-chat/cover.png');
   });
 });

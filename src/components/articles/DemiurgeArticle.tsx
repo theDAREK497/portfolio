@@ -14,11 +14,25 @@ import {
 
 const imageRoot = './images/articles/demiurge-ai-chat';
 
+interface ArticleImageData {
+  src: string;
+  srcEn?: string;
+  width: number;
+  height: number;
+  widthEn?: number;
+  heightEn?: number;
+  alt: Record<Lang, string>;
+  title: Record<Lang, string>;
+}
+
 const articleImages = [
   {
     src: `${imageRoot}/cover.png`,
+    srcEn: `${imageRoot}/cover-en.png`,
     width: 1491,
     height: 1055,
+    widthEn: 1672,
+    heightEn: 941,
     alt: {
       ru: 'Визуальный образ мира Эон с персонажами, локациями и связанными карточками знаний',
       en: 'A visual representation of Eon with characters, locations, and connected knowledge cards',
@@ -108,8 +122,11 @@ const articleImages = [
   },
   {
     src: `${imageRoot}/rag-llm-wiki-demiurge.png`,
+    srcEn: `${imageRoot}/rag-llm-wiki-demiurge-en.png`,
     width: 1491,
     height: 1055,
+    widthEn: 1672,
+    heightEn: 941,
     alt: {
       ru: 'Сравнение процессов RAG, LLM-Wiki и Demiurge Assistant',
       en: 'A comparison of RAG, LLM-Wiki, and Demiurge Assistant workflows',
@@ -145,7 +162,17 @@ const articleImages = [
       en: 'Suggestions for reviewing and merging entities.',
     },
   },
-] as const;
+] satisfies readonly ArticleImageData[];
+
+function articleImageSource(image: ArticleImageData, lang: Lang) {
+  return lang === 'en' && image.srcEn ? image.srcEn : image.src;
+}
+
+function articleImageDimensions(image: ArticleImageData, lang: Lang) {
+  return lang === 'en' && image.widthEn && image.heightEn
+    ? { width: image.widthEn, height: image.heightEn }
+    : { width: image.width, height: image.height };
+}
 
 function ArticleBlocks({ blocks }: { blocks: ArticleBlock[] }) {
   return blocks.map((block, index) => {
@@ -180,6 +207,7 @@ function ArticleImage({
   onOpen: (index: number) => void;
 }) {
   const image = articleImages[index];
+  const dimensions = articleImageDimensions(image, lang);
   const openLabel =
     lang === 'ru'
       ? `Открыть изображение в полном размере: ${image.alt.ru}`
@@ -193,9 +221,9 @@ function ArticleImage({
       aria-label={openLabel}
     >
       <img
-        src={image.src}
-        width={image.width}
-        height={image.height}
+        src={articleImageSource(image, lang)}
+        width={dimensions.width}
+        height={dimensions.height}
         alt={image.alt[lang]}
         loading={eager ? 'eager' : 'lazy'}
         fetchPriority={eager ? 'high' : 'auto'}
@@ -267,13 +295,16 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
   const copy = demiurgeArticleCopy[lang];
   const slides = useMemo(
     () =>
-      articleImages.map((image) => ({
-        src: image.src,
-        width: image.width,
-        height: image.height,
-        alt: image.alt[lang],
-        title: image.title[lang],
-      })),
+      articleImages.map((image) => {
+        const dimensions = articleImageDimensions(image, lang);
+        return {
+          src: articleImageSource(image, lang),
+          width: dimensions.width,
+          height: dimensions.height,
+          alt: image.alt[lang],
+          title: image.title[lang],
+        };
+      }),
     [lang],
   );
 

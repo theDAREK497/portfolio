@@ -1411,6 +1411,13 @@ main {
   border-radius: 24px;
   background: #03080e;
 }
+.article-page article[lang='en'] .article-cover-figure .article-image-button,
+.article-page
+  article[lang='en']
+  .article-infographic-figure
+  .article-image-button {
+  aspect-ratio: 1672 / 941;
+}
 .article-world-collage {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
@@ -2445,6 +2452,9 @@ main {
     border-radius: 11px;
   }
   .article-cover-figure .article-image-button {
+    aspect-ratio: 4 / 5;
+  }
+  .article-page article[lang='en'] .article-cover-figure .article-image-button {
     aspect-ratio: 4 / 5;
   }
   .article-cover-figure .article-image-button img {
