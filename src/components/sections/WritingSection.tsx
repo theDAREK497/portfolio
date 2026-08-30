@@ -12,13 +12,36 @@ export function WritingSection({ lang, t }: { lang: Lang; t: Translation }) {
         intro={t.writing.intro}
       />
       <div className="notes-list">
-        {writing.map((note, index) => (
-          <div key={note.en}>
-            <span>0{index + 1}</span>
-            <h3>{note[lang]}</h3>
-            <p>{t.writing.comingSoon}</p>
-          </div>
-        ))}
+        {writing.map((note, index) => {
+          const content = (
+            <>
+              <span>0{index + 1}</span>
+              <h3>{note[lang]}</h3>
+              <p>
+                {note.status === 'published'
+                  ? t.writing.published
+                  : t.writing.comingSoon}
+              </p>
+              {note.status === 'published' && (
+                <strong>{t.writing.readArticle} →</strong>
+              )}
+            </>
+          );
+
+          return note.href ? (
+            <a
+              className="notes-item notes-item-link"
+              href={note.href}
+              key={note.en}
+            >
+              {content}
+            </a>
+          ) : (
+            <div className="notes-item" key={note.en}>
+              {content}
+            </div>
+          );
+        })}
       </div>
     </section>
   );

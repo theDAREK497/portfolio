@@ -73,7 +73,9 @@ export const translations = {
       eyebrow: 'Engineering notes',
       title: 'Thinking in public, grounded in shipped work.',
       intro:
-        'Planned articles are kept in one compact list until the first pieces are ready.',
+        'The first long-form article is published; the next pieces remain on the roadmap.',
+      readArticle: 'Read article',
+      published: 'Published · Russian',
       comingSoon: 'Coming soon',
     },
     contact: {
@@ -169,7 +171,9 @@ export const translations = {
       eyebrow: 'Инженерные заметки',
       title: 'Размышления, основанные на запущенных проектах.',
       intro:
-        'Запланированные статьи собраны в компактный список до появления первых готовых материалов.',
+        'Первая подробная статья уже опубликована, следующие материалы остаются в плане.',
+      readArticle: 'Читать статью',
+      published: 'Опубликовано',
       comingSoon: 'Скоро',
     },
     contact: {

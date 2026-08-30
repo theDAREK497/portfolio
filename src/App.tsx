@@ -1,7 +1,8 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import type { ProjectItem } from './content';
 import { translations } from './content';
+import { DemiurgeArticle } from './components/articles/DemiurgeArticle';
 import { ContactModal } from './components/contact/ContactModal';
 import { Header } from './components/layout/Header';
 import { ProjectDetails } from './components/projects/ProjectDetails';
@@ -17,6 +18,12 @@ import { TextScrambleTransition } from './components/ui/TextScrambleTransition';
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
 
+const articleHash = '#/writing/why-ai-chat-was-not-enough';
+
+function isArticleRoute() {
+  return window.location.hash === articleHash;
+}
+
 export default function App() {
   const {
     lang,
@@ -28,6 +35,7 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [articleOpen, setArticleOpen] = useState(isArticleRoute);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
     null,
   );
@@ -38,6 +46,20 @@ export default function App() {
     damping: 25,
     restDelta: 0.001,
   });
+
+  useEffect(() => {
+    const syncRoute = () => setArticleOpen(isArticleRoute());
+
+    window.addEventListener('hashchange', syncRoute);
+    return () => window.removeEventListener('hashchange', syncRoute);
+  }, []);
+
+  useEffect(() => {
+    document.title = articleOpen
+      ? 'Почему обычного ИИ-чата оказалось недостаточно — Илья Гуриков'
+      : 'Ilya Gurikov — Full-Stack & AI Integration Engineer';
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [articleOpen]);
 
   const openContact = useCallback(() => {
     setMenuOpen(false);
@@ -84,19 +106,23 @@ export default function App() {
         onNavigate={() => setMenuOpen(false)}
       />
 
-      <main id="main" tabIndex={-1}>
-        <HeroSection lang={lang} t={t} onOpenContact={openContact} />
-        <FeaturedProjectsSection
-          lang={lang}
-          t={t}
-          onOpenProject={openProject}
-        />
-        <AboutSection lang={lang} t={t} />
-        <CapabilitiesSection lang={lang} t={t} />
-        <ExperienceSection lang={lang} t={t} />
-        <EducationSection lang={lang} t={t} />
-        <WritingSection lang={lang} t={t} />
-      </main>
+      {articleOpen ? (
+        <DemiurgeArticle />
+      ) : (
+        <main id="main" tabIndex={-1}>
+          <HeroSection lang={lang} t={t} onOpenContact={openContact} />
+          <FeaturedProjectsSection
+            lang={lang}
+            t={t}
+            onOpenProject={openProject}
+          />
+          <AboutSection lang={lang} t={t} />
+          <CapabilitiesSection lang={lang} t={t} />
+          <ExperienceSection lang={lang} t={t} />
+          <EducationSection lang={lang} t={t} />
+          <WritingSection lang={lang} t={t} />
+        </main>
+      )}
 
       <ContactSection t={t} onOpenContact={openContact} />
 

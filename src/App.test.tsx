@@ -182,4 +182,40 @@ describe('portfolio', () => {
     );
     expect(opener).toHaveFocus();
   });
+
+  it('opens the published article from writing and exposes its illustrations', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const articleLink = screen.getByRole('link', {
+      name: /Why a Regular AI Chat/,
+    });
+    expect(articleLink).toHaveAttribute(
+      'href',
+      '#/writing/why-ai-chat-was-not-enough',
+    );
+
+    await user.click(articleLink);
+
+    expect(
+      screen.getByRole('heading', {
+        level: 1,
+        name: 'Почему обычного ИИ-чата оказалось недостаточно для моего вымышленного мира',
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Иллюстрация 3. RAG, LLM-Wiki и Demiurge Assistant'),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: /Открыть изображение в полном размере: Визуальный образ мира Эон/,
+      }),
+    );
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Полноэкранный просмотр изображений',
+      }),
+    ).toBeInTheDocument();
+  });
 });
