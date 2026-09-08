@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Lang } from '../content';
+import { articleFile, homeFile, isArticlePage } from '../lib/routes';
 import {
   captureLanguageLayout,
   type LanguageLayoutSnapshot,
@@ -9,6 +10,10 @@ const STORAGE_KEY = 'portfolio-language';
 
 const readInitialLanguage = (): Lang => {
   try {
+    if (/\/(?:index|demiurge-ai-chat)-ru\.html$/.test(window.location.pathname))
+      return 'ru';
+    if (/\/(?:index|demiurge-ai-chat)\.html$/.test(window.location.pathname))
+      return 'en';
     return window.localStorage.getItem(STORAGE_KEY) === 'ru' ? 'ru' : 'en';
   } catch {
     return 'en';
@@ -33,6 +38,13 @@ export function useLanguage() {
     if (isTransitioning) return;
 
     const nextLang: Lang = lang === 'en' ? 'ru' : 'en';
+    // Keep a shareable language-specific URL without reloading the animation.
+    const nextUrl = new URL(
+      isArticlePage() ? articleFile(nextLang) : homeFile(nextLang),
+      window.location.href,
+    );
+    nextUrl.hash = window.location.hash;
+    window.history.replaceState(null, '', nextUrl);
     const reduceMotion = window.matchMedia?.(
       '(prefers-reduced-motion: reduce)',
     ).matches;

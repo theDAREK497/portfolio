@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import type { ProjectItem } from './content';
-import { translations } from './content';
+import { profile, translations } from './content';
+import { demiurgeArticleCopy } from './content/demiurgeArticle';
 import { DemiurgeArticle } from './components/articles/DemiurgeArticle';
 import { ContactModal } from './components/contact/ContactModal';
 import { Header } from './components/layout/Header';
@@ -17,12 +18,12 @@ import { WritingSection } from './components/sections/WritingSection';
 import { TextScrambleTransition } from './components/ui/TextScrambleTransition';
 import { useLanguage } from './hooks/useLanguage';
 import { useTheme } from './hooks/useTheme';
-
-const articleHash = '#/writing/why-ai-chat-was-not-enough';
-
-function isArticleRoute() {
-  return window.location.hash === articleHash;
-}
+import {
+  articleFile,
+  homeFile,
+  isArticlePage,
+  isArticleRoute,
+} from './lib/routes';
 
 export default function App() {
   const {
@@ -56,14 +57,43 @@ export default function App() {
 
   useEffect(() => {
     document.title = articleOpen
-      ? lang === 'ru'
-        ? 'Почему обычного ИИ-чата оказалось недостаточно — Илья Гуриков'
-        : 'Why a Regular AI Chat Was Not Enough — Ilya Gurikov'
-      : 'Ilya Gurikov — Full-Stack & AI Integration Engineer';
+      ? `${demiurgeArticleCopy[lang].title} — ${profile.localizedName[lang]}`
+      : `${profile.localizedName[lang]} — ${profile.title}`;
+    const description = articleOpen
+      ? demiurgeArticleCopy[lang].deck
+      : profile.statement[lang];
+    for (const selector of [
+      'meta[name="description"]',
+      'meta[property="og:description"]',
+      'meta[name="twitter:description"]',
+    ]) {
+      document.querySelector(selector)?.setAttribute('content', description);
+    }
+    for (const selector of [
+      'meta[property="og:title"]',
+      'meta[name="twitter:title"]',
+    ]) {
+      document.querySelector(selector)?.setAttribute('content', document.title);
+    }
+    const file = articleOpen ? articleFile(lang) : homeFile(lang);
+    const url = new URL(
+      file === 'index.html' ? './' : file,
+      window.location.href,
+    ).href;
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+    document
+      .querySelector('meta[property="og:url"]')
+      ?.setAttribute('content', url);
+    document
+      .querySelector('meta[property="og:locale"]')
+      ?.setAttribute('content', lang === 'ru' ? 'ru_RU' : 'en_US');
+    document
+      .querySelector('meta[property="og:type"]')
+      ?.setAttribute('content', articleOpen ? 'article' : 'website');
   }, [articleOpen, lang]);
 
   useEffect(() => {
-    if (articleOpen) {
+    if (articleOpen && (!isArticlePage() || !window.location.hash)) {
       window.scrollTo({ top: 0, behavior: 'instant' });
       return;
     }
@@ -100,7 +130,15 @@ export default function App() {
         layoutSnapshot={layoutSnapshot.current}
         onComplete={finishLanguageTransition}
       />
-      <a href="#main" className="skip-link">
+      <a
+        href="#main"
+        className="skip-link"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById('main')?.focus();
+          document.getElementById('main')?.scrollIntoView();
+        }}
+      >
         {t.skip}
       </a>
       <motion.div

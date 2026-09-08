@@ -190,12 +190,11 @@ describe('portfolio', () => {
     const articleLink = screen.getByRole('link', {
       name: /Why a Regular AI Chat/,
     });
-    expect(articleLink).toHaveAttribute(
-      'href',
-      '#/writing/why-ai-chat-was-not-enough',
-    );
+    expect(articleLink).toHaveAttribute('href', './demiurge-ai-chat.html');
 
-    await user.click(articleLink);
+    // jsdom cannot load documents. Keep regression coverage for shared legacy links.
+    window.location.hash = '#/writing/why-ai-chat-was-not-enough';
+    fireEvent(window, new HashChangeEvent('hashchange'));
 
     expect(
       screen.getByRole('heading', {
@@ -256,5 +255,42 @@ describe('portfolio', () => {
         name: /Визуальный образ мира Эон с персонажами/,
       }),
     ).toHaveAttribute('src', './images/articles/demiurge-ai-chat/cover.png');
+    await user.click(
+      screen.getByRole('link', { name: 'Почему одного RAG тоже недостаточно' }),
+    );
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Почему обычного ИИ-чата',
+    );
+    expect(document.getElementById('rag')).toHaveFocus();
+    expect(
+      screen.queryByText('Human Approval for AI-Generated Knowledge'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('offers a readable resume and one compact coming-soon placeholder', () => {
+    render(<App />);
+    expect(
+      screen.getByRole('link', { name: 'View resume / PDF' }),
+    ).toHaveAttribute('href', './resume-en.html');
+    const writing = within(document.getElementById('writing')!);
+    expect(writing.getAllByRole('link')).toHaveLength(1);
+    expect(writing.getAllByRole('heading', { level: 3 })).toHaveLength(2);
+    expect(
+      writing.getByRole('heading', { name: 'Coming soon' }),
+    ).toBeInTheDocument();
+  });
+
+  it('opens a Russian article directly, regardless of saved language', () => {
+    window.history.replaceState(null, '', '/demiurge-ai-chat-ru.html');
+    window.localStorage.setItem('portfolio-language', 'en');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'Почему обычного ИИ-чата',
+    );
+    expect(document.documentElement.lang).toBe('ru');
+    expect(screen.getByRole('link', { name: 'Проекты' })).toHaveAttribute(
+      'href',
+      './index-ru.html#projects',
+    );
   });
 });

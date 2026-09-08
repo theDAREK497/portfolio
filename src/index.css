@@ -94,7 +94,7 @@ html::-webkit-scrollbar-thumb:hover {
 }
 body {
   margin: 0;
-  min-width: 320px;
+  min-width: 0;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Manrope', Arial, sans-serif;
@@ -408,7 +408,7 @@ main {
   margin: 0 0 14px;
   color: var(--primary);
   font:
-    600 0.82rem/1 'IBM Plex Mono',
+    600 1.05rem/1.35 'IBM Plex Mono',
     monospace;
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -416,9 +416,9 @@ main {
 .hero h1 {
   max-width: 920px;
   margin: 0;
-  font-size: clamp(3.3rem, 7vw, 7rem);
-  line-height: 0.93;
-  letter-spacing: -0.075em;
+  font-size: clamp(3rem, 5.8vw, 5.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
   font-weight: 600;
   text-wrap: balance;
 }
@@ -430,7 +430,7 @@ main {
   letter-spacing: -0.025em;
 }
 .hero-support {
-  max-width: 690px;
+  max-width: 62ch;
   margin: 0;
   color: var(--muted);
   font-size: 0.98rem;
@@ -651,8 +651,8 @@ main {
   margin: 0;
   font-size: clamp(2.35rem, 4.7vw, 5rem);
   font-weight: 500;
-  letter-spacing: -0.065em;
-  line-height: 1.02;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
   text-wrap: balance;
 }
 .section-intro {
@@ -1607,6 +1607,7 @@ main {
 .contact-socials {
   grid-column: 1 / -1;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 22px;
   margin-top: 32px;
@@ -1937,6 +1938,7 @@ main {
 }
 .outcome-box {
   margin-top: 24px;
+  margin-bottom: 32px;
   padding: 30px;
   color: var(--on-solid);
   background: var(--solid);
@@ -2193,6 +2195,7 @@ main {
   }
   .hero-grid {
     grid-template-columns: 1fr;
+    row-gap: 0;
   }
   .hero-copy {
     display: contents;
@@ -2212,7 +2215,7 @@ main {
     margin: 10px auto 0;
   }
   .hero h1 {
-    font-size: clamp(3.4rem, 14vw, 6rem);
+    font-size: clamp(3rem, 10vw, 5rem);
   }
   .hero-metrics {
     grid-template-columns: 1fr 1fr;
@@ -2299,7 +2302,7 @@ main {
     font-size: 0.62rem;
   }
   .hero h1 {
-    font-size: clamp(3.05rem, 15.5vw, 4.35rem);
+    font-size: clamp(2.6rem, 11.5vw, 3.8rem);
   }
   .hero-statement {
     font-size: 1.07rem;

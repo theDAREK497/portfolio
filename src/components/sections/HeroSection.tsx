@@ -34,7 +34,7 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
             <i aria-hidden="true" />
             {profile.availability[lang]}
           </p>
-          <p className="hero-name">{profile.name}</p>
+          <p className="hero-name">{profile.localizedName[lang]}</p>
           <h1>{profile.title}</h1>
           <p className="hero-statement">{profile.statement[lang]}</p>
           <p className="hero-support">{profile.summary[lang]}</p>
@@ -50,16 +50,15 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
             >
               {t.hero.contact}
             </button>
-            {contacts.resumeUrl && (
+            {
               <a
                 className="button button-quiet"
-                href={contacts.resumeUrl}
-                download
+                href={contacts.resumeUrl ?? `./resume-${lang}.html`}
               >
                 <Download aria-hidden="true" />
                 {t.hero.resume}
               </a>
-            )}
+            }
           </div>
           <div className="hero-links">
             <a href={contacts.linkedin} target="_blank" rel="noreferrer">
@@ -84,14 +83,16 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
               <div
                 className="image-fallback"
                 role="img"
-                aria-label="Portrait unavailable"
+                aria-label={
+                  lang === 'ru' ? 'Портрет недоступен' : 'Portrait unavailable'
+                }
               >
                 <ImageOff aria-hidden="true" />
               </div>
             ) : (
               <img
                 src="./photo.jpg"
-                alt="Ilya Gurikov"
+                alt={profile.localizedName[lang]}
                 width="640"
                 height="640"
                 loading="eager"

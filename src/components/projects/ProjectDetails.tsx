@@ -90,6 +90,17 @@ export function ProjectDetails({
       </div>
       <div className="dialog-body">
         <p className="dialog-summary">{project.summary[lang]}</p>
+        <div className="outcome-box">
+          <p className="eyebrow">
+            <span aria-hidden="true">●</span>
+            {t.projects.result}
+          </p>
+          <ul>
+            {project.results[lang].map((result) => (
+              <li key={result}>{result}</li>
+            ))}
+          </ul>
+        </div>
         <section className="case-gallery" aria-labelledby={galleryTitleId}>
           <div className="case-gallery-heading">
             <h3 id={galleryTitleId}>{t.projects.gallery}</h3>
@@ -147,17 +158,6 @@ export function ProjectDetails({
               <p>{detail.value[lang]}</p>
             </div>
           ))}
-        </div>
-        <div className="outcome-box">
-          <p className="eyebrow">
-            <span aria-hidden="true">●</span>
-            {t.projects.result}
-          </p>
-          <ul>
-            {project.results[lang].map((result) => (
-              <li key={result}>{result}</li>
-            ))}
-          </ul>
         </div>
         <div className="dialog-footer">
           <ul className="tag-list" aria-label={t.projects.technologies}>

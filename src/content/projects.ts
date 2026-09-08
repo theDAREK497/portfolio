@@ -89,18 +89,18 @@ export const projects: ProjectItem[] = [
       ru: 'Продуктовый дизайнер · Архитектор ПО · Full-Stack инженер',
     },
     summary: {
-      en: 'A local-first knowledge platform that transforms unstructured LLM conversations into a controlled, reviewable and persistent knowledge base.',
-      ru: 'Локальная платформа знаний, которая превращает неструктурированные LLM-диалоги в контролируемую, проверяемую и постоянную базу знаний.',
+      en: 'A knowledge workspace for fictional worlds. AI suggests characters, facts and relationships; the author reviews what becomes part of the world.',
+      ru: 'База знаний для вымышленных миров. ИИ предлагает персонажей, факты и связи, а автор решает, что станет частью мира.',
     },
     capabilities: {
       en: [
-        'Persistent structured knowledge',
+        'A shared knowledge base',
         'Human approval workflows',
         'Local and external LLM support',
         'Entity relationships',
       ],
       ru: [
-        'Постоянные структурированные знания',
+        'Единая база знаний',
         'Подтверждение изменений человеком',
         'Локальные и внешние LLM',
         'Связи сущностей',
@@ -111,46 +111,46 @@ export const projects: ProjectItem[] = [
         label: { en: 'Problem', ru: 'Проблема' },
         value: {
           en: 'Long-running AI chats mix facts and assumptions, lose context and make generated changes hard to review.',
-          ru: 'В долгих AI-диалогах смешиваются факты и предположения, теряется контекст, а созданные изменения сложно проверять.',
+          ru: 'В долгих диалогах с ИИ смешиваются факты и предположения, теряется контекст, а предложенные изменения сложно проверять.',
         },
       },
       {
         label: { en: 'Knowledge model', ru: 'Модель знаний' },
         value: {
           en: 'Persistent entities and relationships keep confirmed information separate from AI suggestions.',
-          ru: 'Постоянные сущности и связи отделяют подтверждённую информацию от предложений AI.',
+          ru: 'Факты хранятся в карточках сущностей и связях между ними — отдельно от предложений ИИ.',
         },
       },
       {
         label: { en: 'Human approval', ru: 'Подтверждение человеком' },
         value: {
           en: 'AI actions remain reviewable before they become part of the durable knowledge base.',
-          ru: 'Действия AI можно проверить до того, как они станут частью постоянной базы знаний.',
+          ru: 'Пользователь проверяет предложения ИИ и решает, какие изменения сохранить в базе знаний.',
         },
       },
       {
         label: { en: 'Local-first approach', ru: 'Локальный подход' },
         value: {
           en: 'Provider abstraction supports local and external LLMs while keeping the user in control of persistent data.',
-          ru: 'Абстракция провайдеров поддерживает локальные и внешние LLM, сохраняя контроль пользователя над постоянными данными.',
+          ru: 'Можно подключать локальные и внешние языковые модели через общий интерфейс. База знаний остаётся под контролем пользователя.',
         },
       },
       {
         label: { en: 'Trade-offs', ru: 'Компромиссы' },
         value: {
-          en: 'The product prioritises reviewability and user control over fully autonomous AI updates.',
-          ru: 'Продукт ставит проверяемость и контроль пользователя выше полностью автономных обновлений AI.',
+          en: 'Changes require the author’s attention. This is slower than full automation, but the model cannot quietly rewrite the world.',
+          ru: 'Изменения требуют внимания автора. Это медленнее полной автоматизации, зато модель не может незаметно переписать мир.',
         },
       },
     ],
     results: {
       en: [
-        'Designed a controlled path from conversation to persistent knowledge.',
-        'Built for Game Masters, world builders and writers managing complex fictional knowledge.',
+        'Built draft generation, entity editing and relationship creation with human review before changes are applied.',
+        'An ongoing personal experiment, tested by me and one other person — not yet validated for a wider audience.',
       ],
       ru: [
-        'Спроектирован контролируемый путь от диалога к постоянным знаниям.',
-        'Продукт ориентирован на мастеров игр, создателей миров и авторов сложных вымышленных вселенных.',
+        'Реализованы генерация черновиков, заполнение сущностей и создание связей с проверкой перед применением изменений.',
+        'Личный эксперимент в разработке. Кроме меня, им пользовался один человек; для широкой аудитории продукт пока не проверен.',
       ],
     },
     tech: [
@@ -224,8 +224,8 @@ export const projects: ProjectItem[] = [
       ru: 'Независимый продуктовый инженер',
     },
     summary: {
-      en: 'A cross-platform subscription product for personalized calculations, compatibility analysis and AI-generated reports.',
-      ru: 'Кроссплатформенный подписочный продукт для персональных расчётов, анализа совместимости и отчётов, создаваемых с помощью AI.',
+      en: 'A subscription app launched on web, Telegram and Android. I built the product, connected payments and account access, and received the first paid subscription.',
+      ru: 'Приложение с подпиской для веба, Telegram и Android. Самостоятельно собрал продукт, подключил платежи и доступ к аккаунту, получил первую платную подписку.',
     },
     capabilities: {
       en: [
@@ -260,7 +260,7 @@ export const projects: ProjectItem[] = [
         label: { en: 'Payment flow', ru: 'Платёжный поток' },
         value: {
           en: 'Connected YooKassa payments, webhooks and subscription access across product surfaces.',
-          ru: 'Связал платежи YooKassa, вебхуки и подписочный доступ между продуктовыми платформами.',
+          ru: 'Подключил оплату через ЮKassa, обработку вебхуков и доступ по подписке на разных платформах.',
         },
       },
       {
@@ -337,8 +337,8 @@ export const projects: ProjectItem[] = [
       ru: 'RAG-прототип · Telegram-интерфейс',
     },
     summary: {
-      en: 'A Telegram assistant that retrieves information from a private documentation archive through a local RAG pipeline and returns source-linked answers.',
-      ru: 'Telegram-ассистент, который ищет информацию в частном архиве документации через локальный RAG-пайплайн и возвращает ответы со ссылками на источники.',
+      en: 'A Telegram bot that answers questions about a private document archive. It searches locally, generates an answer and links back to the source material.',
+      ru: 'Telegram-бот, который отвечает на вопросы по частному архиву документов: ищет информацию локально, формирует ответ и даёт ссылки на источники.',
     },
     capabilities: {
       en: [

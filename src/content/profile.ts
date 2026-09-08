@@ -1,17 +1,18 @@
 export const profile = {
   name: 'Ilya Gurikov',
+  localizedName: { en: 'Ilya Gurikov', ru: 'Илья Гуриков' },
   title: 'Full-Stack & AI Integration Engineer',
   statement: {
-    en: 'I design and build web products, API integrations and AI-powered systems from idea to production.',
-    ru: 'Проектирую и создаю веб-продукты, API-интеграции и системы с AI — от идеи до запуска.',
+    en: 'I build web products, connect business systems and turn AI ideas into working tools.',
+    ru: 'Создаю веб-продукты, связываю бизнес-системы и превращаю идеи с ИИ в работающие инструменты.',
   },
   summary: {
-    en: 'Software engineer with approximately 6 years of commercial experience in full-stack development, QA, business integrations and independent product delivery.',
-    ru: 'Разработчик с примерно шестилетним коммерческим опытом во full-stack разработке, QA, бизнес-интеграциях и самостоятельном запуске продуктов.',
+    en: 'About 6 years in commercial development and QA. Alongside my day job, I take my own products from the first prototype to launch — including APIs, payments and LLM integrations.',
+    ru: 'Около 6 лет в коммерческой разработке и тестировании. Параллельно довожу свои продукты от первого прототипа до запуска: с API, платежами и интеграцией языковых моделей.',
   },
   availability: {
-    en: 'Open to remote and hybrid opportunities.',
-    ru: 'Открыт к удалённым и гибридным возможностям.',
+    en: 'Open to remote or hybrid roles',
+    ru: 'Рассматриваю удалённую и гибридную работу',
   },
   language: {
     en: 'Native Russian speaker. English level: A2, currently working toward B1.',
@@ -23,21 +24,21 @@ export const profile = {
 
 export const about = {
   title: {
-    en: 'A builder who connects product needs with working systems.',
-    ru: 'Соединяю продуктовые задачи с работающими системами.',
+    en: 'I like building the whole thing.',
+    ru: 'Мне интересно собирать продукт целиком.',
   },
   paragraphs: {
     en: [
-      'I am a software engineer with approximately 6 years of commercial experience across full-stack web development, manual QA, frontend development, CMS platforms and business integrations.',
-      'I started in quality assurance and frontend development, then moved into full-stack engineering with PHP, JavaScript, 1C-Bitrix, WordPress, databases and external services.',
-      'Alongside commercial work, I design and launch independent products. My current focus is API integration, Python and FastAPI, automation, LLM-powered applications and solution architecture.',
-      'I enjoy turning loosely defined ideas into working systems: clarifying requirements, designing a practical architecture, implementing integrations, launching the product and improving it based on real usage.',
+      'I started in manual testing and frontend development, then moved into full-stack work with PHP, JavaScript, CMS platforms and databases. Today, I build corporate services and connect them to other business systems.',
+      'My own projects give me room to work through the whole product: what it should do, how the parts fit together, how payments work and what happens after launch.',
+      'I am now focusing on Python, FastAPI, API integrations and practical uses of language models. I want AI features to fit into a clear workflow, with control over the data and the result.',
+      'I enjoy the point where an idea becomes concrete: asking questions, choosing a manageable first version, building it and learning from how people actually use it.',
     ],
     ru: [
-      'Я разработчик программного обеспечения с примерно шестилетним коммерческим опытом во full-stack веб-разработке, ручном тестировании, frontend-разработке, CMS и бизнес-интеграциях.',
-      'Я начинал карьеру с тестирования и frontend-разработки, а затем перешёл к full-stack разработке с использованием PHP, JavaScript, 1C-Битрикс, WordPress, баз данных и внешних сервисов.',
-      'Параллельно с коммерческой работой я самостоятельно проектирую и запускаю продукты. Сейчас мой основной фокус — API-интеграции, Python и FastAPI, автоматизация, приложения на базе LLM и архитектура решений.',
-      'Мне нравится превращать слабо формализованные идеи в работающие системы: уточнять требования, проектировать практичную архитектуру, реализовывать интеграции, запускать продукт и улучшать его на основании реального использования.',
+      'Я начинал с ручного тестирования и фронтенда, затем перешёл к full-stack разработке на PHP и JavaScript, работе с CMS и базами данных. Сейчас создаю корпоративные сервисы и связываю их с другими бизнес-системами.',
+      'Собственные проекты позволяют пройти весь путь: понять, зачем нужен продукт, продумать его устройство, подключить оплату и разобраться, что происходит после запуска.',
+      'Сейчас углубляюсь в Python, FastAPI, API-интеграции и практическое применение языковых моделей. Мне важно, чтобы ИИ был частью понятного процесса, в котором можно контролировать данные и результат.',
+      'Больше всего мне нравится момент, когда идея становится конкретной: задать вопросы, выбрать посильную первую версию, собрать её и понять, как люди пользуются результатом.',
     ],
   },
 } as const;

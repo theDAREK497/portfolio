@@ -11,6 +11,7 @@ import type { Lang, Theme } from '../../content';
 import { contacts } from '../../content';
 import type { Translation } from '../../content/translations';
 import { MobileNavigation } from './MobileNavigation';
+import { homeFile, isArticlePage } from '../../lib/routes';
 
 interface HeaderProps {
   lang: Lang;
@@ -45,11 +46,23 @@ export function Header({
     { href: '#education', label: t.nav.education },
     { href: '#writing', label: t.nav.writing },
     { href: '#contact', label: t.nav.contact },
-  ];
+  ].map((item) => ({
+    ...item,
+    href:
+      isArticlePage() && item.href !== '#contact'
+        ? `./${homeFile(lang)}${item.href}`
+        : item.href,
+  }));
 
   return (
     <header className="site-header">
-      <a className="wordmark" href="#top" aria-label="Ilya Gurikov — home">
+      <a
+        className="wordmark"
+        href={isArticlePage() ? `./${homeFile(lang)}` : '#top'}
+        aria-label={
+          lang === 'ru' ? 'Илья Гуриков — главная' : 'Ilya Gurikov — home'
+        }
+      >
         <span>IG</span>
         <i aria-hidden="true" />
       </a>

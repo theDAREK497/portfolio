@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, Maximize2 } from 'lucide-react';
+import { ArrowLeft, Maximize2 } from 'lucide-react';
 import Lightbox from 'yet-another-react-lightbox';
 import Captions from 'yet-another-react-lightbox/plugins/captions';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
@@ -7,6 +7,7 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import type { Lang } from '../../content';
+import { homeFile, isArticlePage } from '../../lib/routes';
 import {
   demiurgeArticleCopy,
   type ArticleBlock,
@@ -313,7 +314,12 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
       <article lang={lang}>
         <header className="article-hero" id="top">
           <div className="article-hero-copy">
-            <a className="article-back" href="#writing">
+            <a
+              className="article-back"
+              href={
+                isArticlePage() ? `./${homeFile(lang)}#writing` : '#writing'
+              }
+            >
               <ArrowLeft aria-hidden="true" />
               {copy.back}
             </a>
@@ -327,7 +333,25 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
           <nav className="article-toc" aria-label={copy.tocLabel}>
             <span>{copy.tocLabel}</span>
             {copy.toc.map((item) => (
-              <a href={item.href} key={item.href}>
+              <a
+                href={item.href}
+                key={item.href}
+                onClick={(event) => {
+                  event.preventDefault();
+                  if (isArticlePage())
+                    window.history.replaceState(null, '', item.href);
+                  const section = document.getElementById(item.href.slice(1));
+                  section?.scrollIntoView({
+                    behavior: window.matchMedia(
+                      '(prefers-reduced-motion: reduce)',
+                    ).matches
+                      ? 'instant'
+                      : 'smooth',
+                  });
+                  section?.setAttribute('tabindex', '-1');
+                  section?.focus({ preventScroll: true });
+                }}
+              >
                 {item.label}
               </a>
             ))}
@@ -468,11 +492,10 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
               <ArticleBlocks blocks={copy.goal.blocks} />
             </div>
 
-            <a className="article-next" href="#writing">
+            <div className="article-next">
               <span>{copy.nextLabel}</span>
-              <strong>{copy.nextTitle}</strong>
-              <ArrowRight aria-hidden="true" />
-            </a>
+              <strong>{lang === 'ru' ? 'Скоро' : 'Coming soon'}</strong>
+            </div>
           </section>
         </div>
       </article>

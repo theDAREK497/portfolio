@@ -52,7 +52,22 @@ export const capabilityGroups = [
     items: ['SQL', 'PostgreSQL', 'MySQL', 'SQLite', 'FAISS'],
   },
   {
-    title: { en: 'Delivery & Quality', ru: 'Поставка и качество' },
+    title: { en: 'Delivery & Quality', ru: 'Выпуск и качество' },
     items: ['Git', 'Docker', 'GitLab CI/CD', 'Debugging', 'Manual testing'],
   },
 ] as const;
+
+const russianSkillLabels: Record<string, string> = {
+  'External services': 'Внешние сервисы',
+  'Requirements analysis': 'Анализ требований',
+  'OpenAI-compatible APIs': 'OpenAI-совместимые API',
+  'Local LLMs': 'Локальные языковые модели',
+  'RAG fundamentals': 'Основы RAG',
+  'Structured LLM outputs': 'Структурированные ответы LLM',
+  'Human-in-the-loop': 'Проверка результатов человеком',
+  Debugging: 'Отладка',
+  'Manual testing': 'Ручное тестирование',
+};
+
+export const skillLabel = (item: string, lang: 'ru' | 'en') =>
+  lang === 'ru' ? (russianSkillLabels[item] ?? item) : item;

@@ -1,4 +1,11 @@
-import { ArrowUpRight, Github, Linkedin, MapPin, Send } from 'lucide-react';
+import {
+  ArrowUpRight,
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Send,
+} from 'lucide-react';
 import { contacts } from '../../content';
 import type { Translation } from '../../content/translations';
 
@@ -34,6 +41,11 @@ export function ContactSection({
         </p>
       </div>
       <div className="contact-socials">
+        <a href={`mailto:${contacts.email}`}>
+          <Mail aria-hidden="true" />
+          {contacts.email}
+          <ArrowUpRight aria-hidden="true" />
+        </a>
         <a href={contacts.linkedin} target="_blank" rel="noreferrer">
           <Linkedin aria-hidden="true" />
           LinkedIn

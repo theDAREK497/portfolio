@@ -17,20 +17,20 @@ export const translations = {
     hero: {
       projects: 'View projects',
       contact: 'Contact me',
-      resume: 'Download resume',
+      resume: 'View resume / PDF',
       currentDirection: 'Current direction',
       experience: '≈ 6 years',
       experienceLabel: 'commercial experience',
       platforms: 'web · Telegram · Android',
-      platformsLabel: 'product delivery',
+      platformsLabel: 'platforms I have shipped on',
       focus: 'APIs · automation · AI products',
       focusLabel: 'current focus',
     },
     projects: {
       eyebrow: 'Featured projects',
-      title: 'Products built across the whole lifecycle.',
+      title: 'See what I have built.',
       intro:
-        'From product framing and architecture to integrations, release and iteration.',
+        'Independent projects: a launched subscription app and hands-on AI experiments. Each case covers my work, the decisions and the results.',
       caseStudy: 'Read case study',
       liveLink: 'Visit product',
       github: 'View repository',
@@ -58,22 +58,23 @@ export const translations = {
     about: { eyebrow: 'About' },
     capabilities: {
       eyebrow: 'Capabilities',
-      title: 'Commercial foundation. Modern integration stack.',
-      intro: 'Focused groups instead of a flat list of every tool encountered.',
+      title: 'The tools behind the work.',
+      intro:
+        'My commercial foundation is PHP, JavaScript, SQL and business integrations. My own products extend that experience with Python, React and LLMs.',
     },
     experience: {
       eyebrow: 'Experience',
-      title: 'Commercial work, described without inflated claims.',
+      title: 'Where I have put it into practice.',
     },
     education: {
       eyebrow: 'Education',
-      title: 'Information systems, computer analysis and engineering.',
+      title: 'My engineering foundation.',
     },
     writing: {
       eyebrow: 'Engineering notes',
-      title: 'Thinking in public, grounded in shipped work.',
+      title: 'What I am learning as I build.',
       intro:
-        'The first long-form article is published; the next pieces remain on the roadmap.',
+        'Notes on the problems behind my projects and the decisions I make along the way.',
       readArticle: 'Read article',
       published: 'Published',
       comingSoon: 'Coming soon',
@@ -81,7 +82,7 @@ export const translations = {
     contact: {
       eyebrow: 'Contact',
       title: 'Let’s create together!',
-      text: 'I am open to remote and hybrid opportunities in integration engineering, full-stack product development and AI-powered applications.',
+      text: 'Looking for someone to build a web product, connect services or integrate AI into a workflow? Tell me about your team and the problem you are working on.',
       open: 'Contact me',
       dialogTitle: 'Contact Ilya Gurikov',
       dialogDescription:
@@ -114,20 +115,20 @@ export const translations = {
     hero: {
       projects: 'Смотреть проекты',
       contact: 'Связаться',
-      resume: 'Скачать резюме',
+      resume: 'Резюме / PDF',
       currentDirection: 'Текущее направление',
       experience: '≈ 6 лет',
       experienceLabel: 'коммерческого опыта',
       platforms: 'веб · Telegram · Android',
-      platformsLabel: 'продуктовая поставка',
+      platformsLabel: 'платформы моих продуктов',
       focus: 'API · автоматизация · AI-продукты',
       focusLabel: 'текущий фокус',
     },
     projects: {
       eyebrow: 'Избранные проекты',
-      title: 'Продукты, созданные через весь жизненный цикл.',
+      title: 'Лучше показать на проектах.',
       intro:
-        'От постановки задачи и архитектуры до интеграций, релиза и развития.',
+        'Мои самостоятельные проекты: запущенное приложение с подпиской и эксперименты с ИИ. В каждом кейсе — мой вклад, принятые решения и результат.',
       caseStudy: 'Открыть кейс',
       liveLink: 'Открыть продукт',
       github: 'Открыть репозиторий',
@@ -155,23 +156,23 @@ export const translations = {
     about: { eyebrow: 'Обо мне' },
     capabilities: {
       eyebrow: 'Компетенции',
-      title: 'Коммерческая база. Современный интеграционный стек.',
+      title: 'Инструменты, с которыми я работаю.',
       intro:
-        'Сфокусированные группы вместо плоского списка всех встречавшихся инструментов.',
+        'В коммерческой работе — PHP, JavaScript, SQL и бизнес-интеграции. В собственных продуктах развиваю этот опыт с Python, React и языковыми моделями.',
     },
     experience: {
       eyebrow: 'Опыт',
-      title: 'Коммерческая работа — без неподтверждённых цифр.',
+      title: 'Где я применял этот опыт.',
     },
     education: {
       eyebrow: 'Образование',
-      title: 'Информационные системы, компьютерный анализ и инженерия.',
+      title: 'Моя инженерная база.',
     },
     writing: {
       eyebrow: 'Инженерные заметки',
-      title: 'Размышления, основанные на запущенных проектах.',
+      title: 'О чём я думаю, пока разрабатываю.',
       intro:
-        'Первая подробная статья уже опубликована, следующие материалы остаются в плане.',
+        'Пишу о задачах, из которых вырастают мои проекты, и о решениях, к которым прихожу в процессе.',
       readArticle: 'Читать статью',
       published: 'Опубликовано',
       comingSoon: 'Скоро',
@@ -179,7 +180,7 @@ export const translations = {
     contact: {
       eyebrow: 'Контакты',
       title: 'Давайте создавать вместе!',
-      text: 'Я открыт к удалённым и гибридным возможностям в интеграционной инженерии, full-stack продуктовой разработке и AI-приложениях.',
+      text: 'Ищете разработчика для веб-продукта, интеграции сервисов или внедрения ИИ в рабочий процесс? Напишите, чем занимается ваша команда и какую задачу хотите решить.',
       open: 'Связаться',
       dialogTitle: 'Связаться с Ильёй Гуриковым',
       dialogDescription:

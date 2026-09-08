@@ -17,6 +17,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 Object.defineProperty(window, 'scrollTo', { writable: true, value: vi.fn() });
+Element.prototype.scrollIntoView = vi.fn();
 
 class ObserverMock {
   observe = vi.fn();
@@ -34,6 +35,7 @@ Object.defineProperty(globalThis, 'ResizeObserver', {
 });
 
 beforeEach(() => {
+  window.history.replaceState(null, '', '/');
   window.localStorage.clear();
   document.documentElement.removeAttribute('data-theme');
 });

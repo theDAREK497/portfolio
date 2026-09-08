@@ -7,7 +7,7 @@ export const experience: ExperienceItem[] = [
     period: { en: 'Aug 2023 — Present', ru: 'Авг 2023 — настоящее время' },
     context: {
       en: 'Building corporate portals and departmental services with web, data and business-system integrations.',
-      ru: 'Разрабатываю корпоративные порталы и сервисы подразделений с веб-, data- и бизнес-интеграциями.',
+      ru: 'Разрабатываю корпоративные порталы и сервисы для подразделений, подключаю внутренние системы и источники данных.',
     },
     points: {
       en: [
@@ -29,7 +29,7 @@ export const experience: ExperienceItem[] = [
     period: { en: 'Mar 2021 — Sep 2022', ru: 'Мар 2021 — сен 2022' },
     context: {
       en: 'Delivered e-commerce platforms and integrations across the full development cycle.',
-      ru: 'Разрабатывал e-commerce платформы и интеграции на полном цикле.',
+      ru: 'Разрабатывал интернет-магазины и интеграции — от постановки задачи до выпуска.',
     },
     points: {
       en: [
@@ -38,9 +38,9 @@ export const experience: ExperienceItem[] = [
         'Refactored legacy application code and improved maintainability and page performance.',
       ],
       ru: [
-        'Контейнеризировал сервисы и участвовал в автоматизации поставки через GitLab CI/CD.',
+        'Переводил сервисы в Docker-контейнеры и участвовал в автоматизации сборки и развёртывания через GitLab CI/CD.',
         'Разработал адаптер синхронизации заказов с внешней складской системой, включая повторные попытки и обработку сбоев.',
-        'Рефакторил legacy-код приложения, улучшая поддерживаемость и скорость страниц.',
+        'Перерабатывал устаревший код, чтобы его было проще поддерживать, а страницы загружались быстрее.',
       ],
     },
     tech: ['1C-Bitrix', 'PHP', 'JavaScript', 'Docker', 'REST APIs', 'MySQL'],

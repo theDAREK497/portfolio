@@ -2,6 +2,7 @@ import { capabilityGroups } from '../../content';
 import type { Lang } from '../../content';
 import type { Translation } from '../../content/translations';
 import { SectionHeading } from '../ui/SectionHeading';
+import { skillLabel } from '../../content/skills';
 
 export function CapabilitiesSection({
   lang,
@@ -26,7 +27,7 @@ export function CapabilitiesSection({
             <h3>{group.title[lang]}</h3>
             <ul>
               {group.items.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item}>{skillLabel(item, lang)}</li>
               ))}
             </ul>
           </article>
