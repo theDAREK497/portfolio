@@ -17,7 +17,7 @@ export const translations = {
     hero: {
       projects: 'View projects',
       contact: 'Contact me',
-      resume: 'View resume / PDF',
+      resume: 'Resume (English PDF)',
       currentDirection: 'Current direction',
       experience: '≈ 6 years',
       experienceLabel: 'commercial experience',
@@ -115,7 +115,7 @@ export const translations = {
     hero: {
       projects: 'Смотреть проекты',
       contact: 'Связаться',
-      resume: 'Резюме / PDF',
+      resume: 'Резюме (PDF, EN)',
       currentDirection: 'Текущее направление',
       experience: '≈ 6 лет',
       experienceLabel: 'коммерческого опыта',

@@ -1,9 +1,31 @@
+# Dependencies and generated builds
 node_modules/
-build/
-dist/
-docs/
-coverage/
-.DS_Store
-*.log
-.env*
+/build/
+/dist/
+/coverage/
+
+# Local notes, artifact previews and temporary files
+/docs/
+/tmp/
+/output/
+/test-results/
+/playwright-report/
+/.vite/
+*.tsbuildinfo
+
+# Local environment and credentials (keep the public example)
+.env
+.env.*
 !.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editor and OS noise
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log

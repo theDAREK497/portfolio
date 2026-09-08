@@ -3,5 +3,5 @@ export const contacts = {
   telegram: 'https://t.me/theDAREK497',
   github: 'https://github.com/theDAREK497',
   linkedin: 'https://linkedin.com/in/thedarek497',
-  resumeUrl: null as string | null, // TODO_OWNER: add only after the approved PDF exists.
+  resumeUrl: './resume/Ilya-Gurikov-Resume-EN.pdf',
 } as const;

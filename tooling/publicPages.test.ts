@@ -10,6 +10,26 @@ const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
 describe('public documents', () => {
+  it('shares typography and links to the downloadable English resume', () => {
+    const css = readFileSync('src/index.css', 'utf8');
+    expect(css).toContain("@import './styles/typography.css'");
+    expect(css).not.toMatch(/Source Serif|IBM Plex Sans/);
+    for (const file of ['index.html', 'index-ru.html']) {
+      const doc = parse(renderPublicPage(template, file, base));
+      expect(doc.head.textContent).toContain('--font-body');
+      const resume = doc.querySelector(
+        'a[href="./resume/Ilya-Gurikov-Resume-EN.pdf"]',
+      );
+      expect(resume).not.toBeNull();
+      expect(doc.body.textContent).toContain('B1');
+    }
+    expect(
+      readFileSync('public/resume/Ilya-Gurikov-Resume-EN.pdf')
+        .subarray(0, 5)
+        .toString(),
+    ).toBe('%PDF-');
+  });
+
   for (const file of [
     'index.html',
     'index-ru.html',

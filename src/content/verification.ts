@@ -1,5 +1,4 @@
 export const TODO_VERIFY = [
-  'Resume file and final download URL',
   'Official English translations of both degree titles',
   'Public production URL for canonical, Open Graph and sitemap generation',
   'Gazprom Inform: 95% incident detection metric',

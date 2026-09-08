@@ -270,8 +270,8 @@ describe('portfolio', () => {
   it('offers a readable resume and one compact coming-soon placeholder', () => {
     render(<App />);
     expect(
-      screen.getByRole('link', { name: 'View resume / PDF' }),
-    ).toHaveAttribute('href', './resume-en.html');
+      screen.getByRole('link', { name: 'Resume (English PDF)' }),
+    ).toHaveAttribute('href', './resume/Ilya-Gurikov-Resume-EN.pdf');
     const writing = within(document.getElementById('writing')!);
     expect(writing.getAllByRole('link')).toHaveLength(1);
     expect(writing.getAllByRole('heading', { level: 3 })).toHaveLength(2);

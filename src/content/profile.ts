@@ -15,8 +15,8 @@ export const profile = {
     ru: 'Рассматриваю удалённую и гибридную работу',
   },
   language: {
-    en: 'Native Russian speaker. English level: A2, currently working toward B1.',
-    ru: 'Родной язык — русский. Английский: A2, сейчас работаю над уровнем B1.',
+    en: 'Russian: native. English: B1 (intermediate).',
+    ru: 'Русский — родной. Английский — B1 (средний уровень).',
   },
   direction:
     'Integration Engineer → AI Solutions Engineer → Solutions Architect',
