@@ -1,4 +1,10 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { flushSync } from 'react-dom';
 import type { Theme } from '../content';
 
@@ -18,6 +24,19 @@ const readInitialTheme = (): Theme => {
 
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(readInitialTheme);
+  const switching = useRef(false);
+  const fadeTimer = useRef<number | undefined>(undefined);
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(fadeTimer.current);
+      document.documentElement.classList.remove(
+        'theme-fade-transition',
+        'theme-wave-transition',
+      );
+    },
+    [],
+  );
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -34,11 +53,40 @@ export function useTheme() {
 
   const toggleTheme = useCallback(
     (origin: HTMLElement) => {
+      // Do not stack expensive snapshots when the toggle is tapped repeatedly.
+      if (switching.current) return;
       const nextTheme: Theme = theme === 'light' ? 'dark' : 'light';
       const reduceMotion = window.matchMedia?.(
         '(prefers-reduced-motion: reduce)',
       ).matches;
       const root = document.documentElement;
+      const applyTheme = () => flushSync(() => setTheme(nextTheme));
+      const compactOrTouch = window.matchMedia?.(
+        '(max-width: 850px), (pointer: coarse)',
+      ).matches;
+
+      if (reduceMotion) {
+        applyTheme();
+        return;
+      }
+
+      const fade = () => {
+        switching.current = true;
+        root.classList.add('theme-fade-transition');
+        applyTheme();
+        fadeTimer.current = window.setTimeout(() => {
+          root.classList.remove('theme-fade-transition');
+          switching.current = false;
+        }, 200);
+      };
+
+      // A single opacity layer avoids full-page snapshots and animated clipping
+      // on phones, as well as per-element colour/shadow repainting.
+      if (!document.startViewTransition || compactOrTouch) {
+        fade();
+        return;
+      }
+
       const rect = origin.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
@@ -51,23 +99,19 @@ export function useTheme() {
       root.style.setProperty('--theme-y', `${y}px`);
       root.style.setProperty('--theme-radius', `${radius}px`);
 
-      const applyTheme = () => flushSync(() => setTheme(nextTheme));
-
-      if (!document.startViewTransition || reduceMotion) {
-        root.classList.add('theme-fallback-transition');
-        applyTheme();
-        window.setTimeout(
-          () => root.classList.remove('theme-fallback-transition'),
-          420,
-        );
-        return;
-      }
-
+      switching.current = true;
       root.classList.add('theme-wave-transition');
-      const transition = document.startViewTransition(applyTheme);
-      transition.finished.finally(() =>
-        root.classList.remove('theme-wave-transition'),
-      );
+      const finish = () => {
+        root.classList.remove('theme-wave-transition');
+        switching.current = false;
+      };
+      try {
+        const transition = document.startViewTransition(applyTheme);
+        void transition.finished.then(finish, finish);
+      } catch {
+        finish();
+        fade();
+      }
     },
     [theme],
   );

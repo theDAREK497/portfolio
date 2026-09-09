@@ -17,6 +17,9 @@ describe('portfolio', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'Full-Stack & AI Integration Engineer',
     );
+    for (const image of document.querySelectorAll('img')) {
+      expect(image).toHaveAttribute('loading', 'lazy');
+    }
     const navigation = screen.getByRole('navigation', {
       name: 'Primary navigation',
     });

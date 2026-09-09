@@ -145,7 +145,7 @@ export function ProjectDetails({
           slides={lightboxSlides}
           plugins={[Captions, Fullscreen, Zoom]}
           labels={viewerLabels}
-          carousel={{ finite: true, imageFit: 'contain' }}
+          carousel={{ finite: true, imageFit: 'contain', preload: 1 }}
           controller={{ closeOnBackdropClick: true }}
           zoom={{ maxZoomPixelRatio: 3, scrollToZoom: true }}
           on={{ view: ({ index }) => setLightboxIndex(index) }}

@@ -172,6 +172,7 @@ export function renderPublicPage(
   // Resume is a genuinely static, printable document, not a second SPA shell.
   if (resume)
     html = html
+      .replace(/<!--app-boot-->[\s\S]*?<!--\/app-boot-->/g, '')
       .replace(/<script type="module"[^>]*>[\s\S]*?<\/script>/g, '')
       .replace(/<link rel="stylesheet"[^>]*>/g, '');
   return html;

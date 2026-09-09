@@ -46,4 +46,6 @@ I'm interested in remote or hybrid roles in full-stack development, integrations
 
 ---
 
-This repository contains my bilingual portfolio, built with React, TypeScript and Vite and deployed on GitHub Pages. For local setup, checks and deployment, see [CONTRIBUTING.md](CONTRIBUTING.md).
+This repository contains my bilingual portfolio, built with React, TypeScript and Vite and deployed on GitHub Pages.
+
+To run locally: `npm ci` and `npm run dev`. To check and build: `npm run check`.

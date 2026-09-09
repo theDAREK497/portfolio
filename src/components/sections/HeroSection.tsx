@@ -95,9 +95,8 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
                 alt={profile.localizedName[lang]}
                 width="640"
                 height="640"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
-                fetchPriority="high"
                 onError={() => setPortraitFailed(true)}
               />
             )}

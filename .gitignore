@@ -13,6 +13,14 @@ node_modules/
 /.vite/
 *.tsbuildinfo
 
+# Local assistant instructions and audit notes
+/.codex/
+/.agents/
+/AGENTS.md
+/AUDIT.md
+/CONTRIBUTING.md
+/src/content/verification.ts
+
 # Local environment and credentials (keep the public example)
 .env
 .env.*

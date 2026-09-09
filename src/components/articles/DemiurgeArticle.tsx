@@ -198,13 +198,11 @@ function ArticleImage({
   index,
   lang,
   className = '',
-  eager = false,
   onOpen,
 }: {
   index: number;
   lang: Lang;
   className?: string;
-  eager?: boolean;
   onOpen: (index: number) => void;
 }) {
   const image = articleImages[index];
@@ -226,8 +224,8 @@ function ArticleImage({
         width={dimensions.width}
         height={dimensions.height}
         alt={image.alt[lang]}
-        loading={eager ? 'eager' : 'lazy'}
-        fetchPriority={eager ? 'high' : 'auto'}
+        loading="lazy"
+        decoding="async"
       />
       <span className="article-image-expand" aria-hidden="true">
         <Maximize2 />
@@ -366,12 +364,7 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
           </div>
 
           <figure className="article-figure article-cover-figure">
-            <ArticleImage
-              index={0}
-              lang={lang}
-              eager
-              onOpen={setLightboxIndex}
-            />
+            <ArticleImage index={0} lang={lang} onOpen={setLightboxIndex} />
             <figcaption>{copy.coverCaption}</figcaption>
           </figure>
 
@@ -508,7 +501,7 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
         slides={slides}
         plugins={[Captions, Fullscreen, Zoom]}
         labels={viewerLabels(lang)}
-        carousel={{ finite: true, imageFit: 'contain' }}
+        carousel={{ finite: true, imageFit: 'contain', preload: 1 }}
         controller={{ closeOnBackdropClick: true }}
         zoom={{ maxZoomPixelRatio: 3, scrollToZoom: true }}
         on={{ view: ({ index }) => setLightboxIndex(index) }}

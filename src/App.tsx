@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import type { ProjectItem } from './content';
 import { profile, translations } from './content';
@@ -26,6 +26,9 @@ import {
 } from './lib/routes';
 
 export default function App() {
+  useLayoutEffect(() => {
+    window.dispatchEvent(new Event('portfolio:ready'));
+  }, []);
   const {
     lang,
     isTransitioning,

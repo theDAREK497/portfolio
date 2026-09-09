@@ -5,7 +5,6 @@ export { education } from './education';
 export { experience } from './experience';
 export { projects } from './projects';
 export { translations } from './translations';
-export { TODO_VERIFY } from './verification';
 export { writing } from './writing';
 export type {
   Lang,

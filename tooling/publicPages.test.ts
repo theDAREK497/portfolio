@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { articleContent, renderPublicPage } from './publicPages';
@@ -10,6 +10,25 @@ const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
 describe('public documents', () => {
+  it('reveals the HTML fallback if startup fails or takes too long', () => {
+    const doc = parse(renderPublicPage(template, 'index.html', base));
+    const boot = doc.querySelector('script[data-app-boot]')!.textContent!;
+    vi.useFakeTimers();
+    try {
+      window.eval(boot);
+      expect(document.documentElement).toHaveClass('app-loading');
+      window.dispatchEvent(new Event('portfolio:ready'));
+      expect(document.documentElement).not.toHaveClass('app-loading');
+      window.eval(boot);
+      window.dispatchEvent(new ErrorEvent('error'));
+      expect(document.documentElement).not.toHaveClass('app-loading');
+      window.eval(boot);
+      vi.advanceTimersByTime(8000);
+      expect(document.documentElement).not.toHaveClass('app-loading');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
   it('shares typography and links to the downloadable English resume', () => {
     const css = readFileSync('src/index.css', 'utf8');
     expect(css).toContain("@import './styles/typography.css'");
@@ -59,14 +78,18 @@ describe('public documents', () => {
         doc.querySelector('link[rel="canonical"]')!.getAttribute('href'),
       ).toBe(`${base}/${file === 'index.html' ? '' : file}`);
       for (const image of doc.querySelectorAll('img')) {
+        expect(image.getAttribute('loading')).toBe('lazy');
         expect(existsSync(resolve('public', image.getAttribute('src')!))).toBe(
           true,
         );
         expect(image.alt.length).toBeGreaterThan(5);
       }
       if (file.startsWith('resume')) {
+        expect(doc.querySelector('script[data-app-boot]')).toBeNull();
         expect(doc.querySelector('script[type="module"]')).toBeNull();
         expect(doc.querySelector('button')!.textContent).toMatch(/PDF/);
+      } else {
+        expect(doc.querySelectorAll('script[data-app-boot]')).toHaveLength(1);
       }
     });
   }

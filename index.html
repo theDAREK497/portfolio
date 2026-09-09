@@ -35,6 +35,42 @@
         }
       })();
     </script>
+    <!--app-boot-->
+    <style>
+      html {
+        background: #f5f2ea;
+      }
+      html[data-theme='dark'] {
+        background: #07111f;
+      }
+      .app-loading #root > .static-content,
+      .app-loading #root > .static-tools {
+        display: none;
+      }
+    </style>
+    <script data-app-boot>
+      (() => {
+        const root = document.documentElement;
+        const reveal = () => {
+          root.classList.remove('app-loading');
+          clearTimeout(timeout);
+          window.removeEventListener('portfolio:ready', reveal);
+          window.removeEventListener('error', onError, true);
+        };
+        const onError = (event) => {
+          if (
+            event.target instanceof HTMLScriptElement ||
+            event instanceof ErrorEvent
+          )
+            reveal();
+        };
+        root.classList.add('app-loading');
+        const timeout = setTimeout(reveal, 8000);
+        window.addEventListener('portfolio:ready', reveal, { once: true });
+        window.addEventListener('error', onError, true);
+      })();
+    </script>
+    <!--/app-boot-->
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="manifest" href="./site.webmanifest" />
     <meta property="og:type" content="website" />
