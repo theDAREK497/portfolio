@@ -44,13 +44,13 @@ export const experience: ExperienceItem[] = [
     },
     points: {
       en: [
-        'Improved commercial website performance through legacy refactoring, Bitrix Composite Site, API and JavaScript optimisation, caching and lazy loading.',
+        'Measured page-loading performance to guide optimisation: refactored legacy code, implemented Bitrix Composite Site, optimised APIs and JavaScript, and added caching and lazy loading.',
         'Introduced Docker and Docker Compose to make development environments and deployments more reproducible.',
         'Mentored two junior developers, reviewed code, broke down requirements and assigned tasks within Scrum and Kanban workflows.',
         'Developed PHP, JavaScript and MySQL e-commerce solutions; investigated bottlenecks and production defects across backend, frontend and database layers.',
       ],
       ru: [
-        'Ускорял коммерческий сайт: переработал устаревший код, внедрил «Композитный сайт» Битрикс, оптимизировал API и JavaScript, добавил кеширование и отложенную загрузку.',
+        'Измерял скорость загрузки сайта и использовал результаты для оптимизации: переработал устаревший код, внедрил «Композитный сайт» Битрикс, оптимизировал API и JavaScript, добавил кеширование и отложенную загрузку.',
         'Внедрил Docker и Docker Compose, чтобы окружения разработки и развёртывание были более воспроизводимыми.',
         'Был наставником двух начинающих разработчиков: проводил ревью кода, декомпозировал требования и распределял задачи в процессах Scrum и Kanban.',
         'Разрабатывал интернет-магазины на PHP, JavaScript и MySQL; устранял узкие места и ошибки на уровне сервера, интерфейса и базы данных.',

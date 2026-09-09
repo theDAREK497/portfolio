@@ -1292,6 +1292,11 @@ main {
   width: min(720px, calc(100% - 44px));
   margin: 0 auto;
 }
+@media (min-width: 851px) {
+  .article-copy {
+    width: min(1400px, calc(100% - 44px));
+  }
+}
 .article-opening {
   padding-top: clamp(30px, 5vw, 75px);
 }
