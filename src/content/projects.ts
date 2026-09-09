@@ -278,12 +278,12 @@ export const projects: ProjectItem[] = [
       en: [
         'Publicly launched across web, Telegram and Android.',
         '804 store page views, 11 installs and 1 paid monthly subscription from 01 June 2026 to 13 July 2026.',
-        'The measured period had no active advertising campaign. No installation conversion is claimed.',
+        'These early results were recorded without an active advertising campaign.',
       ],
       ru: [
         'Публично запущен в вебе, Telegram и Android.',
         '804 просмотра страницы магазина, 11 установок и 1 платная месячная подписка за период с 1 июня по 13 июля 2026 года.',
-        'В измеряемый период активная рекламная кампания не проводилась. Конверсия установок не заявляется.',
+        'Эти первые результаты получены без активной рекламной кампании.',
       ],
     },
     tech: ['React', 'TypeScript', 'Node.js', 'YooKassa', 'Telegram', 'Android'],

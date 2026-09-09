@@ -10,6 +10,29 @@ const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
 describe('public documents', () => {
+  it('includes the owner-confirmed experience and metrics in both languages', () => {
+    for (const lang of ['en', 'ru']) {
+      const doc = parse(
+        renderPublicPage(template, `resume-${lang}.html`, base),
+      );
+      const text = doc.body.textContent!;
+      expect(text).toContain('30%');
+      expect(text).toContain(lang === 'en' ? '17.5' : '17,5');
+      expect(text).toContain(
+        lang === 'en'
+          ? 'two junior developers'
+          : 'двух начинающих разработчиков',
+      );
+      expect(text).toContain('Onpeak Digital');
+      expect(text).toContain('Zabbix');
+      expect(text).toContain(
+        lang === 'en' ? 'part-time' : 'частичной занятости',
+      );
+      expect(text).not.toContain('95%');
+      expect(text).not.toContain('300 ms');
+      expect(text).not.toContain('Security Engineer');
+    }
+  });
   it('reveals the HTML fallback if startup fails or takes too long', () => {
     const doc = parse(renderPublicPage(template, 'index.html', base));
     const boot = doc.querySelector('script[data-app-boot]')!.textContent!;

@@ -29,13 +29,13 @@ export const about = {
   },
   paragraphs: {
     en: [
-      'I started in manual testing and frontend development, then moved into full-stack work with PHP, JavaScript, CMS platforms and databases. Today, I build corporate services and connect them to other business systems.',
+      'I started by combining QA with PHP, SQL and web integrations in IP telephony. I then moved into e-commerce and corporate services. Today, I take business requirements through implementation, integration and production support.',
       'My own projects give me room to work through the whole product: what it should do, how the parts fit together, how payments work and what happens after launch.',
       'I am now focusing on Python, FastAPI, API integrations and practical uses of language models. I want AI features to fit into a clear workflow, with control over the data and the result.',
       'I enjoy the point where an idea becomes concrete: asking questions, choosing a manageable first version, building it and learning from how people actually use it.',
     ],
     ru: [
-      'Я начинал с ручного тестирования и фронтенда, затем перешёл к full-stack разработке на PHP и JavaScript, работе с CMS и базами данных. Сейчас создаю корпоративные сервисы и связываю их с другими бизнес-системами.',
+      'Я начинал с сочетания QA, PHP, SQL и веб-интеграций в IP-телефонии. Затем работал с интернет-магазинами и корпоративными сервисами. Сейчас довожу бизнес-требования до реализации, интеграции и сопровождения в эксплуатации.',
       'Собственные проекты позволяют пройти весь путь: понять, зачем нужен продукт, продумать его устройство, подключить оплату и разобраться, что происходит после запуска.',
       'Сейчас углубляюсь в Python, FastAPI, API-интеграции и практическое применение языковых моделей. Мне важно, чтобы ИИ был частью понятного процесса, в котором можно контролировать данные и результат.',
       'Больше всего мне нравится момент, когда идея становится конкретной: задать вопросы, выбрать посильную первую версию, собрать её и понять, как люди пользуются результатом.',

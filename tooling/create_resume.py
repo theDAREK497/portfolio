@@ -55,25 +55,27 @@ story = [p(header.h1.get_text(), 'Name'), p(intro[0].get_text(), 'Role')]
 links = [f'<link href="{escape(a["href"], quote=True)}" color="#3157ff">{escape(a.get_text())}</link>' for a in header.select('nav a') if a.get_text() != 'Telegram']
 links.append('<link href="https://thedarek497.github.io/portfolio/" color="#3157ff">Portfolio</link>')
 story += [Paragraph('  |  '.join(links), styles['Meta']), p('Russia | Open to remote or hybrid roles | English B1 | Russian native', 'Meta')]
-story += section('Profile') + [p(intro[2].get_text())]
-story += section('Technical skills')
-for heading in doc.select('#capabilities h3'):
-    story.append(Paragraph(f'<b>{escape(heading.get_text())}:</b> {escape(clean(heading.find_next_sibling("p").get_text()))}', styles['BodyCopy']))
+story += section('Profile') + [p(intro[2].get_text()), p('Commercial focus: PHP, JavaScript, SQL and business-system integration. Target roles: Integration Engineer, Technical Implementation Engineer, Full-Stack Product Engineer and AI Solutions Engineer.')]
 story += section('Professional experience')
 for job in doc.select('#experience > article'):
     paragraphs = job.find_all('p', recursive=False)
     story.append(KeepTogether([p(job.h3.get_text(), 'Job'), p(paragraphs[0].get_text(), 'Meta')]))
+    if 'ITooLabs' in job.h3.get_text():
+        story.append(p('Part-time | IP telephony and cloud communications', 'Meta'))
     story += bullets(job)
     story.append(Spacer(1, 5))
 
 story += [PageBreak(), p('Selected projects & education', 'Role')]
 for project in doc.select('#projects > article'):
     paragraphs = project.find_all('p', recursive=False)
-    story += [Spacer(1, 10), p(project.h3.get_text(), 'Job'), p(paragraphs[0].get_text(), 'Meta'), p(paragraphs[1].get_text())]
+    story += [Spacer(1, 8), p(project.h3.get_text(), 'Job'), p(paragraphs[1].get_text())]
     story += bullets(project)
     story.append(p(paragraphs[2].get_text(), 'Meta'))
     project_links = [f'<link href="{escape(a["href"], quote=True)}" color="#3157ff">{escape(a["href"])}</link>' for a in paragraphs[-1].find_all('a')]
     story.append(Paragraph(' | '.join(project_links), styles['Meta']))
+story += section('Technical skills')
+for heading in doc.select('#capabilities h3'):
+    story.append(Paragraph(f'<b>{escape(heading.get_text())}:</b> {escape(clean(heading.find_next_sibling("p").get_text()))}', styles['BodyCopy']))
 story += section('Education')
 for degree in doc.select('#education > article'):
     story.append(KeepTogether([p(degree.h3.get_text(), 'Job')] + [p(item.get_text(), 'Meta') for item in degree.find_all('p', recursive=False)]))
@@ -94,7 +96,7 @@ SimpleDocTemplate(str(OUTPUT), pagesize=A4, rightMargin=42, leftMargin=42, topMa
 reader = PdfReader(OUTPUT)
 text = '\n'.join(page.extract_text() for page in reader.pages)
 assert len(reader.pages) == 2, f'Expected 2 pages, got {len(reader.pages)}'
-assert 'English B1' in text and '804' in text and 'Gazprom' in text
+assert all(value in text for value in ['English B1', '804', 'Gazprom', '30%', '17.5', 'two junior', 'Zabbix', 'QA & Web Developer'])
 assert '\u25a0' not in text
 shutil.copy2(OUTPUT, PUBLIC)
 print(f'{OUTPUT}\nPages: {len(reader.pages)}; extracted characters: {len(text)}')

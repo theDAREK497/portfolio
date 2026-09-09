@@ -4,7 +4,9 @@
 
 I build web products, connect business systems and turn AI ideas into working tools.
 
-About 6 years in commercial development and QA, from testing VoIP interfaces to building corporate services and API integrations. Alongside my day job, I take my own products from prototype to launch, including payments, data workflows and LLM features.
+About 6 years in commercial development and QA, from PHP and telephony integrations to e-commerce and corporate services. Alongside my day job, I take my own products from prototype to launch, including payments, data workflows and LLM features.
+
+Recent results: **approximately 30% better service response times** through API and SQL optimisation, and **approximately 17.5 employee-hours saved every week** with a meeting-room booking service I built from scratch at Gazprom Inform.
 
 [Explore my portfolio](https://thedarek497.github.io/portfolio/) · [English resume (PDF)](public/resume/Ilya-Gurikov-Resume-EN.pdf) · [Email me](mailto:ilion9871@gmail.com) · [LinkedIn](https://linkedin.com/in/thedarek497)
 
@@ -29,12 +31,12 @@ About 6 years in commercial development and QA, from testing VoIP interfaces to 
 
 ## Experience
 
-- **Gazprom Inform · Full-Stack Developer · Aug 2023–Present**
-  Corporate services, Python/FastAPI log analysis, database optimisation and SOAP integrations.
-- **OnPeak · Full-Stack Developer · Mar 2021–Sep 2022**
-  E-commerce, order synchronisation, Docker and GitLab CI/CD.
-- **ITooLabs · Manual QA & Frontend Developer · Sep 2018–Mar 2020**
-  Testing and frontend work for a VoIP and cloud-communications product.
+- **Gazprom Inform · Full-Stack Web Developer · Aug 2023–Present**
+  Internal web services, SOAP data transformation, API/SQL optimisation and operational analysis with Python, Pandas and NumPy.
+- **Onpeak Digital · Full-Stack Web Developer · Mar 2021–Sep 2022**
+  E-commerce performance, Docker/Compose adoption and mentoring two junior developers through code reviews and task decomposition.
+- **ITooLabs · QA & Web Developer · Sep 2018–Mar 2020 · Part-time**
+  PHP/SQL backend development, CRM and telephony integrations, Zabbix monitoring and QA.
 
 BSc and MSc from Tula State University. Russian native; **English B1**.
 

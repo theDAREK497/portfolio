@@ -114,12 +114,12 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
           <span>{t.hero.experienceLabel}</span>
         </div>
         <div>
-          <strong>{t.hero.platforms}</strong>
-          <span>{t.hero.platformsLabel}</span>
+          <strong>{t.hero.responseImprovement}</strong>
+          <span>{t.hero.responseImprovementLabel}</span>
         </div>
         <div className="metric-wide">
-          <strong>{t.hero.focus}</strong>
-          <span>{t.hero.focusLabel}</span>
+          <strong>{t.hero.timeSaved}</strong>
+          <span>{t.hero.timeSavedLabel}</span>
         </div>
       </div>
     </section>

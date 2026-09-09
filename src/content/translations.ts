@@ -21,10 +21,11 @@ export const translations = {
       currentDirection: 'Current direction',
       experience: '≈ 6 years',
       experienceLabel: 'commercial experience',
-      platforms: 'web · Telegram · Android',
-      platformsLabel: 'platforms I have shipped on',
-      focus: 'APIs · automation · AI products',
-      focusLabel: 'current focus',
+      responseImprovement: '≈30%',
+      responseImprovementLabel:
+        'API response-time improvement · Gazprom Inform',
+      timeSaved: '≈17.5 hours / week',
+      timeSavedLabel: 'employee time saved with meeting-room booking',
     },
     projects: {
       eyebrow: 'Featured projects',
@@ -119,10 +120,12 @@ export const translations = {
       currentDirection: 'Текущее направление',
       experience: '≈ 6 лет',
       experienceLabel: 'коммерческого опыта',
-      platforms: 'веб · Telegram · Android',
-      platformsLabel: 'платформы моих продуктов',
-      focus: 'API · автоматизация · AI-продукты',
-      focusLabel: 'текущий фокус',
+      responseImprovement: '≈30%',
+      responseImprovementLabel:
+        'улучшение времени отклика API · Газпром информ',
+      timeSaved: '≈17,5 часа / неделю',
+      timeSavedLabel:
+        'экономия времени сотрудников на бронировании переговорных',
     },
     projects: {
       eyebrow: 'Избранные проекты',

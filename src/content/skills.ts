@@ -49,11 +49,19 @@ export const capabilityGroups = [
   },
   {
     title: { en: 'Data & Storage', ru: 'Данные и хранение' },
-    items: ['SQL', 'PostgreSQL', 'MySQL', 'SQLite', 'FAISS'],
+    items: ['SQL', 'PostgreSQL', 'MySQL', 'SQLite', 'FAISS', 'Pandas', 'NumPy'],
   },
   {
     title: { en: 'Delivery & Quality', ru: 'Выпуск и качество' },
-    items: ['Git', 'Docker', 'GitLab CI/CD', 'Debugging', 'Manual testing'],
+    items: [
+      'Git',
+      'Docker',
+      'Docker Compose',
+      'GitLab CI/CD',
+      'Zabbix',
+      'Debugging',
+      'Manual testing',
+    ],
   },
 ] as const;
 
