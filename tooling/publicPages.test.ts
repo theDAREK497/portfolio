@@ -24,6 +24,9 @@ describe('public documents', () => {
           : 'двух начинающих разработчиков',
       );
       expect(text).toContain('Onpeak Digital');
+      expect(text).toContain('Chrome DevTools');
+      expect(text).toContain('Lighthouse');
+      expect(text).toContain('PageSpeed Insights');
       expect(text).toContain('Zabbix');
       expect(text).toContain(
         lang === 'en' ? 'part-time' : 'частичной занятости',
