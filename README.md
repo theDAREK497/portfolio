@@ -1,53 +1,70 @@
-# Ilya Gurikov
+# Ilya Gurikov — Portfolio
 
-### Full-Stack & AI Integration Engineer
+Source code for my bilingual developer portfolio.
 
-I build web products, connect business systems and turn AI ideas into working tools.
+**Live site:** https://thedarek497.github.io/portfolio/
 
-About 6 years in commercial development and QA, from PHP and telephony integrations to e-commerce and corporate services. Alongside my day job, I take my own products from prototype to launch, including payments, data workflows and LLM features.
+I use this site as a compact engineering portfolio rather than a gallery of technologies: it focuses on problems solved, architecture decisions, measurable outcomes and independently shipped products.
 
-Recent results: **approximately 30% better service response times** through API and SQL optimisation, and **approximately 17.5 employee-hours saved every week** with a meeting-room booking service I built from scratch at Gazprom Inform.
+## Positioning
 
-[Explore my portfolio](https://thedarek497.github.io/portfolio/) · [English resume (PDF)](public/resume/Ilya-Gurikov-Resume-EN.pdf) · [Email me](mailto:ilion9871@gmail.com) · [LinkedIn](https://linkedin.com/in/thedarek497)
+**Full-Stack & AI Integration Engineer**
 
-## What I bring to a team
+My work spans:
 
-- **Integration work:** REST and SOAP APIs, webhooks, order synchronisation, retry and failure handling.
-- **Full-stack delivery:** Python, FastAPI, PHP, JavaScript, TypeScript, React and SQL.
-- **Practical AI applications:** local LLMs, retrieval, structured outputs and human review before generated data is saved.
-- **A QA background:** investigating failures, making systems easier to maintain and thinking beyond the happy path.
+- backend and internal web services;
+- REST/SOAP integrations and data workflows;
+- SQL and API performance work;
+- React/TypeScript frontends;
+- practical AI systems using retrieval, structured outputs and local LLMs;
+- independent products taken from prototype to launch.
 
-## Selected work
+## Featured work
 
-**Demiurge Assistant** — a local-first assistant for a changing fictional world. Instead of treating every generated answer as fact, it proposes entities and relationships for a human to review. An active experiment, not a broadly validated product.
+### Demiurge Assistant
 
-[Read the story behind the project](https://thedarek497.github.io/portfolio/demiurge-ai-chat.html)
+A local-first knowledge system for fictional worlds and tabletop campaigns. It combines persistent entities and relationships with LLM-assisted extraction, retrieval and a human review step before generated information is saved.
 
-**AstroCode** — an independently launched product across web, Telegram and Android, with payments and subscriptions. Early results: **804 store views, 11 installs and one paid monthly subscription** from June 1 to July 13, 2026, without an advertising campaign.
+[Project case study](https://thedarek497.github.io/portfolio/demiurge-ai-chat.html)
 
-**Archive Assistant Bot** — a Telegram prototype that searches a local document archive and answers with references to its sources, using FAISS and a locally served language model.
+### AstroCode
 
-[See screenshots, implementation details and project links](https://thedarek497.github.io/portfolio/#projects)
+An independently launched product across web, Telegram and Android with subscriptions, payments and generated personalised content.
 
-## Experience
+### Archive Assistant
 
-- **Gazprom Inform · Full-Stack Web Developer · Aug 2023–Present**
-  Internal web services, SOAP data transformation, API/SQL optimisation and operational analysis with Python, Pandas and NumPy.
-- **Onpeak Digital · Full-Stack Web Developer · Mar 2021–Sep 2022**
-  E-commerce performance, Docker/Compose adoption and mentoring two junior developers through code reviews and task decomposition.
-- **ITooLabs · QA & Web Developer · Sep 2018–Mar 2020 · Part-time**
-  PHP/SQL backend development, CRM and telephony integrations, Zabbix monitoring and QA.
+A RAG Telegram prototype that searches a document archive and generates answers with references to retrieved sources using FAISS and a locally served language model.
 
-BSc and MSc from Tula State University. Russian native; **English B1**.
+[See projects and implementation details](https://thedarek497.github.io/portfolio/#projects)
 
-## Let's build something useful
+## Tech stack
 
-I'm interested in remote or hybrid roles in full-stack development, integrations and applied AI.
+- **Frontend:** React, TypeScript, Vite
+- **Content:** bilingual RU/EN portfolio content
+- **Deployment:** GitHub Pages
+- **Quality:** repository checks and build validation
 
-**Contact:** [ilion9871@gmail.com](mailto:ilion9871@gmail.com)
+## Local development
 
----
+```bash
+git clone https://github.com/theDAREK497/portfolio.git
+cd portfolio
+npm ci
+npm run dev
+```
 
-This repository contains my bilingual portfolio, built with React, TypeScript and Vite and deployed on GitHub Pages.
+Run project checks and a production build with:
 
-To run locally: `npm ci` and `npm run dev`. To check and build: `npm run check`.
+```bash
+npm run check
+```
+
+## Links
+
+- 🌐 [Portfolio](https://thedarek497.github.io/portfolio/)
+- 💼 [LinkedIn](https://linkedin.com/in/thedarek497)
+- 🧠 [Demiurge Assistant](https://github.com/theDAREK497/demiurge-assistant)
+
+## About this repository
+
+This repository is intentionally presentation-oriented. For deeper implementation examples, see the linked project repositories above.
