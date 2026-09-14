@@ -1,5 +1,7 @@
 # Ilya Gurikov — Portfolio
 
+[![Deploy to GitHub Pages](https://github.com/theDAREK497/portfolio/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/theDAREK497/portfolio/actions/workflows/deploy.yml)
+
 Source code for my bilingual developer portfolio.
 
 **Live site:** https://thedarek497.github.io/portfolio/
