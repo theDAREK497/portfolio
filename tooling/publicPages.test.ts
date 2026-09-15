@@ -16,7 +16,7 @@ describe('public documents', () => {
         renderPublicPage(template, `resume-${lang}.html`, base),
       );
       const text = doc.body.textContent!;
-      expect(text).toContain('30%');
+      expect(text).toContain(lang === 'en' ? '3,000+' : '3000+');
       expect(text).toContain(lang === 'en' ? '17.5' : '17,5');
       expect(text).toContain(
         lang === 'en'

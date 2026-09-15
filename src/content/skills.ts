@@ -17,10 +17,11 @@ export const capabilityGroups = [
       'JavaScript',
       'TypeScript',
       'React',
+      'Vue',
+      'jQuery',
       'HTML',
       'CSS',
       '1C-Bitrix',
-      'WordPress',
     ],
   },
   {
@@ -29,6 +30,7 @@ export const capabilityGroups = [
       ru: 'Интеграции и автоматизация',
     },
     items: [
+      'System integration',
       'Webhooks',
       'JWT',
       'YooKassa',
@@ -42,22 +44,34 @@ export const capabilityGroups = [
     items: [
       'OpenAI-compatible APIs',
       'Local LLMs',
-      'RAG fundamentals',
+      'RAG',
+      'Semantic retrieval',
       'Structured LLM outputs',
       'Human-in-the-loop',
     ],
   },
   {
     title: { en: 'Data & Storage', ru: 'Данные и хранение' },
-    items: ['SQL', 'PostgreSQL', 'MySQL', 'SQLite', 'FAISS', 'Pandas', 'NumPy'],
+    items: [
+      'SQL',
+      'PostgreSQL',
+      'MySQL',
+      'SQLite',
+      'pgvector',
+      'FAISS',
+      'Pandas',
+      'NumPy',
+    ],
   },
   {
     title: { en: 'Delivery & Quality', ru: 'Выпуск и качество' },
     items: [
       'Git',
+      'GitLab CI/CD',
+      'GitHub Actions',
       'Docker',
       'Docker Compose',
-      'GitLab CI/CD',
+      'Linux',
       'Zabbix',
       'Debugging',
       'Manual testing',
@@ -66,11 +80,13 @@ export const capabilityGroups = [
 ] as const;
 
 const russianSkillLabels: Record<string, string> = {
+  'System integration': 'Системные интеграции',
   'External services': 'Внешние сервисы',
   'Requirements analysis': 'Анализ требований',
   'OpenAI-compatible APIs': 'OpenAI-совместимые API',
   'Local LLMs': 'Локальные языковые модели',
-  'RAG fundamentals': 'Основы RAG',
+  RAG: 'RAG',
+  'Semantic retrieval': 'Семантический поиск',
   'Structured LLM outputs': 'Структурированные ответы LLM',
   'Human-in-the-loop': 'Проверка результатов человеком',
   Debugging: 'Отладка',
