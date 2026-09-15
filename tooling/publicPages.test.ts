@@ -138,4 +138,36 @@ describe('public documents', () => {
       expect(text).not.toContain(copy.nextTitle);
     }
   });
+
+  it('uses the updated English Demiurge screenshots without changing the Russian set', () => {
+    const englishImages = Array.from(
+      parse(articleContent('en')).querySelectorAll('img'),
+      (image) => image.getAttribute('src'),
+    );
+    for (const file of [
+      'demiurge-encyclopedia.png',
+      'demiurge-human-review.png',
+      'demiurge-world-audit.png',
+      'demiurge-relationship-graph.png',
+      'demiurge-ai-coauthor.png',
+    ]) {
+      expect(englishImages).toContain(
+        `./images/articles/demiurge-ai-chat/${file}`,
+      );
+    }
+    expect(englishImages).not.toContain(
+      './images/articles/demiurge-ai-chat/entity-a17.png',
+    );
+
+    const russianImages = Array.from(
+      parse(articleContent('ru')).querySelectorAll('img'),
+      (image) => image.getAttribute('src'),
+    );
+    expect(russianImages).toContain(
+      './images/articles/demiurge-ai-chat/entity-a17.png',
+    );
+    expect(russianImages).not.toContain(
+      './images/articles/demiurge-ai-chat/demiurge-human-review.png',
+    );
+  });
 });

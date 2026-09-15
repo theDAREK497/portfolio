@@ -1439,6 +1439,11 @@ main {
 .article-world-collage .is-graph img {
   object-position: center top;
 }
+.article-page article[lang='en'] .article-world-collage img,
+.article-page article[lang='en'] .article-product-strip img,
+.article-page article[lang='en'] .article-review-collage img {
+  object-fit: contain;
+}
 .article-product-strip {
   width: min(1400px, calc(100% - 44px));
   display: grid;
@@ -1520,6 +1525,16 @@ main {
 }
 .article-review-collage > :last-child img {
   object-position: center top;
+}
+.article-page article[lang='en'] .article-review-collage {
+  grid-template-columns: 1fr;
+}
+.article-page article[lang='en'] .article-review-collage > :first-child {
+  min-height: 0;
+  aspect-ratio: 2211 / 1179;
+}
+.article-page article[lang='en'] .article-review-collage > :last-child {
+  aspect-ratio: 1517 / 643;
 }
 .article-conclusion {
   padding-bottom: 40px;
