@@ -236,6 +236,35 @@ describe('portfolio', () => {
       'src',
       './images/articles/demiurge-ai-chat/rag-llm-wiki-demiurge-en.png',
     );
+    const englishArticleSources = Array.from(
+      document.querySelectorAll<HTMLImageElement>('.article-page img'),
+      (image) => image.getAttribute('src'),
+    );
+    for (const file of [
+      'demiurge-encyclopedia.png',
+      'demiurge-human-review.png',
+      'demiurge-world-audit.png',
+      'demiurge-relationship-graph.png',
+      'demiurge-ai-coauthor.png',
+    ]) {
+      expect(englishArticleSources).toContain(
+        `./images/articles/demiurge-ai-chat/${file}`,
+      );
+    }
+    for (const file of [
+      'encyclopedia.png',
+      'entity-a17.png',
+      'ai-connection.png',
+      'knowledge-sources.png',
+      'ai-coauthor.png',
+      'world-review.png',
+      'merge-suggestions.png',
+      'relationship-graph.png',
+    ]) {
+      expect(englishArticleSources).not.toContain(
+        `./images/articles/demiurge-ai-chat/${file}`,
+      );
+    }
 
     await user.click(
       screen.getByRole('button', {
@@ -273,6 +302,16 @@ describe('portfolio', () => {
         name: /Визуальный образ мира Эон с персонажами/,
       }),
     ).toHaveAttribute('src', './images/articles/demiurge-ai-chat/cover.png');
+    const russianArticleSources = Array.from(
+      document.querySelectorAll<HTMLImageElement>('.article-page img'),
+      (image) => image.getAttribute('src'),
+    );
+    expect(russianArticleSources).toContain(
+      './images/articles/demiurge-ai-chat/entity-a17.png',
+    );
+    expect(russianArticleSources).not.toContain(
+      './images/articles/demiurge-ai-chat/demiurge-human-review.png',
+    );
     await user.click(
       screen.getByRole('link', { name: 'Почему одного RAG тоже недостаточно' }),
     );

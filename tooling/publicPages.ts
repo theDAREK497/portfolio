@@ -72,13 +72,13 @@ export function articleContent(lang: Lang) {
           .join('');
         const figures =
           key === 'world'
-            ? `<h3>${escape(copy.worldFigureTitle)}</h3>${figure('encyclopedia.png', copy.worldFigureCaption)}${figure('entity-a17.png', copy.worldFigureTitle)}${figure('relationship-graph.png', copy.worldFigureTitle)}`
+            ? `<h3>${escape(copy.worldFigureTitle)}</h3>${figure(lang === 'en' ? 'demiurge-encyclopedia.png' : 'encyclopedia.png', copy.worldFigureCaption)}${figure(lang === 'en' ? 'demiurge-human-review.png' : 'entity-a17.png', copy.worldFigureTitle)}${figure(lang === 'en' ? 'demiurge-relationship-graph.png' : 'relationship-graph.png', copy.worldFigureTitle)}`
             : key === 'chat'
-              ? `<h3>${escape(copy.processFigureTitle)}</h3>${paragraph(`${copy.processChat}: ${copy.processChatNodes.join(' → ')}`)}${paragraph(`${copy.processDemiurge}: ${copy.processDemiurgeNodes.join(' → ')}`)}${paragraph(copy.processFigureCaption)}`
+              ? `<h3>${escape(copy.processFigureTitle)}</h3>${lang === 'en' ? `${figure('demiurge-ai-coauthor.png', 'AI co-author workflow with draft-first content generation')}${figure('demiurge-human-review.png', 'Human-in-the-loop review before AI-generated changes become canonical knowledge')}${figure('demiurge-world-audit.png', 'AI-assisted world audit for contradictions, duplicates and missing links')}` : ''}${paragraph(`${copy.processChat}: ${copy.processChatNodes.join(' → ')}`)}${paragraph(`${copy.processDemiurge}: ${copy.processDemiurgeNodes.join(' → ')}`)}${paragraph(copy.processFigureCaption)}`
               : key === 'rag'
                 ? `<h3>${escape(copy.ragFigureTitle)}</h3>${figure(lang === 'en' ? 'rag-llm-wiki-demiurge-en.png' : 'rag-llm-wiki-demiurge.png', copy.ragFigureCaption)}`
                 : key === 'hypothesis'
-                  ? `<h3>${escape(copy.reviewFigureTitle)}</h3>${figure('world-review.png', copy.reviewFigureCaption)}`
+                  ? `<h3>${escape(copy.reviewFigureTitle)}</h3>${lang === 'en' ? `${figure('demiurge-human-review.png', copy.reviewFigureCaption)}${figure('demiurge-world-audit.png', 'AI-assisted world audit for contradictions, duplicates and missing links')}` : figure('world-review.png', copy.reviewFigureCaption)}`
                   : '';
         return `<section id="${key}"><h2>${escape(section.title)}</h2>${blocks}${figures}</section>`;
       })
