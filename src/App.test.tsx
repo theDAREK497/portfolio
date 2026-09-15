@@ -115,6 +115,21 @@ describe('portfolio', () => {
       name: /Open full-size screenshot/,
     });
     expect(screenshotButtons).toHaveLength(5);
+    expect(
+      screenshotButtons.map((button) =>
+        button.querySelector('img')?.getAttribute('src')?.split('/').pop(),
+      ),
+    ).toEqual([
+      'demiurge-encyclopedia.png',
+      'demiurge-human-review.png',
+      'demiurge-world-audit.png',
+      'demiurge-relationship-graph.png',
+      'demiurge-ai-coauthor.png',
+    ]);
+    expect(within(card).getByRole('img')).toHaveAttribute(
+      'src',
+      './images/articles/demiurge-ai-chat/demiurge-encyclopedia.png',
+    );
 
     await user.click(screenshotButtons[0]);
     expect(
