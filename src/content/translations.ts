@@ -21,9 +21,9 @@ export const translations = {
       currentDirection: 'Current direction',
       experience: '≈ 6 years',
       experienceLabel: 'commercial experience',
-      responseImprovement: '≈30%',
+      responseImprovement: '3,000+',
       responseImprovementLabel:
-        'API response-time improvement · Gazprom Inform',
+        'employees covered by the internal booking service',
       timeSaved: '≈17.5 hours / week',
       timeSavedLabel: 'employee time saved with meeting-room booking',
     },
@@ -31,7 +31,7 @@ export const translations = {
       eyebrow: 'Featured projects',
       title: 'See what I have built.',
       intro:
-        'Independent projects: a launched subscription app and hands-on AI experiments. Each case covers my work, the decisions and the results.',
+        'Independent projects that complement my commercial work: a launched subscription product and practical AI systems with RAG, local models and human review.',
       caseStudy: 'Read case study',
       liveLink: 'Visit product',
       github: 'View repository',
@@ -61,7 +61,7 @@ export const translations = {
       eyebrow: 'Capabilities',
       title: 'The tools behind the work.',
       intro:
-        'My commercial foundation is PHP, JavaScript, SQL and business integrations. My own products extend that experience with Python, React and LLMs.',
+        'My commercial foundation is full-stack development, enterprise integrations and production support. My independent products extend that experience with Python, React, RAG and local LLMs.',
     },
     experience: {
       eyebrow: 'Experience',
@@ -82,8 +82,8 @@ export const translations = {
     },
     contact: {
       eyebrow: 'Contact',
-      title: 'Let’s create together!',
-      text: 'Looking for someone to build a web product, connect services or integrate AI into a workflow? Tell me about your team and the problem you are working on.',
+      title: 'Let’s build something useful.',
+      text: 'Looking for a full-stack engineer to connect business systems, automate workflows or add practical AI capabilities? Tell me about your team and the problem you are working on.',
       open: 'Contact me',
       dialogTitle: 'Contact Ilya Gurikov',
       dialogDescription:
@@ -92,7 +92,7 @@ export const translations = {
       copy: 'Copy email',
       copied: 'Email copied',
       copyFailed: 'Could not copy automatically',
-      location: 'Based in Russia · Open to international collaboration',
+      location: 'Open to remote international opportunities',
       backToTop: 'Back to top',
       close: 'Close contact dialog',
     },
@@ -120,9 +120,9 @@ export const translations = {
       currentDirection: 'Текущее направление',
       experience: '≈ 6 лет',
       experienceLabel: 'коммерческого опыта',
-      responseImprovement: '≈30%',
+      responseImprovement: '3 000+',
       responseImprovementLabel:
-        'улучшение времени отклика API · Газпром информ',
+        'сотрудников охватывает внутренний сервис бронирования',
       timeSaved: '≈17,5 часа / неделю',
       timeSavedLabel:
         'экономия времени сотрудников на бронировании переговорных',
@@ -131,7 +131,7 @@ export const translations = {
       eyebrow: 'Избранные проекты',
       title: 'Лучше показать на проектах.',
       intro:
-        'Мои самостоятельные проекты: запущенное приложение с подпиской и эксперименты с ИИ. В каждом кейсе — мой вклад, принятые решения и результат.',
+        'Самостоятельные проекты, дополняющие коммерческий опыт: запущенный продукт с подпиской и практические AI-системы с RAG, локальными моделями и проверкой человеком.',
       caseStudy: 'Открыть кейс',
       liveLink: 'Открыть продукт',
       github: 'Открыть репозиторий',
@@ -161,7 +161,7 @@ export const translations = {
       eyebrow: 'Компетенции',
       title: 'Инструменты, с которыми я работаю.',
       intro:
-        'В коммерческой работе — PHP, JavaScript, SQL и бизнес-интеграции. В собственных продуктах развиваю этот опыт с Python, React и языковыми моделями.',
+        'Моя коммерческая база — full-stack разработка, корпоративные интеграции и сопровождение production-систем. Собственные продукты расширяют этот опыт в Python, React, RAG и локальных LLM.',
     },
     experience: {
       eyebrow: 'Опыт',
@@ -182,8 +182,8 @@ export const translations = {
     },
     contact: {
       eyebrow: 'Контакты',
-      title: 'Давайте создавать вместе!',
-      text: 'Ищете разработчика для веб-продукта, интеграции сервисов или внедрения ИИ в рабочий процесс? Напишите, чем занимается ваша команда и какую задачу хотите решить.',
+      title: 'Давайте сделаем что-то полезное.',
+      text: 'Ищете full-stack инженера для интеграции бизнес-систем, автоматизации процессов или практического применения ИИ? Расскажите о команде и задаче.',
       open: 'Связаться',
       dialogTitle: 'Связаться с Ильёй Гуриковым',
       dialogDescription:
@@ -192,7 +192,7 @@ export const translations = {
       copy: 'Скопировать email',
       copied: 'Email скопирован',
       copyFailed: 'Не удалось скопировать автоматически',
-      location: 'Нахожусь в России · Открыт к международному сотрудничеству',
+      location: 'Рассматриваю международную удалённую работу',
       backToTop: 'Вернуться в начало',
       close: 'Закрыть окно контактов',
     },

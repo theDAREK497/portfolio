@@ -41,7 +41,7 @@ describe('portfolio', () => {
     expect(screen.queryByText('/02')).not.toBeInTheDocument();
     expect(screen.getAllByRole('contentinfo')).toHaveLength(1);
     expect(
-      screen.getByRole('heading', { name: 'Let’s create together!' }),
+      screen.getByRole('heading', { name: 'Let’s build something useful.' }),
     ).toBeInTheDocument();
 
     await user.click(
@@ -49,7 +49,7 @@ describe('portfolio', () => {
     );
     expect(
       screen.getByText(
-        /804 store page views, 11 installs and 1 paid monthly subscription/,
+        /2,158 RuStore page views, 80 installs and 2 paid purchases/,
       ),
     ).toBeInTheDocument();
   });
