@@ -49,7 +49,7 @@ describe('portfolio', () => {
     );
     expect(
       screen.getByText(
-        /2,158 RuStore page views, 80 installs and 2 paid purchases/,
+        /2,158 RuStore page views, 80 installs, 33 registered accounts and 2 paid subscriptions/,
       ),
     ).toBeInTheDocument();
   });
