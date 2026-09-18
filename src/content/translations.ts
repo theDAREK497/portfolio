@@ -24,8 +24,8 @@ export const translations = {
       responseImprovement: '3,000+',
       responseImprovementLabel:
         'employees covered by the internal booking service',
-      timeSaved: '≈17.5 hours / week',
-      timeSavedLabel: 'employee time saved with meeting-room booking',
+      timeSaved: '83–95%',
+      timeSavedLabel: 'processing-time reduction with enterprise AI/RAG',
     },
     projects: {
       eyebrow: 'Featured projects',
@@ -61,7 +61,7 @@ export const translations = {
       eyebrow: 'Capabilities',
       title: 'The tools behind the work.',
       intro:
-        'My commercial foundation is full-stack development, enterprise integrations and production support. My independent products extend that experience with Python, React, RAG and local LLMs.',
+        'My commercial foundation is full-stack development, enterprise integrations and production support. Commercial AI/RAG automation and independent products extend that experience with Python, React, retrieval and local LLMs.',
     },
     experience: {
       eyebrow: 'Experience',
@@ -123,9 +123,9 @@ export const translations = {
       responseImprovement: '3 000+',
       responseImprovementLabel:
         'сотрудников охватывает внутренний сервис бронирования',
-      timeSaved: '≈17,5 часа / неделю',
+      timeSaved: '83–95%',
       timeSavedLabel:
-        'экономия времени сотрудников на бронировании переговорных',
+        'сокращение времени обработки запросов благодаря enterprise AI/RAG',
     },
     projects: {
       eyebrow: 'Избранные проекты',
@@ -161,7 +161,7 @@ export const translations = {
       eyebrow: 'Компетенции',
       title: 'Инструменты, с которыми я работаю.',
       intro:
-        'Моя коммерческая база — full-stack разработка, корпоративные интеграции и сопровождение production-систем. Собственные продукты расширяют этот опыт в Python, React, RAG и локальных LLM.',
+        'Моя коммерческая база — full-stack разработка, корпоративные интеграции и сопровождение production-систем. Коммерческая AI/RAG-автоматизация и собственные продукты расширяют этот опыт в Python, React, retrieval и локальных LLM.',
     },
     experience: {
       eyebrow: 'Опыт',
