@@ -12,6 +12,7 @@ export const experience: ExperienceItem[] = [
     points: {
       en: [
         'Built a meeting-room booking service used across an organisation of 3,000+ employees, replacing manual approval workflows and saving an estimated 17.5 employee-hours per week.',
+        'Developed an internal AI/RAG assistant for regulatory knowledge search and drafting internal documents, reducing typical processing time from 2–5 hours to 15–20 minutes per request across a workflow handling roughly 10–40 requests per day.',
         'Developed additional internal services for bookings, access requests and cross-system applications, reducing repetitive manual work and the risk of human error.',
         'Built workflows that generate commercial proposals and submit requests through a corporate SOAP integration bus, automating processes that span multiple enterprise systems.',
         'Integrated applications with REST and SOAP services: validated and transformed large flat datasets into structured hierarchical domain models.',
@@ -19,6 +20,7 @@ export const experience: ExperienceItem[] = [
       ],
       ru: [
         'С нуля разработал сервис бронирования переговорных для организации с 3000+ сотрудниками: заменил ручную цепочку согласований и сократил трудозатраты примерно на 17,5 человеко-часа в неделю.',
+        'Разработал внутренний AI/RAG-ассистент для поиска по регламентам и подготовки внутренних документов: типичное время обработки запроса сократилось с 2–5 часов до 15–20 минут при потоке примерно 10–40 запросов в день.',
         'Разрабатывал другие внутренние сервисы для бронирований, заявок на доступ и передачи заявок между системами, сокращая ручную работу и влияние человеческого фактора.',
         'Автоматизировал процессы формирования коммерческих предложений и отправки заявок через корпоративную SOAP-шину в цепочках, охватывающих несколько корпоративных систем.',
         'Интегрировал приложения с REST- и SOAP-сервисами: валидировал и преобразовывал большие плоские наборы данных в структурированные иерархические модели.',
@@ -36,6 +38,7 @@ export const experience: ExperienceItem[] = [
       'REST',
       'SOAP',
       'Python',
+      'RAG',
       'GitLab CI/CD',
       'Linux',
     ],

@@ -278,12 +278,12 @@ export const projects: ProjectItem[] = [
     results: {
       en: [
         'Publicly launched across web, Telegram and Android.',
-        'Reached 2,158 RuStore page views, 80 installs and 2 paid purchases by 15 September 2026.',
+        'Reached 2,158 RuStore page views, 80 installs, 33 registered accounts and 2 paid subscriptions by 16 September 2026.',
         'Continued iterating on the product across multiple Android releases based on real usage.',
       ],
       ru: [
         'Публично запущен в вебе, Telegram и Android.',
-        'К 15 сентября 2026 года достиг 2 158 просмотров страницы RuStore, 80 установок и 2 платных покупок.',
+        'К 16 сентября 2026 года достиг 2 158 просмотров страницы RuStore, 80 установок, 33 зарегистрированных аккаунтов и 2 платных подписок.',
         'Продолжил развивать продукт через несколько Android-релизов на основе реального использования.',
       ],
     },
