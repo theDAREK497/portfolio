@@ -6,7 +6,7 @@ import { demiurgeArticleCopy } from '../src/content/demiurgeArticle';
 
 const template = readFileSync('index.html', 'utf8');
 const base = 'https://example.com/portfolio';
-const resumeFile = 'Ilya-Gurikov-CV-Backend-Engineer-EN.pdf';
+const resumeFile = 'Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf';
 const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
@@ -32,7 +32,7 @@ describe('public documents', () => {
       expect(text).toContain(
         lang === 'en' ? 'Sep 2022 — Jul 2023' : 'Сен 2022 — июл 2023',
       );
-      expect(text).toContain('Backend Engineer | API & System Integrations');
+      expect(text).toContain('Full-Stack Product Engineer');
       expect(text).toContain('Onpeak Digital');
       expect(text).toContain('Chrome DevTools');
       expect(text).toContain('Lighthouse');

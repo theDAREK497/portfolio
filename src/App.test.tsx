@@ -15,7 +15,7 @@ describe('portfolio', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Backend Engineer | API & System Integrations',
+      'Full-Stack Product Engineer',
     );
     for (const image of document.querySelectorAll('img')) {
       expect(image).toHaveAttribute('loading', 'lazy');
@@ -75,7 +75,7 @@ describe('portfolio', () => {
       { timeout: 2500 },
     );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Backend Engineer | API & System Integrations',
+      'Full-Stack Product Engineer',
     );
     expect(
       screen.getByRole('link', { name: 'Смотреть проекты' }),
@@ -330,7 +330,7 @@ describe('portfolio', () => {
       screen.getByRole('link', { name: 'Resume (English PDF)' }),
     ).toHaveAttribute(
       'href',
-      './resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf',
+      './resume/Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf',
     );
     const writing = within(document.getElementById('writing')!);
     expect(writing.getAllByRole('link')).toHaveLength(1);
