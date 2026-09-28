@@ -3,5 +3,5 @@ export const contacts = {
   telegram: 'https://t.me/theDAREK497',
   github: 'https://github.com/theDAREK497',
   linkedin: 'https://linkedin.com/in/thedarek497',
-  resumeUrl: './resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf',
+  resumeUrl: './resume/Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf',
 } as const;

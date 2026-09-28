@@ -10,16 +10,16 @@ I use this site as a compact engineering portfolio rather than a gallery of tech
 
 ## Positioning
 
-**Backend Engineer | API & System Integrations | PHP & Python**
+**Full-Stack Product Engineer | React, TypeScript, Python & PHP**
 
-Backend engineering is my primary focus. Related opportunities include **Full-Stack Product Engineer** and **Applied AI Engineer** roles.
+Full-stack product engineering is my primary focus: taking products from requirements and prototypes through frontend, backend, integrations, launch and iteration. **Backend Engineer** and **Applied AI Engineer** remain additional directions, not competing primary titles.
 
 My work spans:
 
-- backend and internal web services;
-- REST/SOAP integrations and data workflows;
+- full-stack web products and internal business systems;
+- React/TypeScript frontends and backend APIs;
+- REST/SOAP integrations, payments and data workflows;
 - SQL and API performance work;
-- React/TypeScript frontends;
 - practical AI systems using retrieval, structured outputs and local LLMs;
 - independent products taken from prototype to launch.
 
@@ -43,18 +43,24 @@ A RAG Telegram prototype that searches a document archive and generates answers 
 
 ## Resume
 
-[Backend Engineer CV — English PDF](https://thedarek497.github.io/portfolio/resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf)
+[Full-Stack Product Engineer CV — English PDF](https://thedarek497.github.io/portfolio/resume/Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf)
 
-The primary CV uses the approved content from **25 September 2026**, rebuilt into a two-page, selectable-text PDF with clickable links. Its source is `tooling/resume_backend_en.py`, kept separate from the longer portfolio copy. Official employment titles and English B1 are preserved.
+The main website download is the **Full-Stack Product Engineer** version. It uses the approved Full-Stack CV content from **25 September 2026**, rebuilt into a two-page, selectable-text PDF with clickable links. Its independent source is `tooling/resume_fullstack_en.py`; it is not a backend CV with only the headline changed. Official employment titles and English B1 are preserved.
 
-To rebuild and validate the PDF:
+[Backend Engineer CV — alternative English PDF](https://thedarek497.github.io/portfolio/resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf)
+
+The backend file and its source, `tooling/resume_backend_en.py`, remain unchanged. Applied AI is another application-specific CV direction; the primary portfolio download intentionally stays focused on Full-Stack.
+
+To rebuild and validate a PDF:
 
 ```bash
 python -m pip install reportlab pypdf
 python tooling/create_resume.py
+# Optional: rebuild the separate backend variant.
+python tooling/create_resume.py --variant backend
 ```
 
-The generator validates every expected text block, the two-page layout and link annotations before replacing the canonical file. It does not require Windows fonts, a browser or a website build. The previous `Ilya-Gurikov-Resume-EN.pdf` remains at its original path for compatibility with previously shared links; the website links to the new named CV.
+The generator validates every expected text block, the two-page layout and link annotations before replacing that variant's canonical file. It does not require Windows fonts, a browser or a website build. The previous `Ilya-Gurikov-Resume-EN.pdf` also remains at its original path for compatibility with previously shared links.
 
 ## Tech stack
 

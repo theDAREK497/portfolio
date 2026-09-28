@@ -1,20 +1,21 @@
-"""Build the primary English CV from the approved 2026-09-25 content.
+"""Build an English CV from the approved 2026-09-25 content.
 
 Install: python -m pip install reportlab pypdf
 Run:     python tooling/create_resume.py
+         python tooling/create_resume.py --variant backend
 
-The source is independent of portfolio copy, so rebuilding cannot silently
-replace the approved CV with a longer website export. Uses standard PDF fonts;
-no Windows font paths, browser, npm build or network access is required.
+Full-Stack Product Engineer is the primary CV. Each variant has its own source
+and output path, independent of the longer portfolio copy. Uses standard PDF
+fonts; no Windows font paths, browser, npm build or network access is required.
 """
 from __future__ import annotations
 
+import argparse
 import re
 from html import escape
+from importlib import import_module
 from pathlib import Path
 from tempfile import TemporaryDirectory
-
-from resume_backend_en import DATA
 
 from pypdf import PdfReader
 from reportlab.lib import colors
@@ -25,7 +26,10 @@ from reportlab.platypus import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLIC = ROOT / "public/resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf"
+VARIANTS = {
+    "fullstack": ("resume_fullstack_en", "Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf"),
+    "backend": ("resume_backend_en", "Ilya-Gurikov-CV-Backend-Engineer-EN.pdf"),
+}
 INK = colors.HexColor("#17213b")
 MUTED = colors.HexColor("#536079")
 ACCENT = colors.HexColor("#244b80")
@@ -35,8 +39,12 @@ def normalise(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def build_resume() -> None:
-    data = DATA
+def build_resume(variant: str = "fullstack") -> None:
+    if variant not in VARIANTS:
+        raise ValueError(f"Unknown CV variant: {variant}")
+    source, filename = VARIANTS[variant]
+    data = import_module(source).DATA
+    output = ROOT / "public/resume" / filename
     styles = {}
     for name, size, leading, after, font, colour in [
         ("name", 24, 27, 4, "Helvetica-Bold", INK),
@@ -126,13 +134,13 @@ def build_resume() -> None:
         canvas.line(38, 30, A4[0] - 38, 30)
         canvas.setFont("Helvetica", 7.5)
         canvas.setFillColor(MUTED)
-        canvas.drawString(38, 19, data["name"] + " | Backend Engineer")
+        canvas.drawString(38, 19, data["name"] + " | " + data["headline"].split(" | ")[0])
         canvas.drawRightString(A4[0] - 38, 19, str(document.page))
         canvas.restoreState()
 
-    PUBLIC.parent.mkdir(parents=True, exist_ok=True)
+    output.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(prefix="portfolio-cv-") as temporary:
-        candidate = Path(temporary) / PUBLIC.name
+        candidate = Path(temporary) / output.name
         SimpleDocTemplate(
             str(candidate), pagesize=A4, rightMargin=38, leftMargin=38,
             topMargin=34, bottomMargin=43, title=data["name"] + " - " + data["headline"],
@@ -153,9 +161,11 @@ def build_resume() -> None:
         required_urls = {item["url"] for item in data["contacts"] + data["projects"]}
         if not required_urls.issubset(urls):
             raise ValueError("CV validation failed: missing clickable links")
-        PUBLIC.write_bytes(candidate.read_bytes())
-        print(f"{PUBLIC}\nPages: {len(reader.pages)}; validated text blocks: {len(expected)}")
+        output.write_bytes(candidate.read_bytes())
+        print(f"{output}\nPages: {len(reader.pages)}; validated text blocks: {len(expected)}")
 
 
 if __name__ == "__main__":
-    build_resume()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--variant", choices=VARIANTS, default="fullstack")
+    build_resume(parser.parse_args().variant)

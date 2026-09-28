@@ -1,14 +1,14 @@
 export const profile = {
   name: 'Ilya Gurikov',
   localizedName: { en: 'Ilya Gurikov', ru: 'Илья Гуриков' },
-  title: 'Backend Engineer | API & System Integrations',
+  title: 'Full-Stack Product Engineer',
   statement: {
-    en: 'I build backend systems and APIs, connect business services and deliver full-stack products with practical AI capabilities.',
-    ru: 'Разрабатываю backend-системы и API, интегрирую бизнес-сервисы и создаю full-stack продукты с практическим применением ИИ.',
+    en: 'I build full-stack products end to end — from user interfaces and backend APIs to integrations, launch and iteration.',
+    ru: 'Создаю full-stack продукты целиком — от пользовательского интерфейса и backend API до интеграций, запуска и развития.',
   },
   summary: {
-    en: 'Around 6 years of commercial experience across web development, enterprise integrations and production support. My commercial work now also includes enterprise AI/RAG automation, while my independent products extend that experience through APIs, payments and LLM integrations.',
-    ru: 'Около 6 лет коммерческого опыта в веб-разработке, корпоративных интеграциях и сопровождении production-систем. Коммерческий опыт теперь также включает enterprise AI/RAG-автоматизацию, а собственные продукты расширяют его через API, платежи и интеграцию языковых моделей.',
+    en: 'Around 6 years of commercial experience across frontend, backend, enterprise integrations and production support. I take products from requirements and prototypes through release and iteration, combining web interfaces, APIs, payments and practical AI/RAG automation.',
+    ru: 'Около 6 лет коммерческого опыта во frontend, backend, корпоративных интеграциях и сопровождении production-систем. Веду продукты от требований и прототипов до запуска и развития, объединяя веб-интерфейсы, API, платежи и практическую AI/RAG-автоматизацию.',
   },
   availability: {
     en: 'Open to remote international roles',
@@ -19,7 +19,7 @@ export const profile = {
     ru: 'Русский — родной. Английский — B1 (средний уровень), готовлюсь к IELTS.',
   },
   direction:
-    'Backend Engineer · Full-Stack Product Engineer · Applied AI Engineer',
+    'Full-Stack Product Engineer · Backend Engineer · Applied AI Engineer',
 } as const;
 
 export const about = {
