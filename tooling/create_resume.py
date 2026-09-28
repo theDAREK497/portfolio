@@ -1,102 +1,161 @@
-"""Build an English, selectable-text resume from the site's generated HTML.
+"""Build the primary English CV from the approved 2026-09-25 content.
 
-Run after npm run build. Requires reportlab, beautifulsoup4 and pypdf.
+Install: python -m pip install reportlab pypdf
+Run:     python tooling/create_resume.py
+
+The source is independent of portfolio copy, so rebuilding cannot silently
+replace the approved CV with a longer website export. Uses standard PDF fonts;
+no Windows font paths, browser, npm build or network access is required.
 """
-from pathlib import Path
+from __future__ import annotations
+
+import re
 from html import escape
-from bs4 import BeautifulSoup
-from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_LEFT
-from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, KeepTogether
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+from resume_backend_en import DATA
+
 from pypdf import PdfReader
-import shutil
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import (
+    KeepTogether, PageBreak, Paragraph, SimpleDocTemplate, Spacer,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / 'output/pdf/Ilya-Gurikov-Resume-EN.pdf'
-PUBLIC = ROOT / 'public/resume/Ilya-Gurikov-Resume-EN.pdf'
-OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-PUBLIC.parent.mkdir(parents=True, exist_ok=True)
-font_dir = Path('C:/Windows/Fonts')
-pdfmetrics.registerFont(TTFont('Resume', str(font_dir / 'arial.ttf')))
-pdfmetrics.registerFont(TTFont('ResumeBold', str(font_dir / 'arialbd.ttf')))
-pdfmetrics.registerFontFamily('Resume', normal='Resume', bold='ResumeBold', italic='Resume', boldItalic='ResumeBold')
-ink, muted, blue = colors.HexColor('#17213b'), colors.HexColor('#536079'), colors.HexColor('#3157ff')
-styles = getSampleStyleSheet()
-for name, size, leading, space, font, color in [
-    ('Name', 27, 31, 8, 'ResumeBold', ink),
-    ('Role', 12, 16, 8, 'ResumeBold', blue),
-    ('Section', 11, 15, 8, 'ResumeBold', blue),
-    ('Job', 10.4, 14, 4, 'ResumeBold', ink),
-    ('BodyCopy', 9.4, 13.7, 6, 'Resume', ink),
-    ('Meta', 8.5, 12, 6, 'Resume', muted),
-]:
-    styles.add(ParagraphStyle(name, fontName=font, fontSize=size, leading=leading, spaceAfter=space, textColor=color, alignment=TA_LEFT))
+PUBLIC = ROOT / "public/resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf"
+INK = colors.HexColor("#17213b")
+MUTED = colors.HexColor("#536079")
+ACCENT = colors.HexColor("#244b80")
 
-def clean(text):
-    return text.replace('\u2014', '-').replace('\u2013', '-').replace('\u2011', '-').replace('\u00a0', ' ')
 
-def p(text, style='BodyCopy'):
-    return Paragraph(escape(clean(text)), styles[style])
+def normalise(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
 
-def section(text):
-    return [Spacer(1, 10), p(text.upper(), 'Section')]
 
-def bullets(node):
-    return [Paragraph('• ' + escape(clean(li.get_text(' ', strip=True))), styles['BodyCopy']) for li in node.select(':scope > ul > li')]
+def build_resume() -> None:
+    data = DATA
+    styles = {}
+    for name, size, leading, after, font, colour in [
+        ("name", 24, 27, 4, "Helvetica-Bold", INK),
+        ("role", 11, 14, 5, "Helvetica-Bold", ACCENT),
+        ("section", 10, 12, 5, "Helvetica-Bold", ACCENT),
+        ("job", 9.6, 12, 2, "Helvetica-Bold", INK),
+        ("body", 9.1, 11.7, 3, "Helvetica", INK),
+        ("meta", 8.2, 10.4, 3, "Helvetica", MUTED),
+        ("skill", 8.6, 10.7, 2, "Helvetica", INK),
+    ]:
+        styles[name] = ParagraphStyle(
+            name, fontName=font, fontSize=size, leading=leading,
+            spaceAfter=after, textColor=colour,
+            keepWithNext=name in {"section", "job"},
+        )
+    expected: list[str] = []
 
-doc = BeautifulSoup((ROOT / 'dist/resume-en.html').read_text(encoding='utf-8'), 'html.parser')
-header = doc.select_one('main > header')
-intro = header.find_all('p', recursive=False)
-story = [p(header.h1.get_text(), 'Name'), p(intro[0].get_text(), 'Role')]
-links = [f'<link href="{escape(a["href"], quote=True)}" color="#3157ff">{escape(a.get_text())}</link>' for a in header.select('nav a') if a.get_text() != 'Telegram']
-links.append('<link href="https://thedarek497.github.io/portfolio/" color="#3157ff">Portfolio</link>')
-story += [Paragraph('  |  '.join(links), styles['Meta']), p('Russia | Open to remote or hybrid roles | English B1 | Russian native', 'Meta')]
-story += section('Profile') + [p(intro[2].get_text()), p('Commercial focus: PHP, JavaScript, SQL and business-system integration. Target roles: Integration Engineer, Technical Implementation Engineer, Full-Stack Product Engineer and AI Solutions Engineer.')]
-story += section('Professional experience')
-for job in doc.select('#experience > article'):
-    paragraphs = job.find_all('p', recursive=False)
-    story.append(KeepTogether([p(job.h3.get_text(), 'Job'), p(paragraphs[0].get_text(), 'Meta')]))
-    if 'ITooLabs' in job.h3.get_text():
-        story.append(p('Part-time | IP telephony and cloud communications', 'Meta'))
-    story += bullets(job)
-    story.append(Spacer(1, 5))
+    def p(text: str, style: str = "body") -> Paragraph:
+        expected.append(text)
+        return Paragraph(escape(text), styles[style])
 
-story += [PageBreak(), p('Selected projects & education', 'Role')]
-for project in doc.select('#projects > article'):
-    paragraphs = project.find_all('p', recursive=False)
-    story += [Spacer(1, 8), p(project.h3.get_text(), 'Job'), p(paragraphs[1].get_text())]
-    story += bullets(project)
-    story.append(p(paragraphs[2].get_text(), 'Meta'))
-    project_links = [f'<link href="{escape(a["href"], quote=True)}" color="#3157ff">{escape(a["href"])}</link>' for a in paragraphs[-1].find_all('a')]
-    story.append(Paragraph(' | '.join(project_links), styles['Meta']))
-story += section('Technical skills')
-for heading in doc.select('#capabilities h3'):
-    story.append(Paragraph(f'<b>{escape(heading.get_text())}:</b> {escape(clean(heading.find_next_sibling("p").get_text()))}', styles['BodyCopy']))
-story += section('Education')
-for degree in doc.select('#education > article'):
-    story.append(KeepTogether([p(degree.h3.get_text(), 'Job')] + [p(item.get_text(), 'Meta') for item in degree.find_all('p', recursive=False)]))
+    def section(text: str) -> list:
+        return [Spacer(1, 7), p(text, "section")]
 
-def footer(canvas, document):
-    canvas.saveState()
-    canvas.setStrokeColor(colors.HexColor('#dce1eb'))
-    canvas.line(42, 34, A4[0] - 42, 34)
-    canvas.setFont('Resume', 8)
-    canvas.setFillColor(muted)
-    canvas.drawString(42, 22, 'Ilya Gurikov | Full-Stack & AI Integration Engineer')
-    canvas.drawRightString(A4[0] - 42, 22, str(document.page))
-    canvas.restoreState()
+    def bullets(items: list[str]) -> list:
+        result = []
+        for text in items:
+            expected.append(text)
+            result.append(Paragraph("&#8226; " + escape(text), styles["body"]))
+        return result
 
-SimpleDocTemplate(str(OUTPUT), pagesize=A4, rightMargin=42, leftMargin=42, topMargin=36, bottomMargin=47,
-                  title='Ilya Gurikov - Full-Stack & AI Integration Engineer', author='Ilya Gurikov',
-                  subject='English resume - software development, integrations and AI applications').build(story, onFirstPage=footer, onLaterPages=footer)
-reader = PdfReader(OUTPUT)
-text = '\n'.join(page.extract_text() for page in reader.pages)
-assert len(reader.pages) == 2, f'Expected 2 pages, got {len(reader.pages)}'
-assert all(value in text for value in ['English B1', '804', 'Gazprom', '30%', '17.5', 'two junior', 'Zabbix', 'QA & Web Developer'])
-assert '\u25a0' not in text
-shutil.copy2(OUTPUT, PUBLIC)
-print(f'{OUTPUT}\nPages: {len(reader.pages)}; extracted characters: {len(text)}')
+    def job(item: dict) -> list:
+        content = [p(item["title"], "job"), p(item["period"], "meta")]
+        content += bullets(item["points"])
+        if item.get("tech"):
+            content.append(p("Tech: " + item["tech"], "meta"))
+        return [KeepTogether(content), Spacer(1, 5)]
+
+    story = [p(data["name"], "name"), p(data["headline"], "role")]
+    story.append(p(data["availability"], "meta"))
+    links = []
+    for contact in data["contacts"]:
+        expected.append(contact["label"])
+        links.append(
+            f'<link href="{escape(contact["url"], quote=True)}" '
+            f'color="#244b80">{escape(contact["label"])}</link>'
+        )
+    story.append(Paragraph(" | ".join(links), styles["meta"]))
+    story += section("PROFESSIONAL SUMMARY") + [p(data["summary"])]
+    story += section("TECHNICAL SKILLS")
+    for label, value in data["skills"]:
+        expected.append(label + ": " + value)
+        story.append(Paragraph(
+            f"<b>{escape(label)}:</b> {escape(value)}", styles["skill"],
+        ))
+    story += section("EXPERIENCE")
+    for item in data["experience"][:3]:
+        story += job(item)
+    story += [PageBreak()]
+    story += job(data["experience"][3])
+    story += section("SELECTED PROJECTS")
+    for project in data["projects"]:
+        content = [p(project["title"], "job"), p(project["role"], "meta")]
+        content += bullets(project["points"])
+        expected.append("Stack: " + project["stack"])
+        expected.append(project["linkLabel"])
+        content.append(Paragraph(
+            f'Stack: {escape(project["stack"])} | '
+            f'<link href="{escape(project["url"], quote=True)}" '
+            f'color="#244b80">{escape(project["linkLabel"])}</link>',
+            styles["meta"],
+        ))
+        story += [KeepTogether(content), Spacer(1, 4)]
+    story.append(p("Additional public work: " + data["additionalWork"], "meta"))
+    story += section("EDUCATION")
+    for item in data["education"]:
+        content = [p(item["degree"], "job")]
+        content.append(p(item["school"] + " | " + item["period"], "meta"))
+        if item.get("detail"):
+            content.append(p(item["detail"], "meta"))
+        story.append(KeepTogether(content))
+    story += section("LANGUAGES") + [p(data["languages"], "meta")]
+
+    def footer(canvas, document):
+        canvas.saveState()
+        canvas.setStrokeColor(colors.HexColor("#dce1eb"))
+        canvas.line(38, 30, A4[0] - 38, 30)
+        canvas.setFont("Helvetica", 7.5)
+        canvas.setFillColor(MUTED)
+        canvas.drawString(38, 19, data["name"] + " | Backend Engineer")
+        canvas.drawRightString(A4[0] - 38, 19, str(document.page))
+        canvas.restoreState()
+
+    PUBLIC.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(prefix="portfolio-cv-") as temporary:
+        candidate = Path(temporary) / PUBLIC.name
+        SimpleDocTemplate(
+            str(candidate), pagesize=A4, rightMargin=38, leftMargin=38,
+            topMargin=34, bottomMargin=43, title=data["name"] + " - " + data["headline"],
+            author=data["name"], subject="English CV | Approved content: " + data["sourceDate"],
+            pageCompression=1, invariant=1,
+        ).build(story, onFirstPage=footer, onLaterPages=footer)
+        reader = PdfReader(candidate)
+        text = normalise(" ".join(page.extract_text() or "" for page in reader.pages))
+        missing = [item for item in expected if normalise(item) not in text]
+        if len(reader.pages) != 2 or missing or "\u25a0" in text:
+            raise ValueError(
+                f"CV validation failed: pages={len(reader.pages)}, missing={missing}"
+            )
+        urls = {
+            annotation.get_object().get("/A", {}).get("/URI")
+            for page in reader.pages for annotation in page.get("/Annots", [])
+        }
+        required_urls = {item["url"] for item in data["contacts"] + data["projects"]}
+        if not required_urls.issubset(urls):
+            raise ValueError("CV validation failed: missing clickable links")
+        PUBLIC.write_bytes(candidate.read_bytes())
+        print(f"{PUBLIC}\nPages: {len(reader.pages)}; validated text blocks: {len(expected)}")
+
+
+if __name__ == "__main__":
+    build_resume()

@@ -6,6 +6,7 @@ import { demiurgeArticleCopy } from '../src/content/demiurgeArticle';
 
 const template = readFileSync('index.html', 'utf8');
 const base = 'https://example.com/portfolio';
+const resumeFile = 'Ilya-Gurikov-CV-Backend-Engineer-EN.pdf';
 const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
@@ -23,6 +24,15 @@ describe('public documents', () => {
           ? 'two junior developers'
           : 'двух начинающих разработчиков',
       );
+      expect(text).toContain(
+        lang === 'en'
+          ? 'Freelance Software Developer'
+          : 'Разработчик ПО на фрилансе',
+      );
+      expect(text).toContain(
+        lang === 'en' ? 'Sep 2022 — Jul 2023' : 'Сен 2022 — июл 2023',
+      );
+      expect(text).toContain('Backend Engineer | API & System Integrations');
       expect(text).toContain('Onpeak Digital');
       expect(text).toContain('Chrome DevTools');
       expect(text).toContain('Lighthouse');
@@ -62,16 +72,12 @@ describe('public documents', () => {
     for (const file of ['index.html', 'index-ru.html']) {
       const doc = parse(renderPublicPage(template, file, base));
       expect(doc.head.textContent).toContain('--font-body');
-      const resume = doc.querySelector(
-        'a[href="./resume/Ilya-Gurikov-Resume-EN.pdf"]',
-      );
+      const resume = doc.querySelector(`a[href="./resume/${resumeFile}"]`);
       expect(resume).not.toBeNull();
       expect(doc.body.textContent).toContain('B1');
     }
     expect(
-      readFileSync('public/resume/Ilya-Gurikov-Resume-EN.pdf')
-        .subarray(0, 5)
-        .toString(),
+      readFileSync(`public/resume/${resumeFile}`).subarray(0, 5).toString(),
     ).toBe('%PDF-');
   });
 

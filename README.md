@@ -10,7 +10,9 @@ I use this site as a compact engineering portfolio rather than a gallery of tech
 
 ## Positioning
 
-**Full-Stack & AI Integration Engineer**
+**Backend Engineer | API & System Integrations | PHP & Python**
+
+Backend engineering is my primary focus. Related opportunities include **Full-Stack Product Engineer** and **Applied AI Engineer** roles.
 
 My work spans:
 
@@ -33,11 +35,26 @@ A local-first knowledge system for fictional worlds and tabletop campaigns. It c
 
 An independently launched product across web, Telegram and Android with subscriptions, payments and generated personalised content.
 
-### Archive Assistant
+### Archive Assistant Bot
 
 A RAG Telegram prototype that searches a document archive and generates answers with references to retrieved sources using FAISS and a locally served language model.
 
 [See projects and implementation details](https://thedarek497.github.io/portfolio/#projects)
+
+## Resume
+
+[Backend Engineer CV — English PDF](https://thedarek497.github.io/portfolio/resume/Ilya-Gurikov-CV-Backend-Engineer-EN.pdf)
+
+The primary CV uses the approved content from **25 September 2026**, rebuilt into a two-page, selectable-text PDF with clickable links. Its source is `tooling/resume_backend_en.py`, kept separate from the longer portfolio copy. Official employment titles and English B1 are preserved.
+
+To rebuild and validate the PDF:
+
+```bash
+python -m pip install reportlab pypdf
+python tooling/create_resume.py
+```
+
+The generator validates every expected text block, the two-page layout and link annotations before replacing the canonical file. It does not require Windows fonts, a browser or a website build. The previous `Ilya-Gurikov-Resume-EN.pdf` remains at its original path for compatibility with previously shared links; the website links to the new named CV.
 
 ## Tech stack
 

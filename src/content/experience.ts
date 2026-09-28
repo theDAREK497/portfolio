@@ -44,6 +44,29 @@ export const experience: ExperienceItem[] = [
     ],
   },
   {
+    company: { en: 'Independent Projects', ru: 'Собственные проекты' },
+    role: {
+      en: 'Freelance Software Developer',
+      ru: 'Разработчик ПО на фрилансе',
+    },
+    period: { en: 'Sep 2022 — Jul 2023', ru: 'Сен 2022 — июл 2023' },
+    context: {
+      en: 'Combined freelance web development with independent study and personal software projects between full-time roles.',
+      ru: 'Совмещал веб-разработку на фрилансе с самостоятельным обучением и собственными программными проектами между периодами постоянной работы.',
+    },
+    points: {
+      en: [
+        'Took on freelance web-development assignments while continuing hands-on software development between full-time roles.',
+        'Studied emerging generative-AI tools and neural-network applications and developed personal projects, building the foundation for later AI/RAG integration work.',
+      ],
+      ru: [
+        'Выполнял заказы на веб-разработку и продолжал практическую разработку ПО между периодами постоянной работы.',
+        'Изучал появляющиеся инструменты генеративного ИИ и применение нейросетей, развивал собственные проекты и закладывал основу для последующей работы с AI/RAG-интеграциями.',
+      ],
+    },
+    tech: [],
+  },
+  {
     company: { en: 'Onpeak Digital', ru: 'Onpeak Digital' },
     role: { en: 'Full-Stack Web Developer', ru: 'Full-Stack веб-разработчик' },
     period: { en: 'Mar 2021 — Sep 2022', ru: 'Мар 2021 — сен 2022' },

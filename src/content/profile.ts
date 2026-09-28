@@ -1,10 +1,10 @@
 export const profile = {
   name: 'Ilya Gurikov',
   localizedName: { en: 'Ilya Gurikov', ru: 'Илья Гуриков' },
-  title: 'Full-Stack & AI Integration Engineer',
+  title: 'Backend Engineer | API & System Integrations',
   statement: {
-    en: 'I build full-stack products, integrate business systems and turn AI capabilities into controlled, useful workflows.',
-    ru: 'Создаю full-stack продукты, интегрирую бизнес-системы и превращаю возможности ИИ в управляемые рабочие процессы.',
+    en: 'I build backend systems and APIs, connect business services and deliver full-stack products with practical AI capabilities.',
+    ru: 'Разрабатываю backend-системы и API, интегрирую бизнес-сервисы и создаю full-stack продукты с практическим применением ИИ.',
   },
   summary: {
     en: 'Around 6 years of commercial experience across web development, enterprise integrations and production support. My commercial work now also includes enterprise AI/RAG automation, while my independent products extend that experience through APIs, payments and LLM integrations.',
@@ -19,7 +19,7 @@ export const profile = {
     ru: 'Русский — родной. Английский — B1 (средний уровень), готовлюсь к IELTS.',
   },
   direction:
-    'Full-Stack & Integration Engineering → Applied AI → Solutions Architecture',
+    'Backend Engineer · Full-Stack Product Engineer · Applied AI Engineer',
 } as const;
 
 export const about = {
