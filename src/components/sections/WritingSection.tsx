@@ -34,7 +34,7 @@ export function WritingSection({ lang, t }: { lang: Lang; t: Translation }) {
             return note.href ? (
               <a
                 className="notes-item notes-item-link"
-                href={`./${articleFile(lang)}`}
+                href={`./${articleFile(lang, note.articleId)}`}
                 key={note.en}
               >
                 {content}
@@ -46,7 +46,11 @@ export function WritingSection({ lang, t }: { lang: Lang; t: Translation }) {
             );
           })}
         <div className="notes-item notes-coming-soon">
-          <span aria-hidden="true">02</span>
+          <span aria-hidden="true">
+            {String(
+              writing.filter((note) => note.status === 'published').length + 1,
+            ).padStart(2, '0')}
+          </span>
           <h3>{t.writing.comingSoon}</h3>
         </div>
       </div>

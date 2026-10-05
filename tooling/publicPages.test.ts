@@ -86,6 +86,8 @@ describe('public documents', () => {
     'index-ru.html',
     'demiurge-ai-chat.html',
     'demiurge-ai-chat-ru.html',
+    'demiurge-knowledge-base.html',
+    'demiurge-knowledge-base-ru.html',
     'resume-en.html',
     'resume-ru.html',
   ]) {

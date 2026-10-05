@@ -3,7 +3,12 @@ import { AnimatePresence, motion, useScroll, useSpring } from 'motion/react';
 import type { ProjectItem } from './content';
 import { profile, translations } from './content';
 import { demiurgeArticleCopy } from './content/demiurgeArticle';
+import {
+  knowledgeArticleCopy,
+  knowledgeImage,
+} from './content/demiurgeKnowledgeArticle';
 import { DemiurgeArticle } from './components/articles/DemiurgeArticle';
+import { DemiurgeKnowledgeArticle } from './components/articles/DemiurgeKnowledgeArticle';
 import { ContactModal } from './components/contact/ContactModal';
 import { Header } from './components/layout/Header';
 import { ProjectDetails } from './components/projects/ProjectDetails';
@@ -22,7 +27,7 @@ import {
   articleFile,
   homeFile,
   isArticlePage,
-  isArticleRoute,
+  currentArticleId,
 } from './lib/routes';
 
 export default function App() {
@@ -39,7 +44,8 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-  const [articleOpen, setArticleOpen] = useState(isArticleRoute);
+  const [articleId, setArticleId] = useState(currentArticleId);
+  const articleOpen = articleId !== null;
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(
     null,
   );
@@ -52,19 +58,21 @@ export default function App() {
   });
 
   useEffect(() => {
-    const syncRoute = () => setArticleOpen(isArticleRoute());
+    const syncRoute = () => setArticleId(currentArticleId());
 
     window.addEventListener('hashchange', syncRoute);
     return () => window.removeEventListener('hashchange', syncRoute);
   }, []);
 
   useEffect(() => {
+    const copy =
+      articleId === 'knowledge-base'
+        ? knowledgeArticleCopy[lang]
+        : demiurgeArticleCopy[lang];
     document.title = articleOpen
-      ? `${demiurgeArticleCopy[lang].title} — ${profile.localizedName[lang]}`
+      ? `${copy.title} — ${profile.localizedName[lang]}`
       : `${profile.localizedName[lang]} — ${profile.title}`;
-    const description = articleOpen
-      ? demiurgeArticleCopy[lang].deck
-      : profile.statement[lang];
+    const description = articleOpen ? copy.deck : profile.statement[lang];
     for (const selector of [
       'meta[name="description"]',
       'meta[property="og:description"]',
@@ -78,12 +86,38 @@ export default function App() {
     ]) {
       document.querySelector(selector)?.setAttribute('content', document.title);
     }
-    const file = articleOpen ? articleFile(lang) : homeFile(lang);
+    const file = articleId ? articleFile(lang, articleId) : homeFile(lang);
     const url = new URL(
       file === 'index.html' ? './' : file,
       window.location.href,
     ).href;
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', url);
+    for (const alternate of document.querySelectorAll<HTMLLinkElement>(
+      'link[rel="alternate"][hreflang]',
+    )) {
+      const alternateLang = alternate.hreflang === 'ru' ? 'ru' : 'en';
+      const alternateFile = articleId
+        ? articleFile(alternateLang, articleId)
+        : homeFile(alternateLang);
+      alternate.href = new URL(
+        alternateFile === 'index.html' ? './' : alternateFile,
+        window.location.href,
+      ).href;
+    }
+    const image =
+      articleId === 'knowledge-base'
+        ? knowledgeImage(0, lang, 'png')
+        : articleId
+          ? `./images/articles/demiurge-ai-chat/cover${lang === 'en' ? '-en' : ''}.png`
+          : './photo.jpg';
+    for (const selector of [
+      'meta[property="og:image"]',
+      'meta[name="twitter:image"]',
+    ]) {
+      document
+        .querySelector(selector)
+        ?.setAttribute('content', new URL(image, window.location.href).href);
+    }
     document
       .querySelector('meta[property="og:url"]')
       ?.setAttribute('content', url);
@@ -93,7 +127,49 @@ export default function App() {
     document
       .querySelector('meta[property="og:type"]')
       ?.setAttribute('content', articleOpen ? 'article' : 'website');
-  }, [articleOpen, lang]);
+    const structuredData = document.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    if (structuredData?.textContent) {
+      const schema = JSON.parse(structuredData.textContent);
+      const page = schema['@graph']?.find(
+        (item: { '@type': string }) =>
+          item['@type'] === 'Article' || item['@type'] === 'ProfilePage',
+      );
+      if (page) {
+        Object.assign(page, {
+          '@type': articleId ? 'Article' : 'ProfilePage',
+          '@id': url,
+          url,
+          inLanguage: lang,
+          name: document.title,
+        });
+        if (articleId) {
+          page.headline = copy.title;
+          page.image = new URL(image, window.location.href).href;
+          page.author = {
+            '@id': schema['@graph'].find(
+              (item: { '@type': string }) => item['@type'] === 'Person',
+            )?.['@id'],
+          };
+          delete page.mainEntity;
+        } else {
+          page.mainEntity = {
+            '@id': schema['@graph'].find(
+              (item: { '@type': string }) => item['@type'] === 'Person',
+            )?.['@id'],
+          };
+          delete page.headline;
+          delete page.image;
+          delete page.author;
+        }
+        structuredData.textContent = JSON.stringify(schema).replace(
+          /</g,
+          '\\u003c',
+        );
+      }
+    }
+  }, [articleId, articleOpen, lang]);
 
   useEffect(() => {
     if (articleOpen && (!isArticlePage() || !window.location.hash)) {
@@ -162,7 +238,9 @@ export default function App() {
         onNavigate={() => setMenuOpen(false)}
       />
 
-      {articleOpen ? (
+      {articleId === 'knowledge-base' ? (
+        <DemiurgeKnowledgeArticle lang={lang} />
+      ) : articleOpen ? (
         <DemiurgeArticle lang={lang} />
       ) : (
         <main id="main" tabIndex={-1}>

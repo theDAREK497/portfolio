@@ -1,3 +1,5 @@
+import { viewerLabels } from './articleViewerLabels';
+import { knowledgeArticleCopy } from '../../content/demiurgeKnowledgeArticle';
 import { useMemo, useState } from 'react';
 import { ArrowLeft, Maximize2 } from 'lucide-react';
 import Lightbox from 'yet-another-react-lightbox';
@@ -7,7 +9,7 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import type { Lang } from '../../content';
-import { homeFile, isArticlePage } from '../../lib/routes';
+import { articleFile, homeFile, isArticlePage } from '../../lib/routes';
 import {
   demiurgeArticleCopy,
   type ArticleBlock,
@@ -275,44 +277,6 @@ function ProcessFlow({ nodes }: { nodes: string[] }) {
   );
 }
 
-function viewerLabels(lang: Lang) {
-  return lang === 'ru'
-    ? {
-        Previous: 'Предыдущее изображение',
-        Next: 'Следующее изображение',
-        Close: 'Закрыть просмотр',
-        Slide: 'Изображение',
-        Carousel: 'Карусель изображений',
-        Lightbox: 'Полноэкранный просмотр изображений',
-        'Photo gallery': 'Иллюстрации статьи',
-        '{index} of {total}': '{index} из {total}',
-        'Enter Fullscreen': 'На весь экран',
-        'Exit Fullscreen': 'Выйти из полноэкранного режима',
-        'Zoom in': 'Увеличить',
-        'Zoom out': 'Уменьшить',
-        'Show captions': 'Показать подписи',
-        'Hide captions': 'Скрыть подписи',
-        Caption: 'Описание изображения',
-      }
-    : {
-        Previous: 'Previous image',
-        Next: 'Next image',
-        Close: 'Close viewer',
-        Slide: 'Image',
-        Carousel: 'Image carousel',
-        Lightbox: 'Image viewer',
-        'Photo gallery': 'Article illustrations',
-        '{index} of {total}': '{index} of {total}',
-        'Enter Fullscreen': 'Enter fullscreen',
-        'Exit Fullscreen': 'Exit fullscreen',
-        'Zoom in': 'Zoom in',
-        'Zoom out': 'Zoom out',
-        'Show captions': 'Show captions',
-        'Hide captions': 'Hide captions',
-        Caption: 'Image caption',
-      };
-}
-
 export function DemiurgeArticle({ lang }: { lang: Lang }) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
   const copy = demiurgeArticleCopy[lang];
@@ -509,10 +473,13 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
               <ArticleBlocks blocks={copy.goal.blocks} />
             </div>
 
-            <div className="article-next">
+            <a
+              className="article-next"
+              href={`./${articleFile(lang, 'knowledge-base')}`}
+            >
               <span>{copy.nextLabel}</span>
-              <strong>{lang === 'ru' ? 'Скоро' : 'Coming soon'}</strong>
-            </div>
+              <strong>{knowledgeArticleCopy[lang].title}</strong>
+            </a>
           </section>
         </div>
       </article>

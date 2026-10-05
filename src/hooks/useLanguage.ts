@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Lang } from '../content';
-import { articleFile, homeFile, isArticlePage } from '../lib/routes';
+import { articleFile, homeFile, articleIdFromPath } from '../lib/routes';
 import {
   captureLanguageLayout,
   type LanguageLayoutSnapshot,
@@ -10,9 +10,17 @@ const STORAGE_KEY = 'portfolio-language';
 
 const readInitialLanguage = (): Lang => {
   try {
-    if (/\/(?:index|demiurge-ai-chat)-ru\.html$/.test(window.location.pathname))
+    if (
+      /\/(?:index|demiurge-(?:ai-chat|knowledge-base))-ru\.html$/.test(
+        window.location.pathname,
+      )
+    )
       return 'ru';
-    if (/\/(?:index|demiurge-ai-chat)\.html$/.test(window.location.pathname))
+    if (
+      /\/(?:index|demiurge-(?:ai-chat|knowledge-base))\.html$/.test(
+        window.location.pathname,
+      )
+    )
       return 'en';
     return window.localStorage.getItem(STORAGE_KEY) === 'ru' ? 'ru' : 'en';
   } catch {
@@ -39,8 +47,9 @@ export function useLanguage() {
 
     const nextLang: Lang = lang === 'en' ? 'ru' : 'en';
     // Keep a shareable language-specific URL without reloading the animation.
+    const article = articleIdFromPath(window.location.pathname);
     const nextUrl = new URL(
-      isArticlePage() ? articleFile(nextLang) : homeFile(nextLang),
+      article ? articleFile(nextLang, article) : homeFile(nextLang),
       window.location.href,
     );
     nextUrl.hash = window.location.hash;

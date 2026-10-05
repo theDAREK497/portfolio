@@ -1,8 +1,12 @@
+import type { ArticleId } from '../lib/routes';
+import { knowledgeArticleCopy } from './demiurgeKnowledgeArticle';
+
 export interface WritingItem {
   en: string;
   ru: string;
   status: 'published' | 'planned';
   href?: string;
+  articleId?: ArticleId;
 }
 
 export const writing: readonly WritingItem[] = [
@@ -11,6 +15,14 @@ export const writing: readonly WritingItem[] = [
     ru: 'Почему обычного ИИ-чата оказалось недостаточно для моего вымышленного мира',
     status: 'published',
     href: '#/writing/why-ai-chat-was-not-enough',
+    articleId: 'ai-chat',
+  },
+  {
+    en: knowledgeArticleCopy.en.title,
+    ru: knowledgeArticleCopy.ru.title,
+    status: 'published',
+    href: '#/writing/model-response-to-knowledge-base',
+    articleId: 'knowledge-base',
   },
   {
     en: 'Why AI Chats Are Not Enough for Long-Term Knowledge',

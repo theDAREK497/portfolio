@@ -10,8 +10,19 @@ import { projects } from '../src/content/projects';
 import { capabilityGroups, skillLabel } from '../src/content/skills';
 import { translations } from '../src/content/translations';
 import { demiurgeArticleCopy } from '../src/content/demiurgeArticle';
+import {
+  knowledgeArticleCopy,
+  knowledgeFigures,
+  knowledgeImage,
+} from '../src/content/demiurgeKnowledgeArticle';
+import { writing } from '../src/content/writing';
 import type { Lang } from '../src/content/types';
-import { articleFile, homeFile } from '../src/lib/routes';
+import {
+  articleFile,
+  homeFile,
+  articleIdFromPath,
+  type ArticleId,
+} from '../src/lib/routes';
 
 const escape = (value: string) =>
   value.replace(
@@ -31,6 +42,8 @@ const files = [
   'index-ru.html',
   'demiurge-ai-chat.html',
   'demiurge-ai-chat-ru.html',
+  'demiurge-knowledge-base.html',
+  'demiurge-knowledge-base-ru.html',
   'resume-en.html',
   'resume-ru.html',
 ];
@@ -46,11 +59,18 @@ export function resumeContent(lang: Lang) {
     <section id="capabilities"><h2>${t.nav.capabilities}</h2>${paragraph(t.capabilities.intro)}${capabilityGroups.map((group) => `<h3>${escape(group.title[lang])}</h3><p>${escape(group.items.map((item) => skillLabel(item, lang)).join(' · '))}</p>`).join('')}</section>
     <section id="education"><h2>${t.nav.education}</h2>${education.map((item) => `<article><h3>${escape(item.degree[lang])}</h3>${paragraph(`${item.school[lang]} · ${item.period}`)}${paragraph(item.detail[lang])}</article>`).join('')}</section>
     <section id="about"><h2>${t.nav.about}</h2>${about.paragraphs[lang].map(paragraph).join('')}</section>
-    <section id="writing"><h2>${t.nav.writing}</h2>${link(`./${articleFile(lang)}`, demiurgeArticleCopy[lang].title)}${paragraph(t.writing.comingSoon)}</section>
+    <section id="writing"><h2>${t.nav.writing}</h2>${writing
+      .filter((item) => item.status === 'published')
+      .map(
+        (item) =>
+          `<p>${link(`./${articleFile(lang, item.articleId)}`, item[lang])}</p>`,
+      )
+      .join('')}${paragraph(t.writing.comingSoon)}</section>
     <footer id="contact"><h2>${t.contact.title}</h2>${paragraph(t.contact.text)}${link(`mailto:${contacts.email}`, contacts.email)}</footer></main>`;
 }
 
-export function articleContent(lang: Lang) {
+export function articleContent(lang: Lang, article: ArticleId = 'ai-chat') {
+  if (article === 'knowledge-base') return knowledgeArticleContent(lang);
   const copy = demiurgeArticleCopy[lang];
   const figure = (file: string, caption: string) =>
     `<figure>${link(`./images/articles/demiurge-ai-chat/${file}`, '').replace('</a>', `<img src="./images/articles/demiurge-ai-chat/${file}" alt="${escape(caption)}" loading="lazy"></a>`)}<figcaption>${escape(caption)}</figcaption></figure>`;
@@ -84,7 +104,28 @@ export function articleContent(lang: Lang) {
       })
       .join(
         '',
-      )}<footer>${paragraph(`${copy.nextLabel}: ${translations[lang].writing.comingSoon}`)}</footer></article></main>`;
+      )}<footer>${paragraph(copy.nextLabel)}${link(`./${articleFile(lang, 'knowledge-base')}`, knowledgeArticleCopy[lang].title)}</footer></article></main>`;
+}
+
+function knowledgeArticleContent(lang: Lang) {
+  const copy = knowledgeArticleCopy[lang];
+  const labels = demiurgeArticleCopy[lang];
+  return `<main class="static-content" id="main"><article><header id="top">${link(`./${homeFile(lang)}#writing`, labels.back)}<h1>${escape(copy.title)}</h1>${paragraph(copy.byline)}<nav aria-label="${escape(labels.tocLabel)}">${copy.sections.map((section) => link(`#${section.id}`, section.title)).join(' · ')}</nav></header>
+    ${copy.opening.map(paragraph).join('')}
+    ${copy.sections
+      .map((section) => {
+        const figure =
+          section.figure === undefined
+            ? ''
+            : (() => {
+                const image = knowledgeFigures[section.figure];
+                const src = knowledgeImage(section.figure, lang);
+                return `<figure><a href="${src}"><img src="${src}" alt="${escape(image.caption[lang])}" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"></a><figcaption>${escape(image.caption[lang])}</figcaption></figure>`;
+              })();
+        return `<section id="${section.id}"><h2>${escape(section.title)}</h2>${section.paragraphs.map(paragraph).join('')}${figure}</section>`;
+      })
+      .join('')}
+    <footer>${paragraph(lang === 'ru' ? 'Первая часть' : 'Part 1')}${link(`./${articleFile(lang)}`, labels.title)}</footer></article></main>`;
 }
 
 export function renderPublicPage(
@@ -93,24 +134,30 @@ export function renderPublicPage(
   publicUrl: string,
 ) {
   const lang: Lang = file.includes('-ru.html') ? 'ru' : 'en';
-  const article = file.startsWith('demiurge');
+  const articleId = articleIdFromPath(file);
+  const article = articleId !== null;
+  const copy =
+    articleId === 'knowledge-base'
+      ? knowledgeArticleCopy[lang]
+      : demiurgeArticleCopy[lang];
   const resume = file.startsWith('resume');
   const title = article
-    ? `${demiurgeArticleCopy[lang].title} — ${profile.localizedName[lang]}`
+    ? `${copy.title} — ${profile.localizedName[lang]}`
     : `${profile.localizedName[lang]} — ${resume ? (lang === 'ru' ? 'Резюме · ' : 'Resume · ') : ''}${profile.title}`;
-  const description = article
-    ? demiurgeArticleCopy[lang].deck
-    : profile.statement[lang];
-  const sibling = article
-    ? articleFile(lang === 'ru' ? 'en' : 'ru')
+  const description = article ? copy.deck : profile.statement[lang];
+  const sibling = articleId
+    ? articleFile(lang === 'ru' ? 'en' : 'ru', articleId)
     : resume
       ? `resume-${lang === 'ru' ? 'en' : 'ru'}.html`
       : homeFile(lang === 'ru' ? 'en' : 'ru');
   const url = `${publicUrl}/${file === 'index.html' ? '' : file}`;
   const siblingUrl = `${publicUrl}/${sibling === 'index.html' ? '' : sibling}`;
-  const image = article
-    ? `/images/articles/demiurge-ai-chat/cover${lang === 'en' ? '-en' : ''}.png`
-    : '/photo.jpg';
+  const image =
+    articleId === 'knowledge-base'
+      ? knowledgeImage(0, lang, 'png').slice(1)
+      : article
+        ? `/images/articles/demiurge-ai-chat/cover${lang === 'en' ? '-en' : ''}.png`
+        : '/photo.jpg';
   const person = {
     '@type': 'Person',
     '@id': `${publicUrl}/#person`,
@@ -141,7 +188,7 @@ export function renderPublicPage(
         name: title,
         ...(article
           ? {
-              headline: demiurgeArticleCopy[lang].title,
+              headline: copy.title,
               author: { '@id': `${publicUrl}/#person` },
               image: `${publicUrl}${image}`,
             }
@@ -167,7 +214,7 @@ export function renderPublicPage(
   const tools = `<nav class="static-tools" aria-label="${lang === 'ru' ? 'Версии страницы' : 'Page versions'}">${link(`./${homeFile(lang)}`, lang === 'ru' ? 'Портфолио' : 'Portfolio')} ${link(`./${sibling}`, lang === 'ru' ? 'English' : 'Русский')} ${resume ? `<button type="button" onclick="window.print()">${lang === 'ru' ? 'Печать / Сохранить PDF' : 'Print / Save PDF'}</button>` : link(contacts.resumeUrl, translations[lang].hero.resume)}</nav>`;
   html = html.replace(
     /<div id="root">(?:[\s\S]*?<!--\/static-->)?<\/div>/,
-    `<div id="root">${tools}${article ? articleContent(lang) : resumeContent(lang)}<!--/static--></div>`,
+    `<div id="root">${tools}${articleId ? articleContent(lang, articleId) : resumeContent(lang)}<!--/static--></div>`,
   );
   // Resume is a genuinely static, printable document, not a second SPA shell.
   if (resume)

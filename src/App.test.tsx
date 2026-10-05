@@ -333,8 +333,8 @@ describe('portfolio', () => {
       './resume/Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf',
     );
     const writing = within(document.getElementById('writing')!);
-    expect(writing.getAllByRole('link')).toHaveLength(1);
-    expect(writing.getAllByRole('heading', { level: 3 })).toHaveLength(2);
+    expect(writing.getAllByRole('link')).toHaveLength(2);
+    expect(writing.getAllByRole('heading', { level: 3 })).toHaveLength(3);
     expect(
       writing.getByRole('heading', { name: 'Coming soon' }),
     ).toBeInTheDocument();
