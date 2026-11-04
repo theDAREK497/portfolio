@@ -2,6 +2,18 @@ export const profile = {
   name: 'Ilya Gurikov',
   localizedName: { en: 'Ilya Gurikov', ru: 'Илья Гуриков' },
   title: 'Full-Stack Product Engineer',
+  localizedTitle: {
+    en: 'Full-Stack Product Engineer',
+    ru: 'Full-Stack разработчик продуктов',
+  },
+  searchTitle: {
+    en: 'Ilya Gurikov — Full-Stack Product Engineer',
+    ru: 'Илья Гуриков — Full-Stack разработчик продуктов',
+  },
+  searchDescription: {
+    en: 'Ilya Gurikov’s developer portfolio: full-stack products, business integrations and applied AI. Explore Demiurge Assistant, AstroCode and Archive Assistant.',
+    ru: 'Портфолио Ильи Гурикова: full-stack разработка, интеграции и прикладной ИИ. Проекты Demiurge Assistant, AstroCode и Archive Assistant.',
+  },
   statement: {
     en: 'I build full-stack products end to end — from user interfaces and backend APIs to integrations, launch and iteration.',
     ru: 'Создаю full-stack продукты целиком — от пользовательского интерфейса и backend API до интеграций, запуска и развития.',

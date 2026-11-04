@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import type { Lang, ProjectItem } from '../../content';
 import type { Translation } from '../../content/translations';
 import { ProjectImage } from './ProjectImage';
+import { projectFile } from '../../lib/routes';
 
 interface ProjectCardProps {
   project: ProjectItem;
@@ -77,6 +78,13 @@ export function ProjectCard({
             {t.projects.caseStudy}
             <ArrowRight aria-hidden="true" />
           </span>
+          <a
+            className="project-link"
+            href={`./${projectFile(project.id, lang)}`}
+          >
+            {t.projects.projectPage}
+            <ArrowUpRight aria-hidden="true" />
+          </a>
           {project.link && (
             <a
               href={project.link}

@@ -35,7 +35,7 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
             {profile.availability[lang]}
           </p>
           <p className="hero-name">{profile.localizedName[lang]}</p>
-          <h1>{profile.title}</h1>
+          <h1>{profile.localizedTitle[lang]}</h1>
           <p className="hero-statement">{profile.statement[lang]}</p>
           <p className="hero-support">{profile.summary[lang]}</p>
           <div className="hero-actions">
@@ -95,7 +95,8 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
                 alt={profile.localizedName[lang]}
                 width="640"
                 height="640"
-                loading="lazy"
+                loading="eager"
+                fetchPriority="high"
                 decoding="async"
                 onError={() => setPortraitFailed(true)}
               />

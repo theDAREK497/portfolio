@@ -84,6 +84,33 @@ Run project checks and a production build with:
 npm run check
 ```
 
+## Search visibility
+
+Each project has a standalone, crawlable Russian and English page generated
+from `src/content/projects.ts`. The homepage, article and project pages contain
+ordinary links, language alternates and structured data; their main content is
+available in the HTML without JavaScript. Keep project descriptions, status,
+screenshots and dated results accurate when updating that source.
+
+The production build needs `VITE_PUBLIC_SITE_URL` set to the public site URL,
+without a trailing slash. GitHub Actions obtains it from `configure-pages`.
+This enables canonical URLs, social previews, `sitemap.xml` and `robots.txt`.
+To check a production-like build locally:
+
+```bash
+VITE_PUBLIC_SITE_URL=https://thedarek497.github.io/portfolio npm run build
+```
+
+After deployment, verify the public pages and submit
+`https://thedarek497.github.io/portfolio/sitemap.xml` in Google Search Console
+and Yandex Webmaster for the verified site. Request a recrawl of the main page
+and important project pages where supported, then monitor indexing and search
+queries. A GitHub Pages project site is hosted under `/portfolio/`: crawlers
+look for `robots.txt` at the host root, so `/portfolio/robots.txt` does not by
+itself control the host's crawl rules. Check the actual root robots file
+separately; a sitemap submission does not require changing it. Indexing and
+search placement cannot be guaranteed by site configuration.
+
 ## Links
 
 - 🌐 [Portfolio](https://thedarek497.github.io/portfolio/)

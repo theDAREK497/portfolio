@@ -8,16 +8,22 @@ import {
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import App from './App';
+import { profile } from './content/profile';
 
 describe('portfolio', () => {
   it('renders the verified English content and complete navigation by default', async () => {
     const user = userEvent.setup();
     render(<App />);
 
+    expect(document.title).toBe(profile.searchTitle.en);
+
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Full-Stack Product Engineer',
+      profile.localizedTitle.en,
     );
-    for (const image of document.querySelectorAll('img')) {
+    expect(
+      screen.getByRole('img', { name: profile.localizedName.en }),
+    ).toHaveAttribute('loading', 'eager');
+    for (const image of document.querySelectorAll('.project-card img')) {
       expect(image).toHaveAttribute('loading', 'lazy');
     }
     const navigation = screen.getByRole('navigation', {
@@ -66,6 +72,7 @@ describe('portfolio', () => {
       'scrambling',
     );
     expect(document.documentElement).toHaveAttribute('lang', 'ru');
+    expect(document.title).toBe(profile.searchTitle.ru);
     await waitFor(
       () =>
         expect(document.querySelector('.site-shell')).toHaveAttribute(
@@ -75,7 +82,7 @@ describe('portfolio', () => {
       { timeout: 2500 },
     );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      'Full-Stack Product Engineer',
+      profile.localizedTitle.ru,
     );
     expect(
       screen.getByRole('link', { name: 'Смотреть проекты' }),

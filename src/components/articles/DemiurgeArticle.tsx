@@ -9,7 +9,12 @@ import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
 import type { Lang } from '../../content';
-import { articleFile, homeFile, isArticlePage } from '../../lib/routes';
+import {
+  articleFile,
+  homeFile,
+  isArticlePage,
+  projectFile,
+} from '../../lib/routes';
 import {
   demiurgeArticleCopy,
   type ArticleBlock,
@@ -471,6 +476,13 @@ export function DemiurgeArticle({ lang }: { lang: Lang }) {
             <div className="article-copy">
               <h2>{copy.goal.title}</h2>
               <ArticleBlocks blocks={copy.goal.blocks} />
+              <p>
+                <a href={`./${projectFile('demiurge', lang)}`}>
+                  {lang === 'ru'
+                    ? 'Подробнее о проекте Demiurge Assistant'
+                    : 'Explore the Demiurge Assistant project'}
+                </a>
+              </p>
             </div>
 
             <a

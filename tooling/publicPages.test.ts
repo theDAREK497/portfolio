@@ -3,6 +3,9 @@ import { readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { articleContent, renderPublicPage } from './publicPages';
 import { demiurgeArticleCopy } from '../src/content/demiurgeArticle';
+import { projects } from '../src/content/projects';
+import { profile } from '../src/content/profile';
+import { projectFile } from '../src/lib/routes';
 
 const template = readFileSync('index.html', 'utf8');
 const base = 'https://example.com/portfolio';
@@ -11,8 +14,76 @@ const parse = (html: string) =>
   new DOMParser().parseFromString(html, 'text/html');
 
 describe('public documents', () => {
+  it('renders language-specific homepage search metadata', () => {
+    for (const lang of ['en', 'ru'] as const) {
+      const doc = parse(
+        renderPublicPage(
+          template,
+          lang === 'en' ? 'index.html' : 'index-ru.html',
+          base,
+        ),
+      );
+      expect(doc.title).toBe(profile.searchTitle[lang]);
+      expect(
+        doc.querySelector('meta[name="description"]')?.getAttribute('content'),
+      ).toBe(profile.searchDescription[lang]);
+      expect(
+        parse(articleContent(lang)).querySelector(
+          `a[href="./${projectFile('demiurge', lang)}"]`,
+        ),
+      ).not.toBeNull();
+    }
+  });
+  it('links each project to a complete, independently indexable bilingual page', () => {
+    for (const lang of ['en', 'ru'] as const) {
+      const home = parse(
+        renderPublicPage(
+          template,
+          lang === 'en' ? 'index.html' : 'index-ru.html',
+          base,
+        ),
+      );
+      for (const project of projects) {
+        const file = projectFile(project.id, lang);
+        const sibling = projectFile(project.id, lang === 'en' ? 'ru' : 'en');
+        expect(home.querySelector(`a[href="./${file}"]`)).not.toBeNull();
+        const doc = parse(renderPublicPage(template, file, base));
+        expect(doc.querySelector('h1')?.textContent).toBe(project.name);
+        expect(doc.querySelector('main')?.textContent).toContain(
+          project.summary[lang],
+        );
+        for (const detail of project.details)
+          expect(doc.querySelector('main')?.textContent).toContain(
+            detail.value[lang],
+          );
+        expect(
+          doc.querySelector('link[rel="canonical"]')?.getAttribute('href'),
+        ).toBe(`${base}/${file}`);
+        expect(
+          doc
+            .querySelector(`link[hreflang="${lang === 'en' ? 'ru' : 'en'}"]`)
+            ?.getAttribute('href'),
+        ).toBe(`${base}/${sibling}`);
+        expect(doc.querySelector('script[type="module"]')).toBeNull();
+        const graph = JSON.parse(
+          doc.querySelector('script[type="application/ld+json"]')!.textContent!,
+        );
+        expect(
+          graph['@graph'].find(
+            (entry: { '@type': string }) => entry['@type'] === 'CreativeWork',
+          ).creator['@id'],
+        ).toBe(`${base}/#person`);
+        for (const image of doc.querySelectorAll('img')) {
+          expect(
+            existsSync(resolve('public', image.getAttribute('src')!)),
+          ).toBe(true);
+          expect(image.alt.length).toBeGreaterThan(5);
+        }
+      }
+    }
+  });
   it('includes the owner-confirmed experience and metrics in both languages', () => {
-    for (const lang of ['en', 'ru']) {
+    for (const lang of ['en', 'ru'] as const) {
       const doc = parse(
         renderPublicPage(template, `resume-${lang}.html`, base),
       );
@@ -32,7 +103,7 @@ describe('public documents', () => {
       expect(text).toContain(
         lang === 'en' ? 'Sep 2022 — Jul 2023' : 'Сен 2022 — июл 2023',
       );
-      expect(text).toContain('Full-Stack Product Engineer');
+      expect(text).toContain(profile.localizedTitle[lang]);
       expect(text).toContain('Onpeak Digital');
       expect(text).toContain('Chrome DevTools');
       expect(text).toContain('Lighthouse');
@@ -101,6 +172,15 @@ describe('public documents', () => {
       expect(doc.querySelectorAll('meta[property="og:type"]')).toHaveLength(1);
       expect(doc.querySelectorAll('h1')).toHaveLength(1);
       expect(doc.querySelectorAll('main')).toHaveLength(1);
+      if (file.startsWith('demiurge-')) {
+        const graph = JSON.parse(
+          doc.querySelector('script[type="application/ld+json"]')!.textContent!,
+        );
+        const article = graph['@graph'].find(
+          (entry: { '@type': string }) => entry['@type'] === 'Article',
+        );
+        expect(article.headline).toBe(doc.querySelector('h1')?.textContent);
+      }
       expect(doc.documentElement.lang).toBe(file.includes('-ru') ? 'ru' : 'en');
       expect(doc.querySelector('main')!.textContent!.length).toBeGreaterThan(
         3000,

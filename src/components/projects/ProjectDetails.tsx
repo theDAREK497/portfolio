@@ -10,6 +10,7 @@ import type { Lang, ProjectItem } from '../../content';
 import type { Translation } from '../../content/translations';
 import { Dialog } from '../ui/Dialog';
 import { ProjectImage } from './ProjectImage';
+import { projectFile } from '../../lib/routes';
 
 interface ProjectDetailsProps {
   project: ProjectItem;
@@ -166,6 +167,12 @@ export function ProjectDetails({
             ))}
           </ul>
           <div className="dialog-link-group">
+            <a
+              className="button button-dark"
+              href={`./${projectFile(project.id, lang)}`}
+            >
+              {t.projects.projectPage} <ArrowUpRight aria-hidden="true" />
+            </a>
             {project.link && (
               <a
                 className="button button-dark"

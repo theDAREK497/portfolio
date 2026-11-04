@@ -19,7 +19,8 @@ const readInitialLanguage = (): Lang => {
     if (
       /\/(?:index|demiurge-(?:ai-chat|knowledge-base))\.html$/.test(
         window.location.pathname,
-      )
+      ) ||
+      window.location.pathname.endsWith('/')
     )
       return 'en';
     return window.localStorage.getItem(STORAGE_KEY) === 'ru' ? 'ru' : 'en';

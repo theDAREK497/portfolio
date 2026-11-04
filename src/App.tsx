@@ -71,8 +71,10 @@ export default function App() {
         : demiurgeArticleCopy[lang];
     document.title = articleOpen
       ? `${copy.title} — ${profile.localizedName[lang]}`
-      : `${profile.localizedName[lang]} — ${profile.title}`;
-    const description = articleOpen ? copy.deck : profile.statement[lang];
+      : profile.searchTitle[lang];
+    const description = articleOpen
+      ? copy.deck
+      : profile.searchDescription[lang];
     for (const selector of [
       'meta[name="description"]',
       'meta[property="og:description"]',

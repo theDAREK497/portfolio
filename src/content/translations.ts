@@ -33,6 +33,7 @@ export const translations = {
       intro:
         'Independent projects that complement my commercial work: a launched subscription product and practical AI systems with RAG, local models and human review.',
       caseStudy: 'Read case study',
+      projectPage: 'Open project page',
       liveLink: 'Visit product',
       github: 'View repository',
       result: 'Results',
@@ -133,6 +134,7 @@ export const translations = {
       intro:
         'Самостоятельные проекты, дополняющие коммерческий опыт: запущенный продукт с подпиской и практические AI-системы с RAG, локальными моделями и проверкой человеком.',
       caseStudy: 'Открыть кейс',
+      projectPage: 'Страница проекта',
       liveLink: 'Открыть продукт',
       github: 'Открыть репозиторий',
       result: 'Результаты',
