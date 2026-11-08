@@ -33,6 +33,12 @@ Stars, nebulae and decorative constellations are generated from `COSMOS_SEED` in
 build also regenerates the tracked assets. The same seed reproduces the same sky.
 These patterns are decorative, not astronomical charts.
 
+Only stars and nebulae use a repeating tile. Constellations are generated into
+a separate, non-repeating 12,000 px field spanning the page width. Every group
+has its own node count, connections, scale and rotation, so the same constellation
+is not copied across the viewport or down the page. Beyond the field, the small
+star/nebula tile continues without restarting the constellation layer.
+
 The browser receives ordinary static SVG background images, with a smaller star
 budget below 600 px and separate light/dark palettes. There is no visitor-side
 generator, WebGL, canvas, animation loop, SVG filter, blend mode or external asset

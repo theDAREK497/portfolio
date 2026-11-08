@@ -19,12 +19,21 @@ html[data-theme='dark'] {
 body.public-document {
   margin: 0;
   background-color: var(--doc-paper);
-  background-image: url('./images/space/cosmos-light.svg');
-  background-repeat: repeat;
-  background-size: 1440px 1200px;
+  background-image:
+    url('./images/space/constellations-light.svg'),
+    url('./images/space/cosmos-light.svg?v=2');
+  background-repeat: no-repeat, repeat;
+  background-position:
+    center top,
+    left top;
+  background-size:
+    100% 12000px,
+    1440px 1200px;
 }
 html[data-theme='dark'] body.public-document {
-  background-image: url('./images/space/cosmos-dark.svg');
+  background-image:
+    url('./images/space/constellations-dark.svg'),
+    url('./images/space/cosmos-dark.svg?v=2');
 }
 .case-metrics {
   display: grid;
@@ -51,11 +60,17 @@ html[data-theme='dark'] body.public-document {
 }
 @media (max-width: 600px) {
   body.public-document {
-    background-image: url('./images/space/cosmos-light-small.svg');
-    background-size: 720px 1000px;
+    background-image:
+      url('./images/space/constellations-light-small.svg'),
+      url('./images/space/cosmos-light-small.svg?v=2');
+    background-size:
+      100% 12000px,
+      720px 1000px;
   }
   html[data-theme='dark'] body.public-document {
-    background-image: url('./images/space/cosmos-dark-small.svg');
+    background-image:
+      url('./images/space/constellations-dark-small.svg'),
+      url('./images/space/cosmos-dark-small.svg?v=2');
   }
   .case-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));

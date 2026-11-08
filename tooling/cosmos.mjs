@@ -1,5 +1,6 @@
 // Deterministic, bounded SVG generation. This module runs in Node, never in a visitor's browser.
 export const COSMOS_SEED = 'ilya-gurikov:portfolio:cosmos:v1';
+export const CONSTELLATION_HEIGHT = 12000;
 
 function randomFromSeed(seed) {
   let state = 2166136261;
@@ -28,7 +29,6 @@ export function renderCosmos(
   const height = compact ? 1000 : 1200;
   const starCount = compact ? 100 : 280;
   const nebulaCount = compact ? 3 : 5;
-  const constellationCount = compact ? 2 : 4;
   const colors = dark
     ? ['#8272df', '#3c9daf', '#be925e']
     : ['#8573ac', '#448e9c', '#b28a58'];
@@ -38,7 +38,6 @@ export function renderCosmos(
   const definitions = [];
   const clouds = [];
   const stars = [];
-  const constellations = [];
 
   for (let i = 0; i < nebulaCount; i++) {
     const cx = width * (0.18 + random() * 0.64);
@@ -80,23 +79,74 @@ export function renderCosmos(
     );
   }
 
-  for (let i = 0; i < constellationCount; i++) {
-    const cx = width * (i % 2 ? 0.68 : 0.18);
-    const cy = height * (0.2 + Math.floor(i / 2) * 0.52 + random() * 0.09);
+  // No scripts, animation, filters, foreignObject, external resources or blend modes.
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><defs>${definitions.join('')}</defs><g>${clouds.join('')}</g><g>${stars.join('')}</g></svg>\n`;
+}
+
+// A separate non-repeating field: the small star/nebula tile never copies these motifs.
+export function renderConstellations(
+  seed = COSMOS_SEED,
+  theme = 'dark',
+  compact = false,
+) {
+  const random = randomFromSeed(`${seed}:constellations:v2`);
+  const width = compact ? 720 : 1440;
+  const count = compact ? 14 : 24;
+  const dark = theme === 'dark';
+  const color = dark ? '#9cbfdf' : '#527592';
+  const groups = [];
+  for (let i = 0; i < count; i++) {
+    const radius = (compact ? 55 : 80) + random() * (compact ? 45 : 65);
+    const scale = 0.7 + random() * 0.55;
+    const margin = radius * scale + 12;
+    const cx = Math.max(
+      margin,
+      Math.min(width - margin, width * (0.04 + random() * 0.92)),
+    );
+    const cy =
+      180 + i * ((CONSTELLATION_HEIGHT - 400) / count) + random() * 180;
+    const pointCount = 4 + Math.floor(random() * 6);
     const points = [];
-    for (let j = 0; j < 6; j++) {
-      points.push([
-        number(cx + j * (compact ? 23 : 38)),
-        number(cy + (random() - 0.5) * 140),
-      ]);
+    for (let j = 0; j < pointCount; j++) {
+      let point;
+      for (let attempt = 0; attempt < 32; attempt++) {
+        const angle = random() * Math.PI * 2;
+        const distance = radius * (0.2 + random() * 0.8);
+        point = [
+          number(Math.cos(angle) * distance),
+          number(Math.sin(angle) * distance),
+        ];
+        if (
+          points.every(
+            ([x, y]) => Math.hypot(x - point[0], y - point[1]) > radius * 0.24,
+          )
+        )
+          break;
+      }
+      points.push(point);
     }
-    const line = points.map((point) => point.join(',')).join(' ');
-    const color = dark ? '#9cbfdf' : '#527592';
-    constellations.push(
-      `<g fill="${color}" stroke="${color}"><polyline points="${line}" fill="none" stroke-width=".75" opacity="${dark ? 0.23 : 0.18}"/><path d="M${points[1].join(' ')} L${points[4].join(' ')}" fill="none" stroke-width=".65" opacity=".12"/>${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.65" stroke="none" opacity="${dark ? 0.58 : 0.4}"/>`).join('')}</g>`,
+    const edges = [];
+    for (let j = 1; j < pointCount; j++) {
+      let nearest = 0;
+      for (let k = 1; k < j; k++) {
+        const distance = (n) =>
+          Math.hypot(points[j][0] - points[n][0], points[j][1] - points[n][1]);
+        if (distance(k) < distance(nearest)) nearest = k;
+      }
+      edges.push([j, nearest]);
+    }
+    if (
+      pointCount > 5 &&
+      random() > 0.5 &&
+      !edges.some(([a, b]) => a === pointCount - 1 && b === 0)
+    )
+      edges.push([pointCount - 1, 0]);
+    const path = edges
+      .map(([a, b]) => `M${points[a].join(' ')} L${points[b].join(' ')}`)
+      .join(' ');
+    groups.push(
+      `<g data-constellation="${i}" transform="translate(${number(cx)} ${number(cy)}) rotate(${number(random() * 360)}) scale(${number(scale)})"><path d="${path}" fill="none" stroke="${color}" stroke-width=".75" opacity="${dark ? 0.23 : 0.18}"/>${points.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${number(1.2 + random() * 0.8)}" fill="${color}" opacity="${dark ? 0.58 : 0.4}"/>`).join('')}</g>`,
     );
   }
-
-  // No scripts, animation, filters, foreignObject, external resources or blend modes.
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><defs>${definitions.join('')}</defs><g>${clouds.join('')}</g><g>${stars.join('')}</g><g>${constellations.join('')}</g></svg>\n`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${CONSTELLATION_HEIGHT}" viewBox="0 0 ${width} ${CONSTELLATION_HEIGHT}" preserveAspectRatio="none">${groups.join('')}</svg>\n`;
 }
