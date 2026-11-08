@@ -43,7 +43,7 @@ export const services: ServiceItem[] = [
       ru: 'Сроки, стоимость, инфраструктуру и поддержку согласуем после разбора задачи. Дизайн бренда, продвижение и круглосуточное дежурство требуют отдельного объёма работ.',
       en: 'Timeline, cost, infrastructure and support are agreed after discovery. Brand design, marketing and round-the-clock on-call coverage require a separate scope.',
     },
-    caseIds: ['astrocode-launch'],
+    caseIds: ['astrocode-launch', 'astrocode-seo'],
   },
   {
     id: 'integrations-automation',
@@ -112,7 +112,7 @@ export const services: ServiceItem[] = [
       ru: 'Диагностика — самостоятельный результат, внедрение можно согласовать следующим этапом. Цель ускорения определяем после исходных замеров. Техническая SEO-подготовка не включает обещания позиций или продаж.',
       en: 'Diagnosis is a standalone deliverable; implementation can be the next stage. Performance targets follow baseline measurements. Technical search preparation does not include promises of rankings or sales.',
     },
-    caseIds: ['legacy-performance'],
+    caseIds: ['legacy-performance', 'astrocode-seo'],
   },
 ];
 

@@ -15,6 +15,9 @@ export interface CaseStudy {
   serviceIds: string[];
   projectId?: string;
   article?: boolean;
+  proof?: LocalizedText;
+  proofDate?: LocalizedText;
+  metrics?: Array<{ label: LocalizedText; value: LocalizedText }>;
   image?: { src: string; width: number; height: number; alt: LocalizedText };
   evidence: Array<{
     src: string;
@@ -90,6 +93,11 @@ export const caseStudies: CaseStudy[] = [
     },
     serviceIds: ['product-development', 'integrations-automation'],
     projectId: 'astrocode',
+    proof: {
+      ru: '126 установок RuStore · production-релиз Google Play',
+      en: '126 RuStore installs · Google Play production release',
+    },
+    proofDate: { ru: 'Срез на 8 ноября 2026', en: 'Snapshot: 8 November 2026' },
     image: {
       src: './images/projects/astrocode-dashboard.png',
       width: 1500,
@@ -146,6 +154,150 @@ export const caseStudies: CaseStudy[] = [
       {
         href: 'https://www.rustore.ru/catalog/app/com.dixtalescat.astrocode',
         label: { ru: 'RuStore', en: 'RuStore' },
+      },
+    ],
+  },
+  {
+    id: 'astrocode-seo',
+    title: {
+      ru: 'SEO AstroCode: от SPA к доступным поиску страницам',
+      en: 'AstroCode SEO: from an SPA to search-accessible pages',
+    },
+    kind: {
+      ru: 'Собственный продукт · техническое SEO',
+      en: 'Independent product · technical SEO',
+    },
+    summary: {
+      ru: 'Серверный HTML, понятная идентичность продукта и отдельные руководства. Что сделано и что видно в Google Search Console.',
+      en: 'Server-rendered HTML, consistent product identity and dedicated guides. The engineering work and what Google Search Console reports.',
+    },
+    task: {
+      ru: 'Сделать публичное содержание React-приложения доступным до запуска JavaScript и помочь поисковым системам отличать АстроКод от одноимённых продуктов.',
+      en: 'Make the React application’s public content accessible before JavaScript runs and help search systems distinguish AstroCode from other products with the same name.',
+    },
+    constraints: {
+      ru: 'Интерактивное приложение остаётся SPA. В поисковые представления нельзя включать аккаунты и персональные результаты. Период наблюдения короткий; обычная доступность URL не подтверждает его индексацию.',
+      en: 'The interactive application remains an SPA. Search-facing representations must exclude accounts and personal results. The observation window is short; an accessible URL does not prove indexing.',
+    },
+    role: {
+      ru: 'Автор продукта и full-stack разработчик: публичные маршруты, серверная отрисовка, метаданные, генерация контента и проверка отчётов Search Console.',
+      en: 'Product owner and full-stack developer: public routes, server rendering, metadata, content generation and Search Console review.',
+    },
+    solution: {
+      ru: [
+        'Собрал единый источник официальной идентичности: AstroCode / АстроКод, домен, Android-пакет и ссылки на продукт. Из него генерируются согласованные JSON-LD, страница /official и llms.txt.',
+        'Добавил /guides/horoscope и /guides/compatibility. Сервер формирует их HTML через React renderToStaticMarkup; заголовки, содержание и ссылки доступны без клиентского JavaScript.',
+        'Связал руководства с публичными страницами и добавил их в sitemap. Сохранил canonical и отдельные title/description публичных маршрутов.',
+        'Подготовил Markdown-адреса для публичного контента: например, /guides/compatibility.md и /official.md. HTML и Markdown руководств строятся из одного источника; Accept: text/markdown поддерживается с Vary: Accept и ссылкой на канонический HTML.',
+        'Добавил проверки свежести метаданных и публичных HTTP-ответов. Для релиза 4 ноября зафиксированы проверки начального HTML 12 маршрутов и сценариев без JavaScript на мобильной и настольной ширине.',
+      ],
+      en: [
+        'Established a single official identity source: AstroCode / АстроКод, domain, Android package and product links. It generates consistent JSON-LD, the /official page and llms.txt.',
+        'Added /guides/horoscope and /guides/compatibility. The server generates their HTML with React renderToStaticMarkup; headings, content and links are available without client JavaScript.',
+        'Linked guides from public pages and added them to the sitemap. Preserved canonical URLs and route-specific public titles and descriptions.',
+        'Provided Markdown URLs for public content, including /guides/compatibility.md and /official.md. Guide HTML and Markdown share one source; Accept: text/markdown is supported with Vary: Accept and a canonical HTML link.',
+        'Added metadata freshness and public HTTP-response checks. The 4 November release records initial-HTML validation for 12 routes and no-JavaScript checks at mobile and desktop widths.',
+      ],
+    },
+    results: {
+      ru: [
+        'Руководство о совместимости проверено на опубликованном сайте 8 ноября 2026 года: отдельные title, H1, разделы и официальные ссылки присутствуют.',
+        'Search Console, ресурс https://astrocode-app.ru/, тип поиска Web, 10 октября — 6 ноября 2026: 43 клика, 2,22 тыс. показов, CTR 1,9%, средняя позиция 7,6. Значение показов округлено самой консолью.',
+        'В таблице запросов видны не только названия бренда: «натальная карта онлайн» — 11 кликов и 737 показов; «натальная карта рассчитать» — 8 кликов и 615 показов за тот же период.',
+        'Работы с руководствами и Markdown объединены в PR № 10 от 4 ноября. Срез Search Console перепроверен 8 ноября; он фиксирует видимость всего ресурса, а не только новых руководств.',
+      ],
+      en: [
+        'The compatibility guide was checked on the live site on 8 November 2026: it has its own title, H1, content sections and official links.',
+        'Search Console, property https://astrocode-app.ru/, Web search, 10 October–6 November 2026: 43 clicks, 2.22K impressions, 1.9% CTR and average position 7.6. The console rounds the impressions display.',
+        'The query table includes non-brand searches: “натальная карта онлайн” has 11 clicks and 737 impressions; “натальная карта рассчитать” has 8 clicks and 615 impressions for the same period.',
+        'The guides and Markdown work was merged in PR #10 on 4 November. The Search Console snapshot was rechecked on 8 November; it represents the entire property, not just the new guides.',
+      ],
+    },
+    limitations: {
+      ru: 'Это датированный срез без сопоставимого контрольного периода. Он включает дни до релиза 4 ноября и всего несколько дней после него: нельзя приписать все клики новым страницам или доказать причинный эффект работ. Средняя позиция 7,6 не означает постоянное седьмое место по каждому запросу. Клики поиска не равны обращениям и покупкам; рост конверсии не измерен. Markdown и llms.txt — дополнительные представления публичного контента, не доказанный фактор ранжирования. Индексация новых руководств этим отчётом не подтверждена.',
+      en: 'This is a dated snapshot without a comparable control period. It spans days before the 4 November release and only a few days afterwards: clicks cannot all be attributed to new pages or establish a causal effect. Average position 7.6 does not mean a stable seventh place for every query. Search clicks are not enquiries or purchases; conversion growth was not measured. Markdown and llms.txt are additional public-content representations, not a demonstrated ranking factor. This report does not confirm indexing of the new guides.',
+    },
+    takeaway: {
+      ru: 'Могу подготовить публичную часть SPA к обходу поиском, связать содержание и метаданные и организовать наблюдение за показами и переходами. Следующий шаг — сравнивать одинаковые периоды и отдельно смотреть страницы и запросы.',
+      en: 'I can prepare an SPA’s public content for crawling, align content and metadata, and set up observation of impressions and clicks. The next step is to compare equal periods and examine pages and queries separately.',
+    },
+    serviceIds: ['product-development', 'performance'],
+    projectId: 'astrocode',
+    proof: {
+      ru: '43 клика · 2,22 тыс. показов в Google',
+      en: '43 clicks · 2.22K Google impressions',
+    },
+    proofDate: {
+      ru: '10 октября — 6 ноября 2026 · Web',
+      en: '10 October–6 November 2026 · Web',
+    },
+    metrics: [
+      { label: { ru: 'Клики', en: 'Clicks' }, value: { ru: '43', en: '43' } },
+      {
+        label: { ru: 'Показы', en: 'Impressions' },
+        value: { ru: '2,22 тыс.', en: '2.22K' },
+      },
+      { label: { ru: 'CTR', en: 'CTR' }, value: { ru: '1,9%', en: '1.9%' } },
+      {
+        label: { ru: 'Средняя позиция', en: 'Average position' },
+        value: { ru: '7,6', en: '7.6' },
+      },
+    ],
+    image: {
+      src: './images/cases/astrocode-search-2026-11-08.jpg',
+      width: 2144,
+      height: 635,
+      alt: {
+        ru: 'Срез Google Search Console AstroCode за 10 октября — 6 ноября 2026',
+        en: 'AstroCode Search Console snapshot for 10 October–6 November 2026',
+      },
+    },
+    evidence: [
+      {
+        src: './images/cases/astrocode-search-2026-11-08.jpg',
+        width: 2144,
+        height: 635,
+        caption: {
+          ru: 'Google Search Console · весь ресурс astrocode-app.ru · Web · 10.10–06.11.2026. Снимок от 08.11.2026; показатели перепроверены в консоли в тот же день.',
+          en: 'Google Search Console · whole astrocode-app.ru property · Web · 10 October–6 November 2026. Captured and rechecked on 8 November 2026.',
+        },
+      },
+    ],
+    links: [
+      {
+        href: 'https://astrocode-app.ru/guides/compatibility',
+        label: {
+          ru: 'Руководство: натальная карта и совместимость',
+          en: 'Guide: natal chart and compatibility',
+        },
+      },
+      {
+        href: 'https://astrocode-app.ru/guides/horoscope',
+        label: {
+          ru: 'Руководство: гороскоп на телефоне',
+          en: 'Guide: horoscope on a phone',
+        },
+      },
+      {
+        href: 'https://astrocode-app.ru/official',
+        label: {
+          ru: 'Официальная страница продукта',
+          en: 'Official product page',
+        },
+      },
+      {
+        href: 'https://github.com/theDAREK497/AstroGenesis/pull/7',
+        label: {
+          ru: 'PR № 7: идентичность и метаданные',
+          en: 'PR #7: identity and metadata',
+        },
+      },
+      {
+        href: 'https://github.com/theDAREK497/AstroGenesis/pull/10',
+        label: {
+          ru: 'PR № 10: серверные руководства и Markdown',
+          en: 'PR #10: server-rendered guides and Markdown',
+        },
       },
     ],
   },

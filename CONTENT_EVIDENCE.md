@@ -21,6 +21,20 @@ dated observations, not live counters or proof of causal business impact.
 - [RuStore statistics](https://console.rustore.ru/apps/2063720975/statistics)
 - [Google Play dashboard](https://play.google.com/console/u/0/developers/6595089408231903766/app/4975708618150178686/app-dashboard)
 - [GitHub profile](https://github.com/theDAREK497)
+- [AstroCode PR #7: official identity and metadata](https://github.com/theDAREK497/AstroGenesis/pull/7)
+- [AstroCode PR #10: server-rendered guides and Markdown](https://github.com/theDAREK497/AstroGenesis/pull/10)
+- [Published compatibility guide](https://astrocode-app.ru/guides/compatibility)
+
+The standalone SEO case (`astrocode-seo`) uses the same 10 October–6 November
+Search Console snapshot, rechecked on 8 November. The query table shows
+“натальная карта онлайн”: 11 clicks / 737 impressions, and “натальная карта
+рассчитать”: 8 clicks / 615 impressions. These are query-level observations,
+not attribution to the new guides. PR #10's work was released on 4 November;
+most of the reporting window predates it. The report establishes neither
+indexing of those guides nor a causal traffic or sales lift. The compatibility
+guide's title, heading, content and official links were checked on the live site.
+Implementation details and recorded release checks come from the merged PRs;
+the entire interactive SPA has not been converted to SSR.
 
 The private consoles require the owner's existing access. Public case pages use
 cropped screenshots and public product/store links; they do not link visitors

@@ -109,14 +109,10 @@ export function CasesSection({ lang }: { lang: Lang }) {
                 </a>
               </h3>
               <p>{item.summary[lang]}</p>
-              {index === 0 && (
+              {item.proof && (
                 <p className="case-proof">
-                  {ru
-                    ? '126 установок RuStore · production-релиз Google Play'
-                    : '126 RuStore installs · Google Play production release'}
-                  <small>
-                    {ru ? 'Срез на 8 ноября 2026' : 'Snapshot: 8 November 2026'}
-                  </small>
+                  {item.proof[lang]}
+                  {item.proofDate && <small>{item.proofDate[lang]}</small>}
                 </p>
               )}
               <a

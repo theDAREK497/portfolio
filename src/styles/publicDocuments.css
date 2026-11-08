@@ -16,9 +16,56 @@ html[data-theme='dark'] {
   --doc-line: #2c3a4c;
   --doc-on-primary: #06111d;
 }
-body:has(.static-content) {
+body.public-document {
   margin: 0;
-  background: var(--doc-paper);
+  background-color: var(--doc-paper);
+  background-image: url('./images/space/cosmos-light.svg');
+  background-repeat: repeat;
+  background-size: 1440px 1200px;
+}
+html[data-theme='dark'] body.public-document {
+  background-image: url('./images/space/cosmos-dark.svg');
+}
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 40px 0 12px;
+  padding: 24px 0;
+  border-top: 1px solid var(--doc-line);
+  border-bottom: 1px solid var(--doc-line);
+}
+.case-metrics dt {
+  color: var(--doc-muted);
+  font-size: 0.85rem;
+}
+.case-metrics dd {
+  margin: 8px 0 0;
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.metrics-period {
+  color: var(--doc-muted);
+  font-size: 0.85rem;
+}
+@media (max-width: 600px) {
+  body.public-document {
+    background-image: url('./images/space/cosmos-light-small.svg');
+    background-size: 720px 1000px;
+  }
+  html[data-theme='dark'] body.public-document {
+    background-image: url('./images/space/cosmos-dark-small.svg');
+  }
+  .case-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 16px;
+  }
+}
+@media (forced-colors: active), print {
+  body.public-document {
+    background-image: none !important;
+  }
 }
 .static-content {
   background: var(--doc-surface);

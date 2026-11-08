@@ -69,6 +69,7 @@ export function caseContent(item: CaseStudy, lang: Lang) {
   const ru = lang === 'ru';
   return `<main class="static-content project-document offering-document" id="main"><article>
     <header id="top"><p class="project-kicker">${ru ? 'Кейс' : 'Case study'} / ${escape(item.kind[lang])}</p><h1>${escape(item.title[lang])}</h1><p class="project-lead">${escape(item.summary[lang])}</p></header>
+    ${item.metrics ? `<dl class="case-metrics">${item.metrics.map((metric) => `<div><dt>${escape(metric.label[lang])}</dt><dd>${escape(metric.value[lang])}</dd></div>`).join('')}</dl>${item.proofDate ? `<p class="metrics-period">${escape(item.proofDate[lang])}</p>` : ''}` : ''}
     <section><h2>${ru ? 'Задача' : 'The task'}</h2>${p(item.task[lang])}</section>
     <section><h2>${ru ? 'Ограничения' : 'Constraints'}</h2>${p(item.constraints[lang])}</section>
     <section><h2>${ru ? 'Моя роль' : 'My role'}</h2>${p(item.role[lang])}</section>

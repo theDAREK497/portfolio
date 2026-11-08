@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "build": "npm run space:generate && vite build",
     "preview": "vite preview",
+    "space:generate": "node tooling/generateCosmos.mjs",
     "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

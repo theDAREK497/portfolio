@@ -10,7 +10,7 @@ The site presents my independent engineering services alongside my employment ex
 
 ## Services and case studies
 
-The bilingual homepage leads with a project enquiry, three services, four case
+The bilingual homepage leads with a project enquiry, three services, five case
 studies and the collaboration process. Employment history and education remain
 available through the About section and the standalone printable resume. Existing
 project, article, privacy-policy and PDF URLs are preserved.
@@ -25,6 +25,20 @@ alternates, structured data, ordinary links and a sitemap entry. These pages wor
 without JavaScript. The homepage HTML fallback presents the same service and
 case structure. Contact links open email or Telegram; no form backend or visitor
 tracking is implied. A contact click is not counted as a received enquiry.
+
+## Seeded cosmic background
+
+Stars, nebulae and decorative constellations are generated from `COSMOS_SEED` in
+`tooling/cosmos.mjs`. Run `npm run space:generate` after changing it; the production
+build also regenerates the tracked assets. The same seed reproduces the same sky.
+These patterns are decorative, not astronomical charts.
+
+The browser receives ordinary static SVG background images, with a smaller star
+budget below 600 px and separate light/dark palettes. There is no visitor-side
+generator, WebGL, canvas, animation loop, SVG filter, blend mode or external asset
+request. Backgrounds scroll normally and fall back to the theme's solid colour
+when images cannot render; forced-colour and print modes omit them. Static case
+and service pages receive the same background without requiring JavaScript.
 
 ## Positioning
 
