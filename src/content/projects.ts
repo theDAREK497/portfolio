@@ -225,7 +225,7 @@ export const projects: ProjectItem[] = [
       ru: 'Независимый продуктовый инженер · Full-Stack разработчик',
     },
     summary: {
-      en: 'A cross-platform subscription product launched on web, Telegram and Android. I built the product end to end, integrated payments and subscriptions, and converted early organic traffic into paid purchases.',
+      en: 'A cross-platform subscription product launched on web, Telegram and Android. I built the product end to end, integrated payments, subscriptions and account access.',
       ru: 'Кроссплатформенный продукт с подпиской для веба, Telegram и Android. Самостоятельно разработал его целиком, подключил платежи и подписки и получил первые платные покупки.',
     },
     capabilities: {
@@ -278,12 +278,14 @@ export const projects: ProjectItem[] = [
     results: {
       en: [
         'Publicly launched across web, Telegram and Android.',
-        'Reached 2,158 RuStore page views, 80 installs, 33 registered accounts and 2 paid subscriptions by 16 September 2026.',
+        'As of 8 November 2026: 126 all-time RuStore installs and a Google Play production release dated 4 November with 100% rollout.',
+        'The admin panel shows 37 Web/APK accounts and 15 Telegram accounts on 8 November 2026; these groups can overlap and are not unique people.',
         'Continued iterating on the product across multiple Android releases based on real usage.',
       ],
       ru: [
         'Публично запущен в вебе, Telegram и Android.',
-        'К 16 сентября 2026 года достиг 2 158 просмотров страницы RuStore, 80 установок, 33 зарегистрированных аккаунтов и 2 платных подписок.',
+        'На 8 ноября 2026 года: 126 установок RuStore за всё время и production-релиз Google Play от 4 ноября с развёртыванием на 100%.',
+        'На 8 ноября 2026 года в админ-панели — 37 аккаунтов Web/APK и 15 аккаунтов Telegram; группы могут пересекаться и не равны уникальным людям.',
         'Продолжил развивать продукт через несколько Android-релизов на основе реального использования.',
       ],
     },

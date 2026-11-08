@@ -7,24 +7,28 @@ export const profile = {
     ru: 'Full-Stack разработчик продуктов',
   },
   searchTitle: {
-    en: 'Ilya Gurikov — Full-Stack Product Engineer',
-    ru: 'Илья Гуриков — Full-Stack разработчик продуктов',
+    en: 'Ilya Gurikov — Web Development, Integrations & Automation',
+    ru: 'Илья Гуриков — разработка, интеграции и автоматизация',
   },
   searchDescription: {
-    en: 'Ilya Gurikov’s developer portfolio: full-stack products, business integrations and applied AI. Explore Demiurge Assistant, AstroCode and Archive Assistant.',
-    ru: 'Портфолио Ильи Гурикова: full-stack разработка, интеграции и прикладной ИИ. Проекты Demiurge Assistant, AstroCode и Archive Assistant.',
+    en: 'Independent full-stack engineer for web products, API integrations, workflow automation and performance diagnosis. Services, evidence-backed case studies and experience. Available for projects and remote roles.',
+    ru: 'Независимый full-stack инженер: веб-продукты, API-интеграции, автоматизация и диагностика производительности. Услуги, кейсы с подтверждениями и опыт. Проектная работа и удалённые вакансии.',
+  },
+  headline: {
+    en: 'I build and improve web products for business.',
+    ru: 'Разрабатываю и улучшаю веб-продукты для бизнеса.',
   },
   statement: {
-    en: 'I build full-stack products end to end — from user interfaces and backend APIs to integrations, launch and iteration.',
-    ru: 'Создаю full-stack продукты целиком — от пользовательского интерфейса и backend API до интеграций, запуска и развития.',
+    en: 'Interfaces, backend, integrations and automation. I take a task from understanding the problem to release and verification.',
+    ru: 'Интерфейсы, backend, интеграции и автоматизация. Беру задачу от разбора требований до внедрения и проверки результата.',
   },
   summary: {
-    en: 'Around 6 years of commercial experience across frontend, backend, enterprise integrations and production support. I take products from requirements and prototypes through release and iteration, combining web interfaces, APIs, payments and practical AI/RAG automation.',
-    ru: 'Около 6 лет коммерческого опыта во frontend, backend, корпоративных интеграциях и сопровождении production-систем. Веду продукты от требований и прототипов до запуска и развития, объединяя веб-интерфейсы, API, платежи и практическую AI/RAG-автоматизацию.',
+    en: 'Around 6 years of commercial experience. I work with small product teams and businesses that need an engineer who can connect the parts and ship the result.',
+    ru: 'Около 6 лет коммерческого опыта. Помогаю небольшим продуктовым командам и компаниям, которым нужен инженер, способный связать части системы и довести задачу до запуска.',
   },
   availability: {
-    en: 'Open to remote international roles',
-    ru: 'Рассматриваю международную удалённую работу',
+    en: 'Project work · remote roles',
+    ru: 'Проектная работа · удалённые вакансии',
   },
   language: {
     en: 'Russian: native. English: B1 (intermediate), preparing for IELTS.',

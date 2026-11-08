@@ -10,7 +10,8 @@ import type { Lang, ProjectItem } from '../../content';
 import type { Translation } from '../../content/translations';
 import { Dialog } from '../ui/Dialog';
 import { ProjectImage } from './ProjectImage';
-import { projectFile } from '../../lib/routes';
+import { projectFile, caseFile } from '../../lib/routes';
+import { caseStudies } from '../../content/cases';
 
 interface ProjectDetailsProps {
   project: ProjectItem;
@@ -91,6 +92,16 @@ export function ProjectDetails({
       </div>
       <div className="dialog-body">
         <p className="dialog-summary">{project.summary[lang]}</p>
+        {caseStudies
+          .filter((item) => item.projectId === project.id)
+          .map((item) => (
+            <p key={item.id}>
+              <a className="text-link" href={`./${caseFile(item.id, lang)}`}>
+                {item.title[lang]}
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </p>
+          ))}
         <div className="outcome-box">
           <p className="eyebrow">
             <span aria-hidden="true">●</span>

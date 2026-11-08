@@ -19,6 +19,7 @@ export default defineConfig(({ mode }) => {
       hmr: process.env.DISABLE_HMR !== 'true',
     },
     test: {
+      include: ['src/**/*.test.{ts,tsx}', 'tooling/**/*.test.ts'],
       environment: 'jsdom',
       setupFiles: './src/test/setup.ts',
       css: true,

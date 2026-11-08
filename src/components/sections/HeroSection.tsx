@@ -35,21 +35,21 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
             {profile.availability[lang]}
           </p>
           <p className="hero-name">{profile.localizedName[lang]}</p>
-          <h1>{profile.localizedTitle[lang]}</h1>
+          <h1>{profile.headline[lang]}</h1>
           <p className="hero-statement">{profile.statement[lang]}</p>
           <p className="hero-support">{profile.summary[lang]}</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#projects">
-              {t.hero.projects}
-              <ArrowDownRight aria-hidden="true" />
-            </a>
             <button
-              className="button button-ghost"
+              className="button button-primary"
               type="button"
               onClick={onOpenContact}
             >
               {t.hero.contact}
+              <ArrowDownRight aria-hidden="true" />
             </button>
+            <a className="button button-ghost" href="#cases">
+              {lang === 'ru' ? 'Смотреть кейсы' : 'View case studies'}
+            </a>
             {
               <a
                 className="button button-quiet"
@@ -103,8 +103,10 @@ export function HeroSection({ lang, t, onOpenContact }: HeroSectionProps) {
             )}
           </div>
           <div className="portrait-note">
-            <span>{t.hero.currentDirection}</span>
-            <strong>{profile.direction}</strong>
+            <span>
+              {lang === 'ru' ? 'Независимый инженер' : 'Independent engineer'}
+            </span>
+            <strong>{profile.localizedTitle[lang]}</strong>
           </div>
         </motion.div>
       </div>

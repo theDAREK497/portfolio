@@ -15,8 +15,11 @@ import { ProjectDetails } from './components/projects/ProjectDetails';
 import { AboutSection } from './components/sections/AboutSection';
 import { CapabilitiesSection } from './components/sections/CapabilitiesSection';
 import { ContactSection } from './components/sections/ContactSection';
-import { EducationSection } from './components/sections/EducationSection';
-import { ExperienceSection } from './components/sections/ExperienceSection';
+import {
+  CasesSection,
+  ServicesSection,
+  WorkflowSection,
+} from './components/sections/OfferingSections';
 import { FeaturedProjectsSection } from './components/sections/FeaturedProjectsSection';
 import { HeroSection } from './components/sections/HeroSection';
 import { WritingSection } from './components/sections/WritingSection';
@@ -247,16 +250,17 @@ export default function App() {
       ) : (
         <main id="main" tabIndex={-1}>
           <HeroSection lang={lang} t={t} onOpenContact={openContact} />
+          <ServicesSection lang={lang} />
+          <CasesSection lang={lang} />
+          <WorkflowSection lang={lang} onOpenContact={openContact} />
           <FeaturedProjectsSection
             lang={lang}
             t={t}
             onOpenProject={openProject}
           />
+          <WritingSection lang={lang} t={t} />
           <AboutSection lang={lang} t={t} />
           <CapabilitiesSection lang={lang} t={t} />
-          <ExperienceSection lang={lang} t={t} />
-          <EducationSection lang={lang} t={t} />
-          <WritingSection lang={lang} t={t} />
         </main>
       )}
 

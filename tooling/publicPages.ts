@@ -1,12 +1,16 @@
 import { readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 const typography = readFileSync('src/styles/typography.css', 'utf8');
+const documentStyles = readFileSync('src/styles/publicDocuments.css', 'utf8');
 import type { Plugin } from 'vite';
 import { about, profile } from '../src/content/profile';
 import { contacts } from '../src/content/contacts';
 import { education } from '../src/content/education';
 import { experience } from '../src/content/experience';
 import { projects } from '../src/content/projects';
+import { services } from '../src/content/services';
+import { caseStudies } from '../src/content/cases';
+import { caseContent, homeContent, serviceContent } from './offeringContent';
 import { capabilityGroups, skillLabel } from '../src/content/skills';
 import { translations } from '../src/content/translations';
 import { demiurgeArticleCopy } from '../src/content/demiurgeArticle';
@@ -21,6 +25,8 @@ import {
   articleFile,
   homeFile,
   projectFile,
+  serviceFile,
+  caseFile,
   articleIdFromPath,
   type ArticleId,
 } from '../src/lib/routes';
@@ -50,6 +56,14 @@ const files = [
   ...projects.flatMap((project) => [
     projectFile(project.id, 'en'),
     projectFile(project.id, 'ru'),
+  ]),
+  ...services.flatMap((service) => [
+    serviceFile(service.id, 'en'),
+    serviceFile(service.id, 'ru'),
+  ]),
+  ...caseStudies.flatMap((item) => [
+    caseFile(item.id, 'en'),
+    caseFile(item.id, 'ru'),
   ]),
 ];
 
@@ -81,6 +95,16 @@ export function projectContent(project: ProjectItem, lang: Lang) {
     <header><p class="project-kicker">${escape(t.projects.eyebrow)} / ${escape(t.projects.status[project.status])}</p><h1>${escape(project.name)}</h1><p class="project-lead">${escape(project.summary[lang])}</p><p>${escape(lang === 'ru' ? 'Автор и роль' : 'Author and role')}: ${escape(profile.localizedName[lang])} · ${escape(project.role[lang])}</p><p class="project-document-links">${project.link ? link(project.link, t.projects.liveLink) : ''} ${project.github ? link(project.github, t.projects.github) : ''}</p></header>
     <figure><img src="${escape(project.image)}" width="${project.imageWidth}" height="${project.imageHeight}" alt="${escape(project.imageAlt[lang])}" loading="lazy"><figcaption>${escape(project.imageAlt[lang])}</figcaption></figure>
     <section><h2>${escape(t.projects.result)}</h2>${list(project.results[lang])}</section>
+    ${
+      caseStudies.some((item) => item.projectId === project.id)
+        ? `<section><h2>${lang === 'ru' ? 'Разбор задачи' : 'Problem and solution'}</h2>${caseStudies
+            .filter((item) => item.projectId === project.id)
+            .map((item) =>
+              link(`./${caseFile(item.id, lang)}`, item.title[lang]),
+            )
+            .join('')}</section>`
+        : ''
+    }
     <section><h2>${escape(t.projects.capabilities)}</h2>${list(project.capabilities[lang])}</section>
     <section><h2>${escape(t.projects.caseStudy)}</h2>${project.details.map((detail) => `<h3>${escape(detail.label[lang])}</h3>${paragraph(detail.value[lang])}`).join('')}</section>
     <section><h2>${escape(t.projects.technologies)}</h2>${paragraph(project.tech.join(' · '))}</section>
@@ -164,38 +188,55 @@ export function renderPublicPage(
       : demiurgeArticleCopy[lang];
   const resume = file.startsWith('resume');
   const project = projects.find((item) => projectFile(item.id, lang) === file);
-  const title = project
-    ? lang === 'ru'
-      ? `${project.name} — проект · ${profile.localizedName.ru}`
-      : `${project.name} — project by ${profile.localizedName.en}`
-    : article
-      ? `${copy.title} — ${profile.localizedName[lang]}`
-      : resume
-        ? `${lang === 'ru' ? 'Резюме' : 'Resume'} — ${profile.searchTitle[lang]}`
-        : profile.searchTitle[lang];
-  const description = project
-    ? project.summary[lang]
-    : article
-      ? copy.deck
-      : resume
-        ? `${lang === 'ru' ? 'Резюме' : 'Resume'}: ${profile.searchDescription[lang]}`
-        : profile.searchDescription[lang];
-  const sibling = project
-    ? projectFile(project.id, lang === 'ru' ? 'en' : 'ru')
-    : articleId
-      ? articleFile(lang === 'ru' ? 'en' : 'ru', articleId)
-      : resume
-        ? `resume-${lang === 'ru' ? 'en' : 'ru'}.html`
-        : homeFile(lang === 'ru' ? 'en' : 'ru');
+  const service = services.find((item) => serviceFile(item.id, lang) === file);
+  const caseStudy = caseStudies.find(
+    (item) => caseFile(item.id, lang) === file,
+  );
+  const offering = service ?? caseStudy;
+  const title = offering
+    ? `${offering.title[lang]} — ${profile.localizedName[lang]}`
+    : project
+      ? lang === 'ru'
+        ? `${project.name} — проект · ${profile.localizedName.ru}`
+        : `${project.name} — project by ${profile.localizedName.en}`
+      : article
+        ? `${copy.title} — ${profile.localizedName[lang]}`
+        : resume
+          ? `${lang === 'ru' ? 'Резюме' : 'Resume'} — ${profile.searchTitle[lang]}`
+          : profile.searchTitle[lang];
+  const description = service
+    ? service.outcome[lang]
+    : caseStudy
+      ? caseStudy.summary[lang]
+      : project
+        ? project.summary[lang]
+        : article
+          ? copy.deck
+          : resume
+            ? `${lang === 'ru' ? 'Резюме' : 'Resume'}: ${profile.searchDescription[lang]}`
+            : profile.searchDescription[lang];
+  const sibling = service
+    ? serviceFile(service.id, lang === 'ru' ? 'en' : 'ru')
+    : caseStudy
+      ? caseFile(caseStudy.id, lang === 'ru' ? 'en' : 'ru')
+      : project
+        ? projectFile(project.id, lang === 'ru' ? 'en' : 'ru')
+        : articleId
+          ? articleFile(lang === 'ru' ? 'en' : 'ru', articleId)
+          : resume
+            ? `resume-${lang === 'ru' ? 'en' : 'ru'}.html`
+            : homeFile(lang === 'ru' ? 'en' : 'ru');
   const url = `${publicUrl}/${file === 'index.html' ? '' : file}`;
   const siblingUrl = `${publicUrl}/${sibling === 'index.html' ? '' : sibling}`;
-  const image = project
-    ? project.image.replace(/^\./, '')
-    : articleId === 'knowledge-base'
-      ? knowledgeImage(0, lang, 'png').slice(1)
-      : article
-        ? `/images/articles/demiurge-ai-chat/cover${lang === 'en' ? '-en' : ''}.png`
-        : '/photo.jpg';
+  const image = caseStudy?.image
+    ? caseStudy.image.src.replace(/^\./, '')
+    : project
+      ? project.image.replace(/^\./, '')
+      : articleId === 'knowledge-base'
+        ? knowledgeImage(0, lang, 'png').slice(1)
+        : article
+          ? `/images/articles/demiurge-ai-chat/cover${lang === 'en' ? '-en' : ''}.png`
+          : '/photo.jpg';
   const person = {
     '@type': 'Person',
     '@id': `${publicUrl}/#person`,
@@ -219,27 +260,41 @@ export function renderPublicPage(
     '@graph': [
       person,
       {
-        '@type': project ? 'CreativeWork' : article ? 'Article' : 'ProfilePage',
+        '@type': service
+          ? 'Service'
+          : caseStudy || project
+            ? 'CreativeWork'
+            : article
+              ? 'Article'
+              : 'ProfilePage',
         '@id': url,
         url,
         inLanguage: lang,
         name: project ? project.name : title,
-        ...(project
+        ...(service
           ? {
-              description: project.summary[lang],
-              creator: { '@id': `${publicUrl}/#person` },
-              image: `${publicUrl}${image}`,
-              ...(project.github || project.link
-                ? { sameAs: [project.github, project.link].filter(Boolean) }
-                : {}),
+              description,
+              provider: { '@id': `${publicUrl}/#person` },
+              serviceType: service.title[lang],
             }
-          : article
-            ? {
-                headline: copy.title,
-                author: { '@id': `${publicUrl}/#person` },
-                image: `${publicUrl}${image}`,
-              }
-            : { mainEntity: { '@id': `${publicUrl}/#person` } }),
+          : caseStudy
+            ? { description, creator: { '@id': `${publicUrl}/#person` } }
+            : project
+              ? {
+                  description: project.summary[lang],
+                  creator: { '@id': `${publicUrl}/#person` },
+                  image: `${publicUrl}${image}`,
+                  ...(project.github || project.link
+                    ? { sameAs: [project.github, project.link].filter(Boolean) }
+                    : {}),
+                }
+              : article
+                ? {
+                    headline: copy.title,
+                    author: { '@id': `${publicUrl}/#person` },
+                    image: `${publicUrl}${image}`,
+                  }
+                : { mainEntity: { '@id': `${publicUrl}/#person` } }),
       },
     ],
   };
@@ -256,15 +311,15 @@ export function renderPublicPage(
     .replace(/<html lang="[^"]*"/, `<html lang="${lang}"`);
   html = html.replace(
     '</head>',
-    `<!--public-head-->${metadata}<!--/public-head--></head>`,
+    `<!--public-head-->${metadata}<style>${documentStyles}</style><!--/public-head--></head>`,
   );
   const tools = `<nav class="static-tools" aria-label="${lang === 'ru' ? 'Версии страницы' : 'Page versions'}">${link(`./${homeFile(lang)}`, lang === 'ru' ? 'Портфолио' : 'Portfolio')} ${link(`./${sibling}`, lang === 'ru' ? 'English' : 'Русский')} ${resume ? `<button type="button" onclick="window.print()">${lang === 'ru' ? 'Печать / Сохранить PDF' : 'Print / Save PDF'}</button>` : link(contacts.resumeUrl, translations[lang].hero.resume)}</nav>`;
   html = html.replace(
     /<div id="root">(?:[\s\S]*?<!--\/static-->)?<\/div>/,
-    `<div id="root">${tools}${project ? projectContent(project, lang) : articleId ? articleContent(lang, articleId) : resumeContent(lang)}<!--/static--></div>`,
+    `<div id="root">${tools}${service ? serviceContent(service, lang) : caseStudy ? caseContent(caseStudy, lang) : project ? projectContent(project, lang) : articleId ? articleContent(lang, articleId) : resume ? resumeContent(lang) : homeContent(lang)}<!--/static--></div>`,
   );
   // Resume is a genuinely static, printable document, not a second SPA shell.
-  if (resume || project)
+  if (resume || project || offering)
     html = html
       .replace(/<!--app-boot-->[\s\S]*?<!--\/app-boot-->/g, '')
       .replace(/<script type="module"[^>]*>[\s\S]*?<\/script>/g, '')

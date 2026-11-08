@@ -6,7 +6,25 @@ Source code for my bilingual developer portfolio.
 
 **Live site:** https://thedarek497.github.io/portfolio/
 
-I use this site as a compact engineering portfolio rather than a gallery of technologies: it focuses on problems solved, architecture decisions, measurable outcomes and independently shipped products.
+The site presents my independent engineering services alongside my employment experience: product development, integrations and automation, and performance diagnosis. Services explain the engagement; case studies describe a solved problem; projects and articles provide technical depth.
+
+## Services and case studies
+
+The bilingual homepage leads with a project enquiry, three services, four case
+studies and the collaboration process. Employment history and education remain
+available through the About section and the standalone printable resume. Existing
+project, article, privacy-policy and PDF URLs are preserved.
+
+- `src/content/services.ts`: audience, deliverables, scope and related cases.
+- `src/content/cases.ts`: task, constraints, role, solution, results, limitations
+  and supporting images.
+- `CONTENT_EVIDENCE.md`: source register, dates and metric definitions.
+
+Each service and case has a standalone RU/EN HTML page, canonical and language
+alternates, structured data, ordinary links and a sitemap entry. These pages work
+without JavaScript. The homepage HTML fallback presents the same service and
+case structure. Contact links open email or Telegram; no form backend or visitor
+tracking is implied. A contact click is not counted as a received enquiry.
 
 ## Positioning
 

@@ -39,12 +39,11 @@ export function Header({
   onNavigate,
 }: HeaderProps) {
   const navItems = [
+    { href: '#services', label: lang === 'ru' ? 'Услуги' : 'Services' },
+    { href: '#cases', label: lang === 'ru' ? 'Кейсы' : 'Cases' },
     { href: '#projects', label: t.nav.projects },
-    { href: '#about', label: t.nav.about },
-    { href: '#capabilities', label: t.nav.capabilities },
-    { href: '#experience', label: t.nav.experience },
-    { href: '#education', label: t.nav.education },
     { href: '#writing', label: t.nav.writing },
+    { href: '#about', label: t.nav.about },
     { href: '#contact', label: t.nav.contact },
   ].map((item) => ({
     ...item,

@@ -18,7 +18,7 @@ describe('portfolio', () => {
     expect(document.title).toBe(profile.searchTitle.en);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      profile.localizedTitle.en,
+      profile.headline.en,
     );
     expect(
       screen.getByRole('img', { name: profile.localizedName.en }),
@@ -32,10 +32,9 @@ describe('portfolio', () => {
     for (const label of [
       'Projects',
       'About',
-      'Capabilities',
-      'Experience',
-      'Education',
-      'Writing',
+      'Services',
+      'Cases',
+      'Articles',
       'Contact',
     ]) {
       expect(
@@ -51,12 +50,10 @@ describe('portfolio', () => {
     ).toBeInTheDocument();
 
     await user.click(
-      screen.getByRole('button', { name: 'Read case study: AstroCode' }),
+      screen.getByRole('button', { name: 'Project details: AstroCode' }),
     );
     expect(
-      screen.getByText(
-        /2,158 RuStore page views, 80 installs, 33 registered accounts and 2 paid subscriptions/,
-      ),
+      screen.getByText(/126 all-time RuStore installs/),
     ).toBeInTheDocument();
   });
 
@@ -82,10 +79,10 @@ describe('portfolio', () => {
       { timeout: 2500 },
     );
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-      profile.localizedTitle.ru,
+      profile.headline.ru,
     );
     expect(
-      screen.getByRole('link', { name: 'Смотреть проекты' }),
+      screen.getByRole('link', { name: 'Смотреть кейсы' }),
     ).toBeInTheDocument();
     expect(document.documentElement).toHaveAttribute('lang', 'ru');
     expect(window.localStorage.getItem('portfolio-language')).toBe('ru');
@@ -98,7 +95,7 @@ describe('portfolio', () => {
     const card = screen.getByTestId('project-demiurge');
     expect(
       within(card).getByRole('button', {
-        name: 'Read case study: Demiurge Assistant',
+        name: 'Project details: Demiurge Assistant',
       }),
     ).toBeInTheDocument();
     expect(
@@ -110,7 +107,7 @@ describe('portfolio', () => {
 
     await user.click(
       within(card).getByRole('button', {
-        name: 'Read case study: Demiurge Assistant',
+        name: 'Project details: Demiurge Assistant',
       }),
     );
     const dialog = screen.getByRole('dialog', { name: 'Demiurge Assistant' });
@@ -189,7 +186,9 @@ describe('portfolio', () => {
     const user = userEvent.setup();
     render(<App />);
 
-    const opener = screen.getAllByRole('button', { name: 'Contact me' })[0];
+    const opener = screen.getAllByRole('button', {
+      name: 'Discuss a project',
+    })[0];
     await user.click(opener);
 
     const dialog = screen.getByRole('dialog', { name: 'Contact Ilya Gurikov' });
@@ -334,7 +333,9 @@ describe('portfolio', () => {
   it('offers a readable resume and one compact coming-soon placeholder', () => {
     render(<App />);
     expect(
-      screen.getByRole('link', { name: 'Resume (English PDF)' }),
+      within(document.getElementById('top')!).getByRole('link', {
+        name: 'Resume (English PDF)',
+      }),
     ).toHaveAttribute(
       'href',
       './resume/Ilya-Gurikov-CV-FullStack-Product-Engineer-EN.pdf',

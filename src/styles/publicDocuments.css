@@ -1,0 +1,159 @@
+:root {
+  --doc-paper: #f5f2ea;
+  --doc-surface: #faf8f3;
+  --doc-ink: #17213b;
+  --doc-muted: #536079;
+  --doc-primary: #3157ff;
+  --doc-line: #d4d4cf;
+  --doc-on-primary: #fff;
+}
+html[data-theme='dark'] {
+  --doc-paper: #07111f;
+  --doc-surface: #0b1727;
+  --doc-ink: #edf3ff;
+  --doc-muted: #adb9cc;
+  --doc-primary: #55d9ff;
+  --doc-line: #2c3a4c;
+  --doc-on-primary: #06111d;
+}
+body:has(.static-content) {
+  margin: 0;
+  background: var(--doc-paper);
+}
+.static-content {
+  background: var(--doc-surface);
+  color: var(--doc-ink);
+  padding: clamp(24px, 5vw, 64px);
+  box-sizing: border-box;
+}
+.static-content a,
+.static-tools a {
+  color: var(--doc-primary);
+}
+.static-content a:focus-visible,
+.static-tools a:focus-visible {
+  outline: 3px solid var(--doc-primary);
+  outline-offset: 5px;
+}
+.static-content .project-kicker {
+  color: var(--doc-primary);
+  font:
+    500 0.75rem/1.6 'IBM Plex Mono',
+    monospace;
+}
+.static-content figcaption {
+  color: var(--doc-muted);
+}
+.static-content h1 {
+  text-wrap: balance;
+}
+.static-content h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.03em;
+}
+.static-content li {
+  padding-left: 6px;
+  margin: 12px 0;
+}
+.static-content section,
+.static-content footer {
+  border-color: var(--doc-line);
+}
+.project-document {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--doc-line);
+}
+.project-document figure img {
+  border-radius: 2px;
+  border: 1px solid var(--doc-line);
+}
+.offering-document {
+  max-width: 1040px;
+}
+.offering-document h1 {
+  font-size: clamp(2.25rem, 5.5vw, 4.25rem);
+  line-height: 1.08;
+}
+.offering-document section {
+  padding-top: 12px;
+}
+.offering-document figure {
+  margin: 40px 0;
+}
+.offering-document figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.offering-document .evidence-note {
+  background: var(--doc-paper);
+  border-left: 3px solid var(--doc-primary);
+  padding: 2px 24px 16px;
+  margin-top: 40px;
+}
+.offering-document .evidence-note h2 {
+  margin-top: 24px;
+}
+.static-tools {
+  max-width: 1040px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 24px;
+  border-bottom: 1px solid var(--doc-line);
+  align-items: center;
+  gap: 16px 24px;
+}
+.static-tools a:first-child {
+  margin-right: auto;
+  font-weight: 700;
+}
+.document-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  padding: 16px 0;
+}
+.static-content .document-button {
+  display: inline-block;
+  background: var(--doc-primary);
+  color: var(--doc-on-primary);
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+@media (max-width: 600px) {
+  .static-content {
+    margin: 16px 12px;
+    padding: 24px;
+    font-size: 16px;
+  }
+  .static-tools {
+    font-size: 14px;
+    padding: 16px 24px;
+  }
+  .static-tools a:first-child {
+    flex-basis: 100%;
+  }
+  .offering-document ul,
+  .offering-document ol {
+    padding-left: 22px;
+  }
+}
+@media print {
+  .static-content {
+    background: #fff;
+    color: #17213b;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    font-size: 10pt;
+  }
+  .static-tools {
+    display: none;
+  }
+  .offering-document h1 {
+    font-size: 26pt;
+  }
+}

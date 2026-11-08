@@ -16,6 +16,10 @@ export const articleIdFromPath = (path: string): ArticleId | null => {
 };
 export const projectFile = (id: string, lang: Lang) =>
   `project-${id}${lang === 'ru' ? '-ru' : ''}.html`;
+export const serviceFile = (id: string, lang: Lang) =>
+  `service-${id}${lang === 'ru' ? '-ru' : ''}.html`;
+export const caseFile = (id: string, lang: Lang) =>
+  `case-${id}${lang === 'ru' ? '-ru' : ''}.html`;
 export const isArticlePage = () =>
   articleIdFromPath(window.location.pathname) !== null;
 export const currentArticleId = (): ArticleId | null =>
